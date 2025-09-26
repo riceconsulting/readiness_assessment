@@ -19,11 +19,11 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, questio
     setFade(false);
     setTimeout(() => {
         onAnswer(question.id, score);
-    }, 300); // Wait for fade out animation
+    }, 500); // Wait for fade out animation
   };
 
   return (
-    <div className={`transition-opacity duration-300 ${fade ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`transition-all duration-500 ease-in-out ${fade ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
       <p className="text-sm font-semibold text-[#5890AD] dark:text-[#9BBBCC] mb-2">{question.category}</p>
       <h2 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-6">
         {question.text}

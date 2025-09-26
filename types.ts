@@ -15,6 +15,12 @@ export interface Answer {
   score: number;
 }
 
+// Fix: Added missing ChatMessage type for the AI chat feature.
+export interface ChatMessage {
+  sender: 'user' | 'ai';
+  text: string;
+}
+
 export interface Recommendation {
   text: string;
   explanation: string;

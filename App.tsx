@@ -18,12 +18,14 @@ const App: React.FC = () => {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      // Respect user's stored preference, but default to light mode otherwise.
+      if (localStorage.theme === 'dark') {
         return 'dark';
       }
     }
     return 'light';
   });
+  const [isSharedView, setIsSharedView] = useState(false);
   
   // State to track if the intro animation has been played in the current session.
   const [isIntroPlayed, setIsIntroPlayed] = useState(() => {
@@ -43,10 +45,41 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove(theme === 'light' ? 'dark' : 'light');
-    root.classList.add(theme);
+    // Explicitly add or remove only the 'dark' class for robustness.
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
     localStorage.setItem('theme', theme);
   }, [theme]);
+  
+  // On initial load, check for shared results in URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const resultsParam = urlParams.get('results');
+
+    if (resultsParam) {
+        try {
+            const decodedString = atob(resultsParam);
+            const scores = decodedString.split(',').map(Number);
+            
+            if (scores.length === assessmentQuestions.length) {
+                const sharedAnswers = assessmentQuestions.map((question, index) => ({
+                    questionId: question.id,
+                    score: scores[index] || 0,
+                }));
+                setAnswers(sharedAnswers);
+                setAssessmentState('results');
+                setIsSharedView(true);
+            } else {
+                 console.error('Shared results data is malformed.');
+            }
+        } catch (error) {
+            console.error('Failed to decode shared results:', error);
+        }
+    }
+  }, []);
 
   const toggleTheme = useCallback(() => {
     setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
@@ -72,6 +105,9 @@ const App: React.FC = () => {
     setCurrentQuestionIndex(0);
     setAnswers([]);
     setAssessmentState('home');
+    setIsSharedView(false);
+    // Clean the URL
+    window.history.pushState({}, document.title, window.location.pathname);
   }, []);
 
   const currentQuestion = assessmentQuestions[currentQuestionIndex];
@@ -93,7 +129,12 @@ const App: React.FC = () => {
           </>
         );
       case 'results':
-        return <ResultsPage answers={answers} onRestart={restartAssessment} questions={assessmentQuestions} />;
+        return <ResultsPage 
+                    answers={answers} 
+                    onRestart={restartAssessment} 
+                    questions={assessmentQuestions} 
+                    isSharedView={isSharedView} 
+                />;
       default:
         return <HomePage onStart={startAssessment} totalQuestions={totalQuestions}/>;
     }

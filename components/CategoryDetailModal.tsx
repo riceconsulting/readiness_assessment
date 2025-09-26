@@ -1,6 +1,5 @@
 
-import React, { useEffect, useRef, useState } from 'react';
-import { GoogleGenAI } from "@google/genai";
+import React, { useEffect, useRef } from 'react';
 
 interface CategoryDetailModalProps {
   isOpen: boolean;
@@ -12,13 +11,6 @@ interface CategoryDetailModalProps {
   explanation: string;
 }
 
-const SparklesIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className} aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
-    </svg>
-);
-
-
 const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
   isOpen,
   onClose,
@@ -29,44 +21,6 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
   explanation,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const [aiExplanation, setAiExplanation] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-        const fetchAiExplanation = async () => {
-            setIsLoading(true);
-            setAiExplanation(null);
-            setError(null);
-            try {
-                const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
-                const prompt = `You are an expert AI business consultant. A user has completed an assessment about their company's AI readiness.
-                For the category "${category}", they scored ${score} out of a maximum of ${maxScore}.
-                This score places them in the "${title}" level.
-                The standard explanation for this level is: "${explanation}".
-
-                Based on this information, provide a brief, personalized, and encouraging explanation (2-3 sentences) in Bahasa Indonesia that elaborates on why they likely received this score. Address the user directly ("Skor Anda menunjukkan bahwa..."). Do not simply repeat the standard explanation, but provide a slightly deeper, more consultative insight.`;
-                
-                const response = await ai.models.generateContent({
-                    model: 'gemini-2.5-flash',
-                    contents: prompt,
-                });
-
-                setAiExplanation(response.text);
-
-            } catch (e) {
-                console.error("Error generating AI explanation:", e);
-                setError('Gagal menghasilkan analisis AI. Silakan coba lagi.');
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchAiExplanation();
-    }
-  }, [isOpen, category, score, maxScore, title, explanation]);
-
 
   useEffect(() => {
     if (isOpen) {
@@ -165,23 +119,6 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
 
         <div className="mt-4 border-t dark:border-slate-700 pt-4">
           <p className="text-slate-600 dark:text-slate-400">{explanation}</p>
-        </div>
-        
-        <div className="mt-4 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-            <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center mb-2">
-                <SparklesIcon className="w-5 h-5 mr-2 text-[#5890AD]" />
-                Analisis AI
-            </h4>
-            {isLoading && (
-                <div className="flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400">
-                    <div className="w-4 h-4 border-2 border-dashed rounded-full animate-spin border-slate-400"></div>
-                    <span>Menganalisis hasil...</span>
-                </div>
-            )}
-            {error && <p className="text-sm text-red-500">{error}</p>}
-            {!isLoading && !error && aiExplanation && (
-                <p className="text-sm text-slate-700 dark:text-slate-300">{aiExplanation}</p>
-            )}
         </div>
         
         <div className="mt-6 text-right">
