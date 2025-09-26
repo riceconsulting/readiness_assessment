@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
                         RICE AI
                     </h1>
                     <p className="font-sans text-xs sm:text-sm text-accent-teal dark:text-accent-sky tracking-wide opacity-90">
-                        AI & Automation Readiness
+                        Legal Service Helper
                     </p>
                 </div>
               </a>

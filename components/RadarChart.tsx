@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 interface CategoryScoreData {
@@ -27,7 +26,7 @@ const RadarLabel: React.FC<{ x: number; y: number; textAnchor: React.CSSProperti
     // If only one word, or a short label, don't split.
     if (parts.length <= 2 && label.length < 12) {
         return (
-            <text x={x} y={y} dy="0.3em" textAnchor={textAnchor} className="text-[9px] fill-slate-600 dark:fill-slate-400 font-medium">
+            <text x={x} y={y} dy="0.3em" textAnchor={textAnchor} className="text-[8px] fill-slate-600 dark:fill-slate-400 font-medium">
                 {label}
             </text>
         );
@@ -37,9 +36,9 @@ const RadarLabel: React.FC<{ x: number; y: number; textAnchor: React.CSSProperti
     const line1 = parts.slice(0, midIndex).join(' ');
     const line2 = parts.slice(midIndex).join(' ');
     return (
-        <text x={x} y={y} textAnchor={textAnchor} className="text-[9px] fill-slate-600 dark:fill-slate-400 font-medium">
-            <tspan x={x} dy="-0.2em">{line1}</tspan>
-            <tspan x={x} dy="1.1em">{line2}</tspan>
+        <text x={x} y={y} textAnchor={textAnchor} className="text-[8px] fill-slate-600 dark:fill-slate-400 font-medium">
+            <tspan x={x} dy="-0.3em">{line1}</tspan>
+            <tspan x={x} dy="1.2em">{line2}</tspan>
         </text>
     );
 };
@@ -55,10 +54,10 @@ const RadarChart: React.FC<RadarChartProps> = ({ scores, onWhyClick, isMounted }
     y: number;
   } | null>(null);
 
-  const size = 270;
+  const size = 320;
   const center = size / 2;
   const numLevels = 4;
-  const radius = center * 0.65; // Reduced for more label space
+  const radius = center * 0.58;
   const numAxes = categoryOrder.length;
   const angleSlice = (Math.PI * 2) / numAxes;
 
@@ -124,7 +123,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ scores, onWhyClick, isMounted }
           {categoryOrder.map((category, i) => {
             const data = scores[category];
             const value = data ? data.score / data.maxScore : 0;
-            const labelValue = 1.35; // Adjusted for new radius
+            const labelValue = 1.28;
             const labelCoords = getCoordinates(i, labelValue).split(',');
             const pointCoords = getCoordinates(i, value).split(',');
             
@@ -191,7 +190,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ scores, onWhyClick, isMounted }
                 {/* Tooltip Background */}
                 <rect x="-25" y="-30" width="50" height="20" rx="4" className="fill-slate-800/80 dark:fill-black/80" />
                 {/* Tooltip Text */}
-                <text x="0" y="-16" textAnchor="middle" className="fill-white font-semibold text-[10px]">
+                <text x="0" y="-16" textAnchor="middle" className="fill-white font-semibold text-[9px]">
                 {`${tooltip.score} / ${tooltip.maxScore}`}
                 </text>
                 {/* Tooltip Arrow */}

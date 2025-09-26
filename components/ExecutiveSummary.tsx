@@ -39,25 +39,25 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
       return <LoadingSkeleton />;
     }
     if (error) {
-      return <p className="text-sm text-red-600 dark:text-red-400">{error}</p>;
+      return <p className="text-sm text-red-600 dark:text-red-400 text-center">{error}</p>;
     }
     if (isGenerated) {
       return (
         <>
-          <div 
-            className="prose prose-sm dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 space-y-4"
+          <blockquote 
+            className="prose prose-sm dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 space-y-4 border-l-4 border-accent-teal/50 pl-4 italic"
           >
             {summary.split('\n\n').map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
-          </div>
-          <div className="mt-5">
+          </blockquote>
+          <div className="mt-6 text-center">
             <button
               onClick={onOpenChat}
-              className="w-full flex items-center justify-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg bg-white/60 dark:bg-slate-800/60 text-[#4A7891] dark:text-[#9BBBCC] border border-[#9BBBCC] dark:border-[#5890AD] hover:bg-white dark:hover:bg-slate-800 transition-all duration-200 shadow-sm hover:shadow-md"
+              className="inline-flex items-center justify-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-accent-teal dark:text-accent-sky hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
             >
               <SparklesIcon className="w-5 h-5" />
-              <span>Diskusikan Ringkasan ini dengan AI</span>
+              <span>Diskusikan Lebih Lanjut dengan AI</span>
             </button>
           </div>
         </>
@@ -65,29 +65,37 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
     }
     // Initial state: "Generate" button
     return (
-      <div className="text-center">
-        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-          Dapatkan ringkasan eksekutif yang dipersonalisasi dan wawasan yang dapat ditindaklanjuti berdasarkan hasil Anda, yang dihasilkan oleh AI.
-        </p>
+      <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-6">
+        <div className="flex-shrink-0 grid place-content-center w-20 h-20 rounded-full bg-gradient-to-br from-accent-sky/20 to-accent-teal/20">
+            <SparklesIcon className="w-10 h-10 text-accent-teal" />
+        </div>
+        <div className="flex-grow">
+            <p className="text-base font-semibold text-slate-800 dark:text-slate-200">Buka Wawasan Berbasis AI</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                Hasilkan ringkasan eksekutif yang dipersonalisasi dan wawasan yang dapat ditindaklanjuti berdasarkan hasil Anda.
+            </p>
+        </div>
         <button
           onClick={onGenerate}
           disabled={isLoading}
-          className="w-full sm:w-auto transform bg-[#5890AD] text-white font-bold py-2.5 px-6 rounded-lg hover:bg-[#4A7891] transition-all duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg hover:-translate-y-px disabled:bg-[#9BBBCC] disabled:cursor-not-allowed"
+          className="w-full sm:w-auto flex-shrink-0 transform bg-[#5890AD] text-white font-bold py-2.5 px-6 rounded-lg hover:bg-[#4A7891] transition-all duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg hover:-translate-y-px disabled:bg-[#9BBBCC] disabled:cursor-not-allowed"
         >
           <SparklesIcon className="w-5 h-5" />
-          <span>Buat Ringkasan dengan AI</span>
+          <span>Buat Ringkasan</span>
         </button>
       </div>
     );
   };
 
   return (
-    <div className="text-left bg-[#5890AD]/10 dark:bg-[#9BBBCC]/10 dark:border dark:border-[#5890AD]/30 p-6 rounded-lg">
-      <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center">
-        <SparklesIcon className="w-6 h-6 mr-3 text-[#5890AD]" />
-        Executive Summary
-      </h3>
-      {renderContent()}
+    <div className="relative rounded-lg p-1 bg-gradient-to-br from-accent-sky/50 via-accent-teal/50 to-primary-navy/50 shadow-lg">
+      <div className="bg-white dark:bg-[#1A2E35] rounded-md p-6">
+        <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center">
+            <SparklesIcon className="w-6 h-6 mr-3 text-[#5890AD]" />
+            Executive Summary
+        </h3>
+        {renderContent()}
+      </div>
     </div>
   );
 };

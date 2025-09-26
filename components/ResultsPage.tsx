@@ -499,7 +499,7 @@ Jawab pertanyaan pengguna berdasarkan data ini. Anda dapat memberikan saran, men
           <button
             onClick={handleExportPDF}
             disabled={isExporting}
-            className="w-full sm:w-auto transform bg-[#5890AD] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#4A7891] transition-all duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg hover:-translate-y-px disabled:bg-[#9BBBCC] disabled:cursor-not-allowed disabled:transform-none"
+            className="group w-full sm:w-auto transform bg-gradient-to-br from-[#5890AD] to-[#4A6B7B] text-white font-bold py-3 px-6 rounded-lg hover:from-[#4A7891] hover:to-[#3b5663] transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:-translate-y-px disabled:from-[#9BBBCC] disabled:to-[#8aa1b1] disabled:cursor-not-allowed disabled:transform-none"
           >
             {isExporting ? (
                 <>
@@ -511,8 +511,9 @@ Jawab pertanyaan pengguna berdasarkan data ini. Anda dapat memberikan saran, men
                 </>
               ) : (
                 <>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 9.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 7.414V13a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
+                    <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
                   </svg>
                   <span>Unduh Hasil (PDF)</span>
                 </>
