@@ -5,12 +5,13 @@ import type { Answer, Question, ChatMessage } from '../types';
 import { resultLevels, assessmentQuestions, MAX_SCORE_PER_QUESTION, scoreExplanations, getScoreTier } from '../constants';
 import RadarChart from './RadarChart';
 import CategoryDetailModal from './CategoryDetailModal';
-import ShareModal from './ShareModal';
 import DetailedReport from './DetailedReport';
 import ExecutiveSummary from './ExecutiveSummary';
 import AiChatModal from './AiChatModal';
 import { GoogleGenAI } from '@google/genai';
 import type { Chat } from '@google/genai';
+import { createRoot } from 'react-dom/client';
+import PdfReport from './PdfReport';
 
 declare var html2canvas: any;
 declare var jspdf: any;
@@ -29,7 +30,6 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     isSharedView = false,
 }) => {
   const totalScore = useMemo(() => answers.reduce((sum, answer) => sum + answer.score, 0), [answers]);
-  const resultRef = useRef<HTMLDivElement>(null);
   const [expandedRecommendation, setExpandedRecommendation] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [modalData, setModalData] = useState<{
@@ -42,7 +42,6 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   }>({ isOpen: false });
   const [isExporting, setIsExporting] = useState(false);
   const [exportMessage, setExportMessage] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   
   // AI Features State
   const [summary, setSummary] = useState('');
@@ -153,7 +152,7 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
 
     } catch (error) {
       console.error("AI Summary Generation Error:", error);
-      setSummaryError("Tidak dapat memuat ringkasan AI. Fitur ini mungkin tidak tersedia saat ini atau kunci API tidak valid.");
+      setSummaryError("Gagal membuat ringkasan AI. Mohon periksa koneksi internet Anda dan coba lagi. Jika masalah berlanjut, hubungi dukungan.");
     } finally {
       setIsSummaryGenerated(true);
       setIsSummaryLoading(false);
@@ -219,122 +218,98 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
 
   const scorePercentage = totalMaxScore > 0 ? (totalScore / totalMaxScore) * 100 : 0;
   
-  const handleShare = () => {
-    setIsShareModalOpen(true);
-  };
-
   const handleExportPDF = () => {
-    if (!resultRef.current || isExporting) return;
+    if (isExporting) return;
     
     setIsExporting(true);
     setExportMessage(null);
   
-    const elementToCapture = resultRef.current;
-    
-    // Temporarily expand all sections for capture
-    const recommendations = elementToCapture.querySelectorAll<HTMLElement>('[data-explanation-container]');
-    const detailedReport = elementToCapture.querySelector<HTMLElement>('#detailed-report-content');
-    const originalRecStyles: (string|null)[] = [];
-    let originalReportStyle: string|null = null;
+    const container = document.createElement('div');
+    // Position off-screen
+    container.style.position = 'absolute';
+    container.style.left = '-9999px';
+    container.style.top = '0';
+    document.body.appendChild(container);
 
-    recommendations.forEach(el => {
-        originalRecStyles.push(el.style.maxHeight);
-        el.style.maxHeight = 'none';
-    });
-    if (detailedReport) {
-        originalReportStyle = detailedReport.className;
-        detailedReport.className = detailedReport.className.replace('max-h-0', 'invisible').replace('grid-rows-[0fr]', 'grid-rows-[1fr]');
-    }
+    const root = createRoot(container);
+    root.render(
+      <PdfReport
+        result={result}
+        totalScore={totalScore}
+        totalMaxScore={totalMaxScore}
+        categoryScores={categoryScores}
+        summary={summary}
+        messages={messages}
+        answers={answers}
+        questions={questions}
+      />
+    );
 
-
-    html2canvas(elementToCapture, {
-      scale: 2, // Higher scale for better quality
-      useCORS: true,
-      backgroundColor: document.documentElement.classList.contains('dark') ? '#1A2E35' : '#FFFFFF',
-      onclone: (clonedDoc: Document) => {
-          clonedDoc.documentElement.classList.remove('dark');
-          clonedDoc.body.style.backgroundColor = '#FFFFFF';
-          const captureArea = clonedDoc.getElementById('pdf-capture-area');
-          if (captureArea) {
-              captureArea.style.backgroundColor = '#ffffff';
-          }
-      }
-    }).then((canvas: any) => {
-        // Restore original styles
-        recommendations.forEach((el, index) => el.style.maxHeight = originalRecStyles[index] || '');
-        if (detailedReport && originalReportStyle) {
-            detailedReport.className = originalReportStyle;
+    // Use a timeout to allow the component to render fully before capturing
+    setTimeout(() => {
+        const elementToCapture = container.querySelector('#pdf-render-content');
+        if (!elementToCapture) {
+            console.error("PDF render target not found.");
+            setExportMessage({ type: 'error', message: 'Gagal menyiapkan laporan untuk diunduh.' });
+            root.unmount();
+            document.body.removeChild(container);
+            setIsExporting(false);
+            return;
         }
 
-        const { jsPDF } = jspdf;
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 15;
-        const contentWidth = pdfWidth - margin * 2;
-        
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-        const canvasAspectRatio = canvasHeight / canvasWidth;
-        const imgHeight = contentWidth * canvasAspectRatio;
+        html2canvas(elementToCapture as HTMLElement, {
+            scale: 2,
+            useCORS: true,
+            windowWidth: elementToCapture.scrollWidth,
+            windowHeight: elementToCapture.scrollHeight,
+        }).then((canvas: any) => {
+            const { jsPDF } = jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+            const ratio = canvasHeight / canvasWidth;
+            const imgHeight = pdfWidth * ratio;
+            
+            let heightLeft = imgHeight;
+            let position = 0;
+            let page = 1;
 
-        const headerHeight = 20;
-        const footerHeight = 20;
-        const contentHeightPerPage = pageHeight - headerHeight - footerHeight;
+            const addPageNumbers = (pdfDoc: any, pageNum: number, totalPages: number) => {
+                 pdfDoc.setFontSize(8);
+                 pdfDoc.setTextColor(150);
+                 pdfDoc.text(`Halaman ${pageNum} dari ${totalPages}`, pdfWidth / 2, pageHeight - 10, { align: 'center' });
+            };
+            
+            const totalPages = Math.ceil(imgHeight / pageHeight);
 
-        let heightLeft = imgHeight;
-        let position = 0;
-        let page = 1;
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, pdfWidth, imgHeight);
+            addPageNumbers(pdf, page, totalPages);
+            heightLeft -= pageHeight;
 
-        const addHeader = (pdfDoc: any) => {
-            pdfDoc.setFontSize(10);
-            pdfDoc.setTextColor(100);
-            pdfDoc.text('RICE AI Consultant - AI Readiness Assessment Result', margin, margin);
-            pdfDoc.setDrawColor(200);
-            pdfDoc.line(margin, margin + 4, pdfWidth - margin, margin + 4);
-        };
+            while (heightLeft > 0) {
+                page++;
+                position -= pageHeight;
+                pdf.addPage();
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, pdfWidth, imgHeight);
+                addPageNumbers(pdf, page, totalPages);
+                heightLeft -= pageHeight;
+            }
 
-        const addFooter = (pdfDoc: any, pageNum: number, totalPages: number) => {
-            pdfDoc.setFontSize(8);
-            pdfDoc.setTextColor(150);
-            pdfDoc.text(`Page ${pageNum} of ${totalPages}`, pdfWidth - margin, pageHeight - margin + 5, { align: 'right' });
-             pdfDoc.text(`© ${new Date().getFullYear()} RICE AI Consultant. All rights reserved.`, margin, pageHeight - margin + 5);
-        };
-
-        // Calculate total pages
-        const totalPages = Math.ceil(imgHeight / contentHeightPerPage);
-
-        // Add first page
-        addHeader(pdf);
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', margin, headerHeight, contentWidth, imgHeight);
-        addFooter(pdf, page, totalPages);
-        heightLeft -= contentHeightPerPage;
-        
-        // Add subsequent pages if needed
-        while (heightLeft > 0) {
-            page++;
-            position -= contentHeightPerPage;
-            pdf.addPage();
-            addHeader(pdf);
-            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', margin, position + headerHeight, contentWidth, imgHeight);
-            addFooter(pdf, page, totalPages);
-            heightLeft -= contentHeightPerPage;
-        }
-
-        pdf.save('RICE-AI-Readiness-Assessment-Result.pdf');
-        setExportMessage({ type: 'success', message: 'PDF successfully generated!' });
-    }).catch((error: any) => {
-      console.error("PDF Export Error:", error);
-      setExportMessage({ type: 'error', message: 'Failed to generate PDF. Please try again.' });
-      // Restore original styles on error
-      recommendations.forEach((el, index) => el.style.maxHeight = originalRecStyles[index] || '');
-      if (detailedReport && originalReportStyle) {
-          detailedReport.className = originalReportStyle;
-      }
-    }).finally(() => {
-        setIsExporting(false);
-        setTimeout(() => setExportMessage(null), 4000);
-    });
+            pdf.save('RICE-AI-Readiness-Assessment-Report.pdf');
+            setExportMessage({ type: 'success', message: 'PDF berhasil dibuat!' });
+        }).catch((error: any) => {
+          console.error("PDF Export Error:", error);
+          setExportMessage({ type: 'error', message: 'Gagal membuat PDF. Silakan coba lagi.' });
+        }).finally(() => {
+            root.unmount();
+            document.body.removeChild(container);
+            setIsExporting(false);
+            setTimeout(() => setExportMessage(null), 4000);
+        });
+    }, 500);
   };
 
 
@@ -353,9 +328,9 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
   return (
     <>
       <div className={`transition-opacity duration-300 ease-out ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
-        <div ref={resultRef} id="pdf-capture-area" className="p-4 sm:p-8 bg-white dark:bg-[#1A2E35]">
-          <h2 id="share-hide-title" className="text-3xl font-bold text-slate-800 dark:text-slate-100 text-center">Hasil Assessment Kesiapan AI Anda</h2>
-          <p id="share-hide-subtitle" className="text-slate-600 dark:text-slate-400 mt-2 text-center">Selamat! Berikut adalah analisis terperinci mengenai posisi perusahaan Anda.</p>
+        <div id="results-content-area" className="p-4 sm:p-8 bg-white dark:bg-[#1A2E35]">
+          <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 text-center">Hasil Assessment Kesiapan AI Anda</h2>
+          <p className="text-slate-600 dark:text-slate-400 mt-2 text-center">Selamat! Berikut adalah analisis terperinci mengenai posisi perusahaan Anda.</p>
           
           <div className="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
             {/* Left Column */}
@@ -418,7 +393,7 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
                   </div>
                 </div>
                  <h3 className={`text-2xl font-bold mt-4 ${result.color}`}>{result.title}</h3>
-                 <p id="share-hide-description" className="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">{result.description}</p>
+                 <p className="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">{result.description}</p>
               </div>
               
               {!isSharedView && (
@@ -493,7 +468,7 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
             <DetailedReport answers={answers} questions={questions} />
 
             <div id="results-footer" className="mt-6 text-sm text-slate-500 dark:text-slate-400 text-center">
-              <p>Bagikan hasil ini dengan tim Anda dan hubungi <strong>RICE AI Consultant</strong> untuk diskusi lebih lanjut tentang bagaimana kami dapat membantu akselerasi transformasi AI Anda.</p>
+              <p>Unduh hasil ini untuk dibagikan dengan tim Anda dan hubungi <strong>RICE AI Consultant</strong> untuk diskusi lebih lanjut tentang bagaimana kami dapat membantu akselerasi transformasi AI Anda.</p>
             </div>
           </div>
         </div>
@@ -513,7 +488,7 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  <span>Generating...</span>
+                  <span>Membuat PDF...</span>
                 </>
               ) : (
                 <>
@@ -521,18 +496,9 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
                     <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
                     <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
                   </svg>
-                  <span>Unduh Hasil (PDF)</span>
+                  <span>Unduh Laporan (PDF)</span>
                 </>
             )}
-          </button>
-          <button
-            onClick={handleShare}
-            className="w-full sm:w-auto transform bg-slate-600 text-white dark:bg-slate-700 dark:text-slate-200 font-bold py-3 px-6 rounded-lg hover:bg-slate-700 dark:hover:bg-slate-600 transition-all duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg hover:-translate-y-px"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-            </svg>
-            <span>Bagikan Hasil</span>
           </button>
            <button
             onClick={onRestart}
@@ -563,11 +529,6 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
         </div>
       )}
 
-      <ShareModal 
-        isOpen={isShareModalOpen} 
-        onClose={() => setIsShareModalOpen(false)} 
-        resultRef={resultRef}
-      />
       <CategoryDetailModal 
         isOpen={modalData.isOpen} 
         onClose={handleCloseModal}

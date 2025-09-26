@@ -85,7 +85,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
             }
         } catch (error) {
             console.error("AI Chat Error:", error);
-            const errorMessage: ChatMessage = { sender: 'ai', text: 'Maaf, terjadi kesalahan saat menghubungi AI. Silakan coba lagi nanti.' };
+            const errorMessage: ChatMessage = { sender: 'ai', text: 'Tidak dapat mengirim pesan. Mohon periksa koneksi Anda. Jika masalah berlanjut, silakan tutup dan buka kembali chat ini.' };
             setMessages(prev => {
                 const newMessages = [...prev.slice(0, -1)]; // remove placeholder
                 return [...newMessages, errorMessage];
