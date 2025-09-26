@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import type { Question } from '../types';
 
@@ -34,8 +33,11 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, questio
           <button
             key={index}
             onClick={() => handleOptionClick(option.score)}
-            className="w-full text-left p-4 bg-gray-100 rounded-lg border-2 border-transparent hover:bg-green-50 hover:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-all duration-200"
+            className="group flex w-full transform items-center rounded-lg border border-gray-200 bg-white p-4 text-left shadow-sm transition-all duration-300 ease-in-out hover:scale-[1.02] hover:border-green-400 hover:bg-green-50 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
           >
+            <span className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-green-100 font-bold text-green-700 transition-colors duration-300 group-hover:bg-green-500 group-hover:text-white">
+              {String.fromCharCode(65 + index)}
+            </span>
             <span className="font-medium text-gray-700">{option.text}</span>
           </button>
         ))}
