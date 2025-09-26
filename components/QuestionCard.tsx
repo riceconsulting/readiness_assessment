@@ -5,9 +5,10 @@ interface QuestionCardProps {
   question: Question;
   questionNumber: number;
   onAnswer: (questionId: string, score: number) => void;
+  onBack: () => void;
 }
 
-const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, questionNumber }) => {
+const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, onBack, questionNumber }) => {
   const [fade, setFade] = useState(false);
   
   useEffect(() => {
@@ -21,6 +22,14 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, questio
         onAnswer(question.id, score);
     }, 500); // Wait for fade out animation
   };
+
+  const handleBackClick = () => {
+    setFade(false);
+    setTimeout(() => {
+        onBack();
+    }, 500); // Wait for fade out animation
+  };
+
 
   return (
     <div className={`transition-all duration-500 ease-in-out ${fade ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
@@ -42,6 +51,21 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, questio
           </button>
         ))}
       </div>
+
+      <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 flex justify-start">
+        <button
+          onClick={handleBackClick}
+          disabled={questionNumber <= 1}
+          className="flex items-center space-x-2 px-4 py-2 rounded-lg font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label="Kembali ke pertanyaan sebelumnya"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+          </svg>
+          <span>Kembali</span>
+        </button>
+      </div>
+
     </div>
   );
 };

@@ -1,4 +1,5 @@
 
+
 import React, { useState, useCallback, useEffect } from 'react';
 import Header from './components/Header';
 import QuestionCard from './components/QuestionCard';
@@ -95,6 +96,14 @@ const App: React.FC = () => {
     }
   }, [currentQuestionIndex]);
   
+  const handleBack = useCallback(() => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prevIndex => prevIndex - 1);
+      // Remove the last answer when going back
+      setAnswers(prevAnswers => prevAnswers.slice(0, -1));
+    }
+  }, [currentQuestionIndex]);
+
   const startAssessment = useCallback(() => {
     setCurrentQuestionIndex(0);
     setAnswers([]);
@@ -124,6 +133,7 @@ const App: React.FC = () => {
             <QuestionCard
               question={currentQuestion}
               onAnswer={handleAnswer}
+              onBack={handleBack}
               questionNumber={currentQuestionIndex + 1}
             />
           </>
