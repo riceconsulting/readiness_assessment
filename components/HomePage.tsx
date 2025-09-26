@@ -1,71 +1,52 @@
 
 import React from 'react';
+import type { Assessment } from '../types';
 
 interface HomePageProps {
-  onStart: () => void;
-  totalQuestions: number;
+  onStart: (assessmentId: string) => void;
+  assessments: Assessment[];
 }
 
-const CheckIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-  </svg>
+const ArrowRightIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+    </svg>
 );
 
 
-const HomePage: React.FC<HomePageProps> = ({ onStart, totalQuestions }) => {
-  const categoryCount = 7; 
-  const estimatedTime = Math.ceil(totalQuestions * 0.5); 
-
+const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
   return (
     <div className="text-center animate-fade-in-scale">
-      <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100">Ukur Kesiapan AI & Otomasi Perusahaan Anda</h2>
-      <p className="text-slate-600 dark:text-slate-400 mt-4 max-w-2xl mx-auto">
-        AI bukan lagi masa depan, tapi kebutuhan masa kini. Assessment ini dirancang untuk memberikan gambaran cepat dan akurat mengenai posisi perusahaan Anda dalam perjalanan transformasi digital.
+      <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100">Business & Technology Assessments</h2>
+      <p className="text-slate-600 dark:text-slate-400 mt-4 max-w-3xl mx-auto">
+        Selamat datang di pusat assessment RICE AI. Pilih salah satu alat di bawah ini untuk mendapatkan wawasan berharga tentang kesiapan strategis, operasional, dan teknis perusahaan Anda.
       </p>
-
-      <div className="mt-8 text-left max-w-lg mx-auto bg-[#5890AD]/10 dark:bg-[#9BBBCC]/10 p-6 rounded-lg border border-[#9BBBCC] dark:border-[#5890AD]/50">
-        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Apa yang Akan Anda Dapatkan?</h3>
-        <ul className="space-y-3">
-          <li className="flex items-start">
-            <CheckIcon className="w-5 h-5 text-[#5890AD] mr-3 flex-shrink-0 mt-1" />
-            <span className="text-slate-700 dark:text-slate-300">
-              <strong>Skor Kesiapan Total</strong> yang menunjukkan level maturitas AI Anda secara keseluruhan.
-            </span>
-          </li>
-          <li className="flex items-start">
-            <CheckIcon className="w-5 h-5 text-[#5890AD] mr-3 flex-shrink-0 mt-1" />
-            <span className="text-slate-700 dark:text-slate-300">
-              <strong>Analisis Mendalam</strong> di {categoryCount} area kunci, mulai dari strategi hingga teknologi.
-            </span>
-          </li>
-          <li className="flex items-start">
-            <CheckIcon className="w-5 h-5 text-[#5890AD] mr-3 flex-shrink-0 mt-1" />
-            <span className="text-slate-700 dark:text-slate-300">
-              <strong>Rekomendasi Praktis</strong> yang disesuaikan dengan level Anda untuk langkah selanjutnya.
-            </span>
-          </li>
-        </ul>
+      
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        {assessments.map((assessment, index) => (
+             <div 
+                key={assessment.id} 
+                className={`flex flex-col text-left p-6 bg-slate-50/50 dark:bg-slate-800/20 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm hover:shadow-lg hover:border-[#9BBBCC] dark:hover:border-[#5890AD] transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up`}
+                style={{ animationDelay: `${index * 150}ms` }}
+            >
+                <h3 className="text-xl font-bold text-[#17252A] dark:text-slate-100">{assessment.title}</h3>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-grow">{assessment.description}</p>
+                <div className="mt-6 flex justify-between items-center">
+                    <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                        {assessment.questions.length} Pertanyaan
+                    </p>
+                    <button
+                        onClick={() => onStart(assessment.id)}
+                        className="group inline-flex items-center justify-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg bg-accent-teal text-white hover:bg-[#4A7891] transition-all duration-200"
+                    >
+                        <span>Mulai</span>
+                        <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </button>
+                </div>
+            </div>
+        ))}
       </div>
 
-      <div className="mt-8">
-        <button
-          onClick={onStart}
-          className="transform bg-[#5890AD] text-white font-bold py-4 px-8 rounded-lg hover:bg-[#4A7891] transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 disabled:bg-[#9BBBCC] disabled:cursor-not-allowed disabled:transform-none"
-          disabled={totalQuestions === 0}
-        >
-          Mulai Assessment
-        </button>
-        {totalQuestions > 0 ? (
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-3">
-            Terdiri dari {totalQuestions} pertanyaan, estimasi {estimatedTime} menit.
-          </p>
-        ) : (
-          <p className="text-sm text-red-500 mt-3">
-            Tidak ada pertanyaan yang cocok dengan pencarian Anda.
-          </p>
-        )}
-      </div>
     </div>
   );
 };

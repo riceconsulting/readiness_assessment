@@ -4,9 +4,10 @@ import ThemeToggle from './ThemeToggle';
 interface HeaderProps {
     theme: 'light' | 'dark';
     toggleTheme: () => void;
+    subtitle: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
+const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, subtitle }) => {
   return (
     <header className="bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-lg border-b border-border-light dark:border-border-dark sticky top-0 z-40 w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
                         RICE AI
                     </h1>
                     <p className="font-sans text-xs sm:text-sm text-accent-teal dark:text-accent-sky tracking-wide opacity-90">
-                        AI & Business Automation Readiness Assessment
+                        {subtitle}
                     </p>
                 </div>
               </a>

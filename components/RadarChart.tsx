@@ -7,23 +7,13 @@ interface CategoryScoreData {
 
 interface RadarChartProps {
   scores: Record<string, CategoryScoreData>;
+  categoryOrder: string[];
   onWhyClick: (category: string) => void;
   isMounted: boolean;
 }
 
-const categoryOrder = [
-    'Strategi & Visi',
-    'Kesiapan Data',
-    'SDM & Budaya',
-    'Teknologi & Infrastruktur',
-    'Proses Bisnis',
-    'Tata Kelola & Etika',
-    'Investasi & ROI',
-];
-
 const RadarLabel: React.FC<{ x: number; y: number; textAnchor: React.CSSProperties['textAnchor']; label: string }> = ({ x, y, textAnchor, label }) => {
     const parts = label.split(' ');
-    // If only one word, or a short label, don't split.
     if (parts.length <= 2 && label.length < 12) {
         return (
             <text x={x} y={y} dy="0.3em" textAnchor={textAnchor} className="text-[8px] fill-slate-600 dark:fill-slate-400 font-medium">
@@ -31,7 +21,6 @@ const RadarLabel: React.FC<{ x: number; y: number; textAnchor: React.CSSProperti
             </text>
         );
     }
-    // Split into two lines
     const midIndex = Math.ceil(parts.length / 2);
     const line1 = parts.slice(0, midIndex).join(' ');
     const line2 = parts.slice(midIndex).join(' ');
@@ -44,7 +33,7 @@ const RadarLabel: React.FC<{ x: number; y: number; textAnchor: React.CSSProperti
 };
 
 
-const RadarChart: React.FC<RadarChartProps> = ({ scores, onWhyClick, isMounted }) => {
+const RadarChart: React.FC<RadarChartProps> = ({ scores, categoryOrder, onWhyClick, isMounted }) => {
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
     category: string;

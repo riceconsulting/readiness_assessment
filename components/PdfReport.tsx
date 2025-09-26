@@ -7,6 +7,7 @@ interface PdfReportProps {
   totalScore: number;
   totalMaxScore: number;
   categoryScores: Record<string, { score: number; maxScore: number; questionCount?: number }>;
+  categoryOrder: string[];
   summary: string;
   messages: ChatMessage[];
   answers: Answer[];
@@ -33,7 +34,7 @@ const PageHeader: React.FC = () => (
       />
       <div>
         <h1 className="font-bold text-2xl text-[#17252A]">RICE AI Consultant</h1>
-        <p className="text-sm text-[#5890AD]">AI & Business Automation Readiness Report</p>
+        <p className="text-sm text-[#5890AD]">Business & Technology Readiness Report</p>
       </div>
     </div>
     <p className="text-sm text-slate-500">{new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
@@ -43,7 +44,7 @@ const PageHeader: React.FC = () => (
 const PageFooter: React.FC<{ currentPage: number; totalPages: number }> = ({ currentPage, totalPages }) => (
   <footer className="mt-auto pt-4 border-t border-slate-200 text-center flex-shrink-0">
     <p className="text-xs text-slate-500">
-      Laporan Kesiapan AI RICE AI Consultant | Halaman {currentPage} dari {totalPages}
+      Readiness Report by RICE AI Consultant | Halaman {currentPage} dari {totalPages}
     </p>
   </footer>
 );
@@ -54,6 +55,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
   totalScore,
   totalMaxScore,
   categoryScores,
+  categoryOrder,
   summary,
   messages,
   answers,
@@ -75,15 +77,18 @@ const PdfReport: React.FC<PdfReportProps> = ({
   const pages = [];
   const colorMap: Record<string, string> = {
     'Tahap Awal (Foundation)': '#EF4444',
+    'Level Reaktif (Reactive)': '#EF4444',
     'Tahap Pengembangan (Developing)': '#F59E0B',
+    'Level Proaktif (Proactive)': '#F59E0B',
     'Tahap Pematangan (Maturing)': '#5890AD',
+    'Level Teroptimasi (Optimized)': '#5890AD',
   };
   const scoreColor = colorMap[result.title] || '#5890AD';
 
   // Page 1: Cover Page with Overall Results
   pages.push(
     <div key="page-cover">
-      <h2 className="text-center text-2xl font-bold text-[#17252A] mb-8">Laporan Hasil Assessment Kesiapan AI</h2>
+      <h2 className="text-center text-2xl font-bold text-[#17252A] mb-8">Laporan Hasil Assessment</h2>
       <div className="grid grid-cols-2 gap-8 items-start">
         <div className="text-center flex flex-col items-center justify-center pt-6">
           <h3 className="text-lg font-semibold text-slate-700">Skor Kesiapan Anda</h3>
@@ -110,7 +115,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
           <p className="mt-2 text-sm text-slate-600 max-w-sm mx-auto">{result.description}</p>
         </div>
         <div style={{ height: '320px', width: '320px', margin: '0 auto' }}>
-          <RadarChart scores={categoryScores} onWhyClick={() => {}} isMounted={true} />
+          <RadarChart scores={categoryScores} categoryOrder={categoryOrder} onWhyClick={() => {}} isMounted={true} />
         </div>
       </div>
     </div>
@@ -175,7 +180,6 @@ const PdfReport: React.FC<PdfReportProps> = ({
             Laporan Rinci Jawaban Anda {answerPages.length > 1 ? `(Bagian ${index + 1} dari ${answerPages.length})` : ''}
           </h2>
           <div className="space-y-4">
-            {/* Fix: Explicitly type 'q' as 'Question' to resolve property access errors on type 'unknown'. */}
             {answerChunk.map((q: Question) => (
               <div key={q.id} className="p-3 bg-slate-50 rounded-md border border-slate-200 text-sm">
                 <p className="text-xs font-semibold text-[#5890AD]">{q.category}</p>
@@ -201,7 +205,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
                     key={index} 
                     className="bg-white p-10 shadow-lg" 
                     style={{ 
-                        minHeight: '1100px', // A bit less than A4 aspect to leave room for margins
+                        minHeight: '1100px', 
                         display: 'flex', 
                         flexDirection: 'column', 
                         marginBottom: index === totalPages - 1 ? 0 : '1rem' 

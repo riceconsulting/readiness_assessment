@@ -36,4 +36,23 @@ export interface ResultLevel {
   color: string;
 }
 
+export type ScoreTier = 'Sangat Rendah' | 'Rendah' | 'Menengah' | 'Tinggi';
+
+export interface ScoreExplanation {
+    title: string;
+    explanation: string;
+}
+
+export interface Assessment {
+    id: string;
+    title: string;
+    subtitle: string;
+    description: string;
+    questions: Question[];
+    resultLevels: ResultLevel[];
+    scoreExplanations: Record<string, Record<ScoreTier, ScoreExplanation>>;
+    categoryOrder: string[];
+}
+
+
 export type SortOption = 'default' | 'alphabetical-text' | 'alphabetical-category';

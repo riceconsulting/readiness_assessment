@@ -1,8 +1,8 @@
 
 
 import React, { useMemo, useRef, useState, useEffect } from 'react';
-import type { Answer, Question, ChatMessage } from '../types';
-import { resultLevels, assessmentQuestions, MAX_SCORE_PER_QUESTION, scoreExplanations, getScoreTier } from '../constants';
+import type { Answer, Question, ChatMessage, Assessment } from '../types';
+import { MAX_SCORE_PER_QUESTION, getScoreTier } from '../constants';
 import RadarChart from './RadarChart';
 import CategoryDetailModal from './CategoryDetailModal';
 import DetailedReport from './DetailedReport';
@@ -19,16 +19,16 @@ declare var jspdf: any;
 interface ResultsPageProps {
   answers: Answer[];
   onRestart: () => void;
-  questions: Question[];
-  isSharedView?: boolean;
+  assessment: Assessment;
 }
 
 const ResultsPage: React.FC<ResultsPageProps> = ({ 
     answers, 
     onRestart, 
-    questions, 
-    isSharedView = false,
+    assessment, 
 }) => {
+  const { questions, resultLevels, scoreExplanations, categoryOrder, id: assessmentId } = assessment;
+
   const totalScore = useMemo(() => answers.reduce((sum, answer) => sum + answer.score, 0), [answers]);
   const [expandedRecommendation, setExpandedRecommendation] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -60,23 +60,17 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     return () => clearTimeout(timeoutId);
   }, []);
 
-  // Fix: Explicitly type the useMemo hook to ensure categoryScores has a consistent type.
-  const categoryScores = useMemo<Record<string, { score: number; maxScore: number; questionCount: number }>>(() => {
-    if (!questions || questions.length === 0 || !answers) {
-      return {};
-    }
+  const categoryScores = useMemo(() => {
     const scores: Record<string, { score: number; maxScore: number; questionCount: number }> = {};
     
     questions.forEach(q => {
-      if (!q || !q.category) return;
-      
       if (!scores[q.category]) {
         scores[q.category] = { score: 0, maxScore: 0, questionCount: 0 };
       }
       
-      const answer = answers.find(a => a && a.questionId === q.id);
+      const answer = answers.find(a => a.questionId === q.id);
       
-      if (answer && typeof answer.score === 'number') {
+      if (answer) {
         scores[q.category].score += answer.score;
       }
       scores[q.category].questionCount += 1;
@@ -87,22 +81,19 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   }, [answers, questions]);
 
   const result = useMemo(() => {
-    if (questions.length === 0) return resultLevels[0];
-
-    const originalTotalMaxScore = assessmentQuestions.length * MAX_SCORE_PER_QUESTION;
-    const scaledScore = (totalScore / totalMaxScore) * originalTotalMaxScore;
-    
-    return resultLevels.find(level => scaledScore >= level.minScore && scaledScore <= level.maxScore) || resultLevels[0];
-  }, [totalScore, questions, totalMaxScore]);
-
+    return resultLevels.find(level => totalScore >= level.minScore && totalScore <= level.maxScore) || resultLevels[0];
+  }, [totalScore, resultLevels]);
+  
   const createSummaryPrompt = () => {
     const categoryScoresText = Object.entries(categoryScores)
+      // Fix: Explicitly type `data` to resolve properties `score` and `maxScore` from `unknown` type.
       .map(([category, data]: [string, { score: number; maxScore: number }]) => `- ${category}: ${data.score} dari ${data.maxScore}`)
       .join('\n');
 
-    return `Anda adalah seorang konsultan bisnis AI yang ahli. Berdasarkan hasil assessment kesiapan AI sebuah perusahaan berikut, tuliskan sebuah ringkasan eksekutif (executive summary) dalam 3 paragraf singkat dalam Bahasa Indonesia. Ringkasan harus profesional, mudah dipahami oleh C-level, dan menyoroti kekuatan utama serta area prioritas untuk perbaikan.
+    return `Anda adalah seorang konsultan bisnis ahli. Berdasarkan hasil assessment "${assessment.title}" sebuah perusahaan berikut, tuliskan sebuah ringkasan eksekutif (executive summary) dalam 3 paragraf singkat dalam Bahasa Indonesia. Ringkasan harus profesional, mudah dipahami oleh C-level, dan menyoroti kekuatan utama serta area prioritas untuk perbaikan.
 
 **Data Hasil Assessment:**
+*   **Assessment:** ${assessment.title}
 *   **Level Kematangan:** ${result.title} (${result.level})
 *   **Skor Total:** ${totalScore} dari ${totalMaxScore}
 *   **Deskripsi Level:** ${result.description}
@@ -115,17 +106,19 @@ Fokus pada implikasi bisnis dari skor-skor ini, bukan hanya mengulang angkanya. 
 
   const createChatSystemInstruction = () => {
       const categoryScoresText = Object.entries(categoryScores)
+      // Fix: Explicitly type `data` to resolve properties `score` and `maxScore` from `unknown` type.
       .map(([category, data]: [string, { score: number; maxScore: number }]) => `  - ${category}: ${data.score} dari ${data.maxScore}`)
       .join('\n');
-    return `Anda adalah seorang konsultan strategis senior dari RICE AI. Misi utama Anda adalah membantu pengguna memahami hasil assessment mereka secara mendalam dan memberikan wawasan yang tulus untuk pertumbuhan bisnis mereka. Anda BUKAN seorang penjual. Fokuslah untuk memberikan nilai, membangun kepercayaan, dan memposisikan diri sebagai mitra pemikir yang ahli.
+    return `Anda adalah seorang konsultan strategis senior dari RICE AI. Anda sedang membahas hasil dari assessment "${assessment.title}". Misi utama Anda adalah membantu pengguna memahami hasil assessment mereka secara mendalam dan memberikan wawasan yang tulus untuk pertumbuhan bisnis mereka. Anda BUKAN seorang penjual. Fokuslah untuk memberikan nilai, membangun kepercayaan, dan memposisikan diri sebagai mitra pemikir yang ahli.
 
 Gunakan gaya bahasa yang profesional, empatik, dan suportif. Hindari jargon teknis yang berlebihan. Selalu berikan jawaban yang kontekstual dan relevan dengan data hasil assessment pengguna di bawah ini.
 
-PENTING: Untuk memberikan saran yang paling relevan dan tidak generik, Anda harus proaktif. Setelah salam pembuka, selalu ajukan pertanyaan untuk memahami konteks bisnis pengguna. Tanyakan tentang industri mereka, tantangan utama yang dihadapi, atau tujuan spesifik yang ingin mereka capai dengan AI. Gunakan informasi ini untuk menyesuaikan semua jawaban Anda selanjutnya.
+PENTING: Untuk memberikan saran yang paling relevan dan tidak generik, Anda harus proaktif. Setelah salam pembuka, selalu ajukan pertanyaan untuk memahami konteks bisnis pengguna. Tanyakan tentang industri mereka, tantangan utama yang dihadapi, atau tujuan spesifik yang ingin mereka capai. Gunakan informasi ini untuk menyesuaikan semua jawaban Anda selanjutnya.
 
 ATURAN FORMATTING: JANGAN gunakan format markdown (seperti **, *, -, #, dll.). Tulis semua jawaban dalam bentuk paragraf teks biasa yang mengalir alami, seolah-olah Anda sedang berbicara langsung dengan klien.
 
 Berikut adalah data hasil assessment pengguna:
+- Assessment: ${assessment.title}
 - Level Kematangan: ${result.title} (${result.level})
 - Skor Total: ${totalScore} / ${totalMaxScore}
 - Skor per Kategori:
@@ -160,7 +153,6 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
   };
 
   const handleOpenChat = async () => {
-    // Initialize chat session on first open
     if (!chatSession) {
       try {
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
@@ -174,15 +166,12 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
 
         const initialAiMessage: ChatMessage = {
           sender: 'ai',
-          text: 'Halo! Saya adalah konsultan AI Anda. Saya telah menganalisis hasil assessment Anda. Agar saran saya lebih spesifik dan berguna, boleh ceritakan sedikit tentang bisnis Anda? Misalnya, di industri apa Anda bergerak dan apa tantangan terbesar yang sedang dihadapi?'
+          text: `Halo! Saya adalah konsultan AI Anda. Saya telah menganalisis hasil assessment "${assessment.title}" Anda. Agar saran saya lebih spesifik, boleh ceritakan sedikit tentang bisnis Anda? Misalnya, di industri apa Anda bergerak dan apa tantangan terbesar yang sedang dihadapi?`
         };
         setMessages([initialAiMessage]);
       } catch (error) {
         console.error("AI Chat Initialization Error:", error);
-        const errorMessage: ChatMessage = {
-          sender: 'ai',
-          text: 'Maaf, saya tidak dapat memulai sesi chat saat ini. Silakan coba lagi nanti.'
-        };
+        const errorMessage: ChatMessage = { sender: 'ai', text: 'Maaf, saya tidak dapat memulai sesi chat saat ini. Silakan coba lagi nanti.' };
         setMessages([errorMessage]);
       }
     }
@@ -225,7 +214,6 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
     setExportMessage(null);
   
     const container = document.createElement('div');
-    // Position off-screen
     container.style.position = 'absolute';
     container.style.left = '-9999px';
     container.style.top = '0';
@@ -238,6 +226,7 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
         totalScore={totalScore}
         totalMaxScore={totalMaxScore}
         categoryScores={categoryScores}
+        categoryOrder={categoryOrder}
         summary={summary}
         messages={messages}
         answers={answers}
@@ -245,7 +234,6 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
       />
     );
 
-    // Use a timeout to allow the component to render fully before capturing
     setTimeout(() => {
         const elementToCapture = container.querySelector('#pdf-render-content');
         if (!elementToCapture) {
@@ -298,7 +286,7 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
                 heightLeft -= pageHeight;
             }
 
-            pdf.save('RICE-AI-Readiness-Assessment-Report.pdf');
+            pdf.save(`RICE-AI-${assessment.id}-Report.pdf`);
             setExportMessage({ type: 'success', message: 'PDF berhasil dibuat!' });
         }).catch((error: any) => {
           console.error("PDF Export Error:", error);
@@ -324,54 +312,32 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
         <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
      </svg>
   );
+  
 
   return (
     <>
       <div className={`transition-opacity duration-300 ease-out ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
         <div id="results-content-area" className="p-4 sm:p-8 bg-white dark:bg-[#1A2E35]">
-          <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 text-center">Hasil Assessment Kesiapan AI Anda</h2>
-          <p className="text-slate-600 dark:text-slate-400 mt-2 text-center">Selamat! Berikut adalah analisis terperinci mengenai posisi perusahaan Anda.</p>
+          <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 text-center">Hasil Assessment Anda</h2>
+          <p className="text-slate-600 dark:text-slate-400 mt-2 text-center">{assessment.title}</p>
           
           <div className="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-            {/* Left Column */}
             <div
               className={`lg:col-span-3 space-y-8 transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
               style={{ transitionDelay: '100ms' }}
             >
-              {/* Overall Score */}
               <div className="text-center p-6 bg-slate-50 dark:bg-slate-800/50 rounded-lg shadow-inner" role="region" aria-label="Ringkasan Skor Akhir">
                 <div className="relative w-48 h-48 mx-auto">
                   <svg className="w-full h-full" viewBox="0 0 36 36" transform="rotate(-90)" aria-hidden="true">
                     <defs>
-                        <linearGradient id="gradient-mahir" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#9BBBCC" />
-                            <stop offset="100%" stopColor="#5890AD" />
-                        </linearGradient>
-                        <linearGradient id="gradient-menengah" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#FBBF24" />
-                            <stop offset="100%" stopColor="#F59E0B" />
-                        </linearGradient>
-                        <linearGradient id="gradient-pemula" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#F87171" />
-                            <stop offset="100%" stopColor="#EF4444" />
-                        </linearGradient>
-                        <filter id="glow">
-                            <feGaussianBlur stdDeviation="0.5" result="coloredBlur"/>
-                            <feMerge>
-                                <feMergeNode in="coloredBlur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
+                        <linearGradient id="gradient-mahir" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#9BBBCC" /><stop offset="100%" stopColor="#5890AD" /></linearGradient>
+                        <linearGradient id="gradient-teroptimasi" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#9BBBCC" /><stop offset="100%" stopColor="#5890AD" /></linearGradient>
+                        <linearGradient id="gradient-menengah" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#FBBF24" /><stop offset="100%" stopColor="#F59E0B" /></linearGradient>
+                         <linearGradient id="gradient-proaktif" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#FBBF24" /><stop offset="100%" stopColor="#F59E0B" /></linearGradient>
+                        <linearGradient id="gradient-pemula" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#F87171" /><stop offset="100%" stopColor="#EF4444" /></linearGradient>
+                        <linearGradient id="gradient-reaktif" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#F87171" /><stop offset="100%" stopColor="#EF4444" /></linearGradient>
                     </defs>
-                    <circle
-                      className="text-slate-200 dark:text-slate-700"
-                      cx="18"
-                      cy="18"
-                      r="15.9155"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
+                    <circle className="text-slate-200 dark:text-slate-700" cx="18" cy="18" r="15.9155" fill="none" stroke="currentColor" strokeWidth="4" />
                     <circle
                       cx="18"
                       cy="18"
@@ -382,7 +348,6 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
                       strokeDasharray={`${isMounted ? scorePercentage : 0}, 100`}
                       strokeLinecap="round"
                       style={{ transition: 'stroke-dasharray 1s ease-out', transitionDelay: '200ms' }}
-                      filter="url(#glow)"
                     />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -396,31 +361,26 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
                  <p className="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">{result.description}</p>
               </div>
               
-              {!isSharedView && (
-                <ExecutiveSummary 
-                  summary={summary}
-                  isGenerated={isSummaryGenerated}
-                  isLoading={isSummaryLoading}
-                  error={summaryError}
-                  onGenerate={handleGenerateSummary}
-                  onOpenChat={handleOpenChat}
-                />
-              )}
+              <ExecutiveSummary 
+                summary={summary}
+                isGenerated={isSummaryGenerated}
+                isLoading={isSummaryLoading}
+                error={summaryError}
+                onGenerate={handleGenerateSummary}
+                onOpenChat={handleOpenChat}
+              />
 
             </div>
 
-            {/* Right Column */}
             <div
                 className={`lg:col-span-2 lg:sticky lg:top-24 transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}
                 style={{ transitionDelay: '300ms' }}
             >
-              <RadarChart scores={categoryScores} onWhyClick={handleWhyClick} isMounted={isMounted} />
+              <RadarChart scores={categoryScores} categoryOrder={categoryOrder} onWhyClick={handleWhyClick} isMounted={isMounted} />
             </div>
           </div>
 
-          <div
-            className={`transition-all duration-700 ease-out ${isMounted ? 'opacity-100' : 'opacity-0'}`}
-          >
+          <div className={`transition-all duration-700 ease-out ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
             <div id="recommendations-section" className="mt-12 text-left bg-transparent p-0">
               <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2 text-center">Rekomendasi Langkah Berikutnya</h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Klik setiap rekomendasi untuk melihat penjelasan detail.</p>
@@ -442,19 +402,12 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
                             <CheckCircleIcon className="w-5 h-5 text-[#5890AD] mr-3 flex-shrink-0 mt-0.5" />
                             <span className="flex-1 text-slate-800 dark:text-slate-200 font-medium">{rec.text}</span>
                         </div>
-                        <ChevronDownIcon
-                            className={`w-5 h-5 text-slate-400 ml-2 transform transition-transform duration-300 ${
-                            expandedRecommendation === index ? 'rotate-180' : ''
-                            }`}
-                        />
+                        <ChevronDownIcon className={`w-5 h-5 text-slate-400 ml-2 transform transition-transform duration-300 ${ expandedRecommendation === index ? 'rotate-180' : '' }`} />
                       </div>
                     </button>
                     <div
                       id={`recommendation-explanation-${index}`}
-                      data-explanation-container
-                      className={`grid transition-all duration-300 ease-in-out ${
-                        expandedRecommendation === index ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
-                      }`}
+                      className={`grid transition-all duration-300 ease-in-out ${ expandedRecommendation === index ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]' }`}
                     >
                       <div className="overflow-hidden">
                          <p className="px-4 pb-4 pl-12 text-sm text-slate-600 dark:text-slate-400">{rec.explanation}</p>
@@ -466,10 +419,6 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
             </div>
             
             <DetailedReport answers={answers} questions={questions} />
-
-            <div id="results-footer" className="mt-6 text-sm text-slate-500 dark:text-slate-400 text-center">
-              <p>Unduh hasil ini untuk dibagikan dengan tim Anda dan hubungi <strong>RICE AI Consultant</strong> untuk diskusi lebih lanjut tentang bagaimana kami dapat membantu akselerasi transformasi AI Anda.</p>
-            </div>
           </div>
         </div>
 
@@ -483,41 +432,20 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
             className="group w-full sm:w-auto transform bg-gradient-to-br from-[#5890AD] to-[#4A6B7B] text-white font-bold py-3 px-6 rounded-lg hover:from-[#4A7891] hover:to-[#3b5663] transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:-translate-y-px disabled:from-[#9BBBCC] disabled:to-[#8aa1b1] disabled:cursor-not-allowed disabled:transform-none"
           >
             {isExporting ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  <span>Membuat PDF...</span>
-                </>
+                <><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Membuat PDF...</span></>
               ) : (
-                <>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
-                    <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
-                  </svg>
-                  <span>Unduh Laporan (PDF)</span>
-                </>
+                <><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" /><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" /></svg><span>Unduh Laporan (PDF)</span></>
             )}
           </button>
-           <button
-            onClick={onRestart}
-            className={`w-full sm:w-auto transform font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px ${
-              isSharedView 
-              ? 'bg-[#5890AD] text-white hover:bg-[#4A7891]'
-              : 'bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700'
-            }`}
-          >
-            {isSharedView ? 'Ikuti Assessment Ini' : 'Ulangi Assessment'}
+           <button onClick={onRestart} className={`w-full sm:w-auto transform font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700 bg-slate-200 dark:bg-slate-800`}>
+            Ulangi Assessment
           </button>
         </div>
       </div>
       
       {exportMessage && (
         <div 
-            className={`fixed bottom-5 right-5 z-50 flex items-center w-full max-w-xs p-4 space-x-4 bg-white dark:bg-[#1A2E35] rounded-lg shadow-lg transition-all duration-300 animate-fade-in-scale ${
-                exportMessage.type === 'success' ? 'text-[#4A6B7B] dark:text-[#9BBBCC]' : 'text-red-700 dark:text-red-400'
-            }`}
+            className={`fixed bottom-5 right-5 z-50 flex items-center w-full max-w-xs p-4 space-x-4 bg-white dark:bg-[#1A2E35] rounded-lg shadow-lg transition-all duration-300 animate-fade-in-scale ${ exportMessage.type === 'success' ? 'text-[#4A6B7B] dark:text-[#9BBBCC]' : 'text-red-700 dark:text-red-400' }`}
             role="alert"
         >
             {exportMessage.type === 'success' ? (
