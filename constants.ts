@@ -616,8 +616,238 @@ const cybersecurityAssessment: Assessment = {
     }
 };
 
+const businessAssessment: Assessment = {
+    id: 'business-growth',
+    title: 'Business Growth Assessment',
+    subtitle: 'Penilaian Potensi Pertumbuhan Bisnis',
+    description: 'Analisis area-area kunci bisnis Anda untuk mengidentifikasi kekuatan, kelemahan, dan peluang pertumbuhan strategis.',
+    categoryOrder: [
+        'Strategi & Posisi Pasar',
+        'Keuangan & Profitabilitas',
+        'Operasional & Efisiensi',
+        'Pemasaran & Penjualan',
+        'Tim & Budaya',
+        'Inovasi & Teknologi',
+    ],
+    questions: [
+        {
+            id: 'bg-q1',
+            category: 'Strategi & Posisi Pasar',
+            text: 'Seberapa jelas proposisi nilai unik (Unique Value Proposition) Anda dan terdiferensiasi di pasar?',
+            options: [
+                { text: 'Kami menawarkan produk/jasa yang mirip dengan banyak pesaing.', score: 1 },
+                { text: 'Kami memiliki beberapa keunggulan, tetapi pelanggan terkadang sulit melihat perbedaannya.', score: 2 },
+                { text: 'Proposisi nilai kami jelas dan menjadi alasan utama pelanggan memilih kami.', score: 3 },
+                { text: 'Proposisi nilai kami sangat kuat, mendominasi ceruk pasar, dan sulit ditiru pesaing.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q2',
+            category: 'Strategi & Posisi Pasar',
+            text: 'Seberapa dalam pemahaman Anda tentang target pasar dan segmen pelanggan ideal Anda?',
+            options: [
+                { text: 'Kami mencoba melayani semua orang, target pasar kami sangat luas.', score: 1 },
+                { text: 'Kami punya gambaran umum tentang siapa pelanggan kami, tapi belum ada riset mendalam.', score: 2 },
+                { text: 'Kami telah mendefinisikan persona pelanggan yang jelas dan memfokuskan pemasaran pada mereka.', score: 3 },
+                { text: 'Kami secara rutin mengumpulkan data dan feedback untuk memperbarui pemahaman kami tentang kebutuhan pelanggan.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q3',
+            category: 'Keuangan & Profitabilitas',
+            text: 'Bagaimana Anda mengelola dan memonitor kesehatan keuangan (arus kas, laba rugi) bisnis Anda?',
+            options: [
+                { text: 'Pencatatan keuangan tidak teratur, lebih fokus pada saldo bank.', score: 1 },
+                { text: 'Kami memiliki pembukuan dasar, tetapi laporan keuangan sering terlambat.', score: 2 },
+                { text: 'Laporan keuangan rutin (bulanan) tersedia dan digunakan untuk pengambilan keputusan dasar.', score: 3 },
+                { text: 'Kami menggunakan dashboard keuangan real-time dengan proyeksi untuk keputusan strategis.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q4',
+            category: 'Keuangan & Profitabilitas',
+            text: 'Seberapa beragam sumber pendapatan Anda dan bagaimana profitabilitasnya?',
+            options: [
+                { text: 'Sangat bergantung pada satu produk/jasa atau beberapa klien besar saja.', score: 1 },
+                { text: 'Ada beberapa produk/jasa, tapi kami tidak yakin mana yang paling menguntungkan.', score: 2 },
+                { text: 'Kami memiliki beberapa sumber pendapatan yang menguntungkan dan secara rutin menganalisis marginnya.', score: 3 },
+                { text: 'Portofolio pendapatan kami terdiversifikasi dengan baik, dengan beberapa aliran pendapatan ber-margin tinggi.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q5',
+            category: 'Operasional & Efisiensi',
+            text: 'Seberapa terstandarisasi dan terdokumentasi proses operasional inti Anda?',
+            options: [
+                { text: 'Proses bergantung pada pengetahuan individu, tidak ada SOP (Standard Operating Procedure) tertulis.', score: 1 },
+                { text: 'Ada beberapa panduan, tetapi tidak diterapkan secara konsisten oleh semua tim.', score: 2 },
+                { text: 'Sebagian besar proses inti memiliki SOP yang jelas dan diikuti oleh tim.', score: 3 },
+                { text: 'Semua proses terdefinisi, terotomatisasi jika memungkinkan, dan terus-menerus ditingkatkan.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q6',
+            category: 'Operasional & Efisiensi',
+            text: 'Seberapa skalabel operasional bisnis Anda untuk menangani peningkatan permintaan 2-3 kali lipat?',
+            options: [
+                { text: 'Peningkatan permintaan akan menyebabkan kekacauan besar dan penurunan kualitas.', score: 1 },
+                { text: 'Kami bisa menanganinya, tetapi akan membutuhkan banyak kerja lembur dan merekrut secara mendadak.', score: 2 },
+                { text: 'Sistem kami cukup fleksibel untuk menangani lonjakan permintaan dengan penyesuaian minor.', score: 3 },
+                { text: 'Operasional kami dirancang untuk skalabilitas; kami dapat meningkatkan kapasitas dengan cepat dan efisien.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q7',
+            category: 'Pemasaran & Penjualan',
+            text: 'Seberapa efektif dan terukur strategi pemasaran Anda dalam menghasilkan prospek berkualitas (qualified leads)?',
+            options: [
+                { text: 'Pemasaran kami bersifat sporadis dan "word-of-mouth", sulit diukur efektivitasnya.', score: 1 },
+                { text: 'Kami mencoba beberapa channel (misal: media sosial), tapi tidak melacak ROI secara sistematis.', score: 2 },
+                { text: 'Kami memiliki strategi pemasaran terencana dengan metrik yang jelas (misal: CPA, CPL) untuk beberapa channel utama.', score: 3 },
+                { text: 'Kami menggunakan pendekatan pemasaran berbasis data (data-driven) dengan "sales funnel" yang teroptimasi.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q8',
+            category: 'Pemasaran & Penjualan',
+            text: 'Bagaimana proses penjualan Anda dari kontak awal hingga penutupan (closing)?',
+            options: [
+                { text: 'Proses penjualan tidak terstruktur, setiap anggota tim punya cara sendiri-sendiri.', score: 1 },
+                { text: 'Ada beberapa tahapan penjualan yang dipahami secara umum, tapi tidak ada CRM.', score: 2 },
+                { text: 'Kami menggunakan CRM untuk melacak prospek melalui tahapan penjualan yang terdefinisi.', score: 3 },
+                { text: 'Proses penjualan kami terotomatisasi, terukur, dan terus dioptimalkan untuk meningkatkan konversi.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q9',
+            category: 'Tim & Budaya',
+            text: 'Bagaimana Anda memastikan tim Anda memiliki keterampilan yang tepat dan termotivasi?',
+            options: [
+                { text: 'Kami merekrut jika perlu, tidak ada program pelatihan atau pengembangan formal.', score: 1 },
+                { text: 'Ada beberapa pelatihan ad-hoc, tetapi tujuan individu tidak selalu selaras dengan tujuan perusahaan.', score: 2 },
+                { text: 'Kami memiliki proses review kinerja reguler dan menyediakan anggaran untuk pelatihan.', score: 3 },
+                { text: 'Ada jalur karir yang jelas, budaya feedback yang kuat, dan program pengembangan kepemimpinan.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q10',
+            category: 'Tim & Budaya',
+            text: 'Sejauh mana peran dan tanggung jawab didefinisikan dengan jelas di dalam tim?',
+            options: [
+                { text: 'Banyak tumpang tindih pekerjaan, sering terjadi kebingungan siapa yang bertanggung jawab.', score: 1 },
+                { text: 'Peran didefinisikan secara umum, tetapi seringkali ada tugas yang tidak jelas pemiliknya.', score: 2 },
+                { text: 'Sebagian besar karyawan memiliki deskripsi pekerjaan yang jelas dan memahami tanggung jawab mereka.', score: 3 },
+                { text: 'Setiap peran memiliki KPI yang jelas, dan struktur organisasi mendukung akuntabilitas dan kolaborasi.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q11',
+            category: 'Inovasi & Teknologi',
+            text: 'Seberapa sering bisnis Anda memperkenalkan produk, layanan, atau perbaikan proses yang baru?',
+            options: [
+                { text: 'Kami jarang melakukan perubahan, lebih fokus menjalankan apa yang sudah ada.', score: 1 },
+                { text: 'Inovasi terjadi secara reaktif, biasanya sebagai respons terhadap tekanan pasar atau pesaing.', score: 2 },
+                { text: 'Kami secara rutin menyisihkan waktu dan sumber daya untuk mengembangkan ide-ide baru.', score: 3 },
+                { text: 'Inovasi adalah bagian inti dari budaya kami, dengan proses formal dari ide hingga peluncuran.', score: 4 },
+            ],
+        },
+        {
+            id: 'bg-q12',
+            category: 'Inovasi & Teknologi',
+            text: 'Bagaimana Anda memanfaatkan teknologi untuk meningkatkan efisiensi dan pengalaman pelanggan?',
+            options: [
+                { text: 'Penggunaan teknologi sangat dasar, sebatas email dan aplikasi office.', score: 1 },
+                { text: 'Kami menggunakan beberapa aplikasi spesifik (misal: akuntansi), tetapi tidak terintegrasi.', score: 2 },
+                { text: 'Kami telah mengadopsi teknologi kunci (misal: CRM, project management tool) yang meningkatkan produktivitas.', score: 3 },
+                { text: 'Kami memiliki tumpukan teknologi (tech stack) terintegrasi dan proaktif mencari teknologi baru.', score: 4 },
+            ],
+        },
+    ],
+    resultLevels: [
+        {
+            level: 'Fondasi',
+            minScore: 0,
+            maxScore: 19,
+            title: 'Tahap Fondasi',
+            description: 'Bisnis Anda berada pada tahap awal atau stabilisasi. Fokus utama adalah membangun sistem dasar yang solid, memastikan profitabilitas, dan memperjelas posisi Anda di pasar.',
+            recommendations: [
+                { text: 'Standarisasi Proses Operasional Kunci.', explanation: 'Dokumentasikan proses-proses terpenting untuk memastikan konsistensi dan kualitas, serta mempermudah pelatihan karyawan baru.' },
+                { text: 'Perkuat Manajemen Arus Kas (Cash Flow).', explanation: 'Monitor arus kas masuk dan keluar secara ketat. Arus kas yang sehat adalah darah kehidupan bisnis pada tahap ini.' },
+                { text: 'Fokus pada Target Pelanggan Ideal Anda.', explanation: 'Identifikasi segmen pelanggan yang paling menguntungkan dan layani mereka dengan sangat baik untuk membangun reputasi yang kuat.' },
+            ],
+            color: 'text-red-500'
+        },
+        {
+            level: 'Ekspansi',
+            minScore: 20,
+            maxScore: 35,
+            title: 'Tahap Ekspansi',
+            description: 'Anda memiliki fondasi yang kuat dan siap untuk bertumbuh. Tantangannya adalah menskalakan operasi, tim, dan pemasaran secara efektif tanpa mengorbankan kualitas.',
+            recommendations: [
+                { text: 'Bangun Saluran Pemasaran yang Terukur.', explanation: 'Investasikan pada 1-2 channel pemasaran yang dapat Anda lacak ROI-nya secara jelas untuk menciptakan aliran prospek yang konsisten.' },
+                { text: 'Investasi pada Pengembangan Tim.', explanation: 'Seiring pertumbuhan bisnis, kembangkan keterampilan tim Anda dan mulai definisikan struktur organisasi yang lebih jelas.' },
+                { text: 'Terapkan Teknologi untuk Otomasi.', explanation: 'Gunakan perangkat lunak seperti CRM atau alat manajemen proyek untuk mengotomatisasi tugas-tugas manual dan meningkatkan efisiensi.' },
+            ],
+            color: 'text-amber-500'
+        },
+        {
+            level: 'Optimalisasi',
+            minScore: 36,
+            maxScore: 48,
+            title: 'Tahap Optimalisasi',
+            description: 'Bisnis Anda sudah matang dan berjalan dengan baik. Peluang pertumbuhan terletak pada optimalisasi, inovasi, dan penguatan posisi sebagai pemimpin pasar.',
+            recommendations: [
+                { text: 'Kembangkan Budaya Inovasi Berkelanjutan.', explanation: 'Alokasikan sumber daya secara formal untuk riset dan pengembangan produk/layanan baru agar tetap relevan di pasar.' },
+                { text: 'Manfaatkan Analisis Data untuk Keputusan Strategis.', explanation: 'Gunakan data pelanggan, penjualan, dan operasional untuk mengidentifikasi tren dan membuat keputusan bisnis yang lebih cerdas.' },
+                { text: 'Eksplorasi Pasar atau Sumber Pendapatan Baru.', explanation: 'Diversifikasi penawaran Anda atau masuk ke segmen pasar baru untuk menciptakan aliran pendapatan tambahan dan mengurangi risiko.' },
+            ],
+            color: 'text-[#5890AD]'
+        }
+    ],
+    scoreExplanations: {
+        'Strategi & Posisi Pasar': {
+            'Sangat Rendah': { title: 'Posisi Tidak Jelas', explanation: 'Bisnis Anda belum memiliki diferensiasi yang kuat di pasar. Sangat penting untuk mengidentifikasi apa yang membuat Anda unik dan siapa pelanggan ideal Anda.' },
+            'Rendah': { title: 'Mulai Terdiferensiasi', explanation: 'Ada beberapa keunikan, tetapi belum dikomunikasikan secara konsisten. Perkuat pesan pemasaran Anda agar selaras dengan proposisi nilai Anda.' },
+            'Menengah': { title: 'Posisi Kuat', explanation: 'Pelanggan memahami nilai yang Anda tawarkan. Langkah selanjutnya adalah memperdalam hubungan dengan segmen pelanggan inti Anda.' },
+            'Tinggi': { title: 'Pemimpin Pasar', explanation: 'Anda memiliki posisi yang dominan dan sulit ditiru. Pertahankan keunggulan ini dengan terus berinovasi dan mendengarkan pasar.' },
+        },
+        'Keuangan & Profitabilitas': {
+            'Sangat Rendah': { title: 'Manajemen Reaktif', explanation: 'Kesehatan keuangan tidak termonitor dengan baik, berisiko pada masalah arus kas. Prioritaskan pembukuan yang teratur dan akurat.' },
+            'Rendah': { title: 'Dasar-Dasar Terpenuhi', explanation: 'Anda memiliki pencatatan dasar, tetapi belum menggunakannya untuk analisis. Coba analisis profitabilitas per produk/jasa.' },
+            'Menengah': { title: 'Keuangan Terkelola', explanation: 'Anda memiliki laporan rutin yang baik. Langkah selanjutnya adalah mulai membuat perencanaan anggaran dan proyeksi keuangan.' },
+            'Tinggi': { title: 'Dikelola Secara Strategis', explanation: 'Keuangan menjadi alat untuk pengambilan keputusan strategis. Anda memiliki visibilitas yang sangat baik untuk mengelola pertumbuhan.' },
+        },
+        'Operasional & Efisiensi': {
+            'Sangat Rendah': { title: 'Operasional Ad-Hoc', explanation: 'Ketergantungan pada individu membuat bisnis sulit diskalakan dan rentan terhadap kesalahan. Mulailah dengan mendokumentasikan proses-proses kunci.' },
+            'Rendah': { title: 'Proses Mulai Terbentuk', explanation: 'Beberapa proses sudah ada, tetapi belum konsisten. Fokus pada implementasi SOP di seluruh tim untuk meningkatkan kualitas.' },
+            'Menengah': { title: 'Operasional yang Andal', explanation: 'Proses Anda sudah terstandarisasi dan dapat diandalkan. Cari peluang untuk mengotomatisasi tugas-tugas yang berulang.' },
+            'Tinggi': { title: 'Efisien & Skalabel', explanation: 'Operasional Anda adalah keunggulan kompetitif. Budaya perbaikan berkelanjutan (continuous improvement) akan menjaga Anda tetap di depan.' },
+        },
+        'Pemasaran & Penjualan': {
+            'Sangat Rendah': { title: 'Upaya Sporadis', explanation: 'Kurangnya strategi yang terukur membuat akuisisi pelanggan tidak dapat diprediksi. Mulailah dengan melacak dari mana pelanggan Anda datang.' },
+            'Rendah': { title: 'Aktivitas Tanpa Pengukuran', explanation: 'Anda aktif di beberapa channel, tetapi tidak tahu mana yang berhasil. Implementasikan metrik dasar untuk mengukur efektivitas pemasaran.' },
+            'Menengah': { title: 'Mesin Pertumbuhan', explanation: 'Anda memiliki proses pemasaran dan penjualan yang andal. Optimalkan konversi di setiap tahap "sales funnel" Anda.' },
+            'Tinggi': { title: 'Didukung Data', explanation: 'Akuisisi pelanggan Anda sangat efisien dan dapat diprediksi. Manfaatkan data untuk personalisasi dan meningkatkan nilai umur pelanggan (customer lifetime value).' },
+        },
+        'Tim & Budaya': {
+            'Sangat Rendah': { title: 'Struktur Tidak Jelas', explanation: 'Ketidakjelasan peran dan kurangnya pengembangan menyebabkan frustrasi dan inefisiensi. Definisikan peran dan tanggung jawab dengan jelas.' },
+            'Rendah': { title: 'Manajemen Fungsional', explanation: 'Tim dapat menjalankan tugas, tetapi belum ada fokus pada pengembangan jangka panjang. Mulailah dengan sesi feedback dan review kinerja rutin.' },
+            'Menengah': { title: 'Tim yang Berkembang', explanation: 'Anda berinvestasi pada tim Anda. Langkah selanjutnya adalah membangun jalur karir dan mengidentifikasi pemimpin masa depan.' },
+            'Tinggi': { title: 'Aset Strategis', explanation: 'Tim dan budaya Anda adalah pendorong utama keberhasilan. Anda mampu menarik dan mempertahankan talenta terbaik di industri Anda.' },
+        },
+        'Inovasi & Teknologi': {
+            'Sangat Rendah': { title: 'Status Quo', explanation: 'Kurangnya inovasi dan adopsi teknologi membuat Anda berisiko tertinggal. Mulailah dengan mengidentifikasi inefisiensi yang dapat diatasi dengan teknologi.' },
+            'Rendah': { title: 'Adopsi Reaktif', explanation: 'Anda mengadopsi teknologi saat terpaksa. Coba proaktif mencari alat yang dapat meningkatkan produktivitas tim Anda.' },
+            'Menengah': { title: 'Pemanfaatan Teknologi', explanation: 'Anda menggunakan teknologi secara efektif untuk operasional. Pastikan semua alat terintegrasi dengan baik untuk aliran data yang lancar.' },
+            'Tinggi': { title: 'Didorong Inovasi', explanation: 'Anda menggunakan inovasi dan teknologi untuk menciptakan keunggulan kompetitif. Anda tidak hanya mengikuti tren, tetapi menciptakannya.' },
+        }
+    }
+};
+
+
 export const assessments: Assessment[] = [
     aiAssessment,
+    businessAssessment,
     itMaturityAssessment,
     cybersecurityAssessment,
 ];
