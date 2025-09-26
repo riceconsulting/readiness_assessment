@@ -213,7 +213,7 @@ export const resultLevels: ResultLevel[] = [
         explanation: 'Pilih proyek yang hasilnya dapat diukur dan dipahami oleh pimpinan bisnis. Ini akan mempermudah mendapatkan dukungan untuk investasi AI yang lebih besar di kemudian hari.'
       }
     ],
-    color: 'text-yellow-500'
+    color: 'text-amber-500'
   },
   {
     level: 'Mahir',
@@ -235,7 +235,7 @@ export const resultLevels: ResultLevel[] = [
         explanation: 'Berdayakan tim di luar departemen teknis untuk membuat keputusan berbasis data. Platform self-service BI dan analisis memungkinkan mereka menjawab pertanyaan bisnis mereka sendiri.'
       }
     ],
-    color: 'text-green-500'
+    color: 'text-[#5890AD]'
   }
 ];
 

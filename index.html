@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RICE AI Consultant - Assessment</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'surface-light': '#FFFFFF',
+              'surface-dark': '#1A2E35',
+              'border-light': '#e2e8f0', // slate-200
+              'border-dark': '#334155',  // slate-700
+              'primary-navy': '#17252A',
+              'text-primary-dark': '#f1f5f9', // slate-100
+              'accent-teal': '#5890AD',
+              'accent-sky': '#9BBBCC',
+            },
+            fontFamily: {
+              heading: ['Poppins', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +42,19 @@
       .animate-fade-in-scale {
         animation: fade-in-scale 0.3s ease-out forwards;
       }
+      .animate-intro {
+        animation: fade-in-scale 0.6s ease-out 0.2s forwards;
+        opacity: 0;
+      }
     </style>
+    <script>
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    </script>
   <script type="importmap">
 {
   "imports": {
@@ -33,7 +66,7 @@
 }
 </script>
 </head>
-  <body class="bg-slate-50">
+  <body class="bg-slate-100 dark:bg-[#17252A]">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

@@ -29,3 +29,5 @@ export interface ResultLevel {
   recommendations: Recommendation[];
   color: string;
 }
+
+export type SortOption = 'default' | 'alphabetical-text' | 'alphabetical-category';

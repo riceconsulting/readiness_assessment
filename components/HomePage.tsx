@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { TOTAL_QUESTIONS } from '../constants';
 
 interface HomePageProps {
   onStart: () => void;
+  totalQuestions: number;
 }
 
 const CheckIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -13,35 +13,35 @@ const CheckIcon: React.FC<{ className?: string }> = ({ className }) => (
 );
 
 
-const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
-  const categoryCount = 7; // Manually set based on the new structure
-  const estimatedTime = Math.ceil(TOTAL_QUESTIONS * 0.5); // 30 seconds per question
+const HomePage: React.FC<HomePageProps> = ({ onStart, totalQuestions }) => {
+  const categoryCount = 7; 
+  const estimatedTime = Math.ceil(totalQuestions * 0.5); 
 
   return (
     <div className="text-center animate-fade-in-scale">
-      <h2 className="text-3xl font-bold text-gray-800">Ukur Kesiapan AI & Otomasi Perusahaan Anda</h2>
-      <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+      <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100">Ukur Kesiapan AI & Otomasi Perusahaan Anda</h2>
+      <p className="text-slate-600 dark:text-slate-400 mt-4 max-w-2xl mx-auto">
         AI bukan lagi masa depan, tapi kebutuhan masa kini. Assessment ini dirancang untuk memberikan gambaran cepat dan akurat mengenai posisi perusahaan Anda dalam perjalanan transformasi digital.
       </p>
 
-      <div className="mt-8 text-left max-w-lg mx-auto bg-green-50/50 p-6 rounded-lg border border-green-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">Apa yang Akan Anda Dapatkan?</h3>
+      <div className="mt-8 text-left max-w-lg mx-auto bg-[#5890AD]/10 dark:bg-[#9BBBCC]/10 p-6 rounded-lg border border-[#9BBBCC] dark:border-[#5890AD]/50">
+        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Apa yang Akan Anda Dapatkan?</h3>
         <ul className="space-y-3">
           <li className="flex items-start">
-            <CheckIcon className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
-            <span className="text-gray-700">
+            <CheckIcon className="w-5 h-5 text-[#5890AD] mr-3 flex-shrink-0 mt-1" />
+            <span className="text-slate-700 dark:text-slate-300">
               <strong>Skor Kesiapan Total</strong> yang menunjukkan level maturitas AI Anda secara keseluruhan.
             </span>
           </li>
           <li className="flex items-start">
-            <CheckIcon className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
-            <span className="text-gray-700">
+            <CheckIcon className="w-5 h-5 text-[#5890AD] mr-3 flex-shrink-0 mt-1" />
+            <span className="text-slate-700 dark:text-slate-300">
               <strong>Analisis Mendalam</strong> di {categoryCount} area kunci, mulai dari strategi hingga teknologi.
             </span>
           </li>
           <li className="flex items-start">
-            <CheckIcon className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
-            <span className="text-gray-700">
+            <CheckIcon className="w-5 h-5 text-[#5890AD] mr-3 flex-shrink-0 mt-1" />
+            <span className="text-slate-700 dark:text-slate-300">
               <strong>Rekomendasi Praktis</strong> yang disesuaikan dengan level Anda untuk langkah selanjutnya.
             </span>
           </li>
@@ -51,13 +51,20 @@ const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
       <div className="mt-8">
         <button
           onClick={onStart}
-          className="transform bg-green-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1"
+          className="transform bg-[#5890AD] text-white font-bold py-4 px-8 rounded-lg hover:bg-[#4A7891] transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 disabled:bg-[#9BBBCC] disabled:cursor-not-allowed disabled:transform-none"
+          disabled={totalQuestions === 0}
         >
           Mulai Assessment
         </button>
-        <p className="text-sm text-gray-500 mt-3">
-          Terdiri dari {TOTAL_QUESTIONS} pertanyaan, estimasi {estimatedTime} menit.
-        </p>
+        {totalQuestions > 0 ? (
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-3">
+            Terdiri dari {totalQuestions} pertanyaan, estimasi {estimatedTime} menit.
+          </p>
+        ) : (
+          <p className="text-sm text-red-500 mt-3">
+            Tidak ada pertanyaan yang cocok dengan pencarian Anda.
+          </p>
+        )}
       </div>
     </div>
   );

@@ -1,28 +1,43 @@
-
 import React from 'react';
+import ThemeToggle from './ThemeToggle';
 
-const RiceGrainIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className={className}
-    aria-hidden="true"
-  >
-    <path d="M11.63,2.42C10.27,2.8 9.35,3.92 9.21,5.34L9.06,7.03C8.93,8.28 9.5,9.47 10.47,10.2L12,11.35L13.53,10.2C14.5,9.47 15.07,8.28 14.94,7.03L14.79,5.34C14.65,3.92 13.73,2.8 12.37,2.42C12.25,2.39 12.12,2.37 12,2.37C11.88,2.37 11.75,2.39 11.63,2.42M20.29,9.71L20.29,9.71L15.3,13.25C14.5,13.82 14.07,14.72 14.07,15.67V20.59C14.07,21.04 13.84,21.46 13.47,21.71C13.1,21.96 12.62,22 12.19,21.82L12,21.77L11.81,21.82C11.38,22 10.9,21.96 10.53,21.71C10.16,21.46 9.93,21.04 9.93,20.59V15.67C9.93,14.72 9.5,13.82 8.7,13.25L3.71,9.71L3.71,9.71C3,9.24 2.76,8.36 3.1,7.58L3.1,7.58L3.7,6.5C4.07,5.67 4.9,5.13 5.83,5.13H18.17C19.1,5.13 19.93,5.67 20.3,6.5L20.9,7.58C21.24,8.36 21,9.24 20.29,9.71Z" />
-  </svg>
-);
+interface HeaderProps {
+    theme: 'light' | 'dark';
+    toggleTheme: () => void;
+}
 
-
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
   return (
-    <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-4 max-w-4xl">
-        <div className="flex items-center space-x-3">
-          <RiceGrainIcon className="w-8 h-8 text-green-600" />
-          <div>
-            <h1 className="text-xl font-bold text-gray-800 tracking-wide">RICE AI Consultant</h1>
-            <p className="text-sm text-gray-500">AI & Data Automation Readiness Assessment</p>
+    <header className="bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-lg border-b border-border-light dark:border-border-dark sticky top-0 z-40 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Left side: Logo and Branding */}
+          <div className="flex items-center">
+              <a 
+                href="https://riceai.net" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex-shrink-0 flex items-center space-x-3 group"
+              >
+                <img 
+                  src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,fit=crop,q=95/AGB2yyJJKXfD527r/rice-ai-consulting-2-AoPWxvnWOju2GwOz.png" 
+                  alt="RICE AI Logo" 
+                  className="h-10 w-10 sm:h-12 sm:w-12 object-contain transition-transform group-hover:scale-105" 
+                />
+                <div className="flex flex-col leading-tight">
+                    <h1 className="font-heading text-xl sm:text-2xl font-bold tracking-tight text-primary-navy dark:text-text-primary-dark">
+                        RICE AI
+                    </h1>
+                    <p className="font-sans text-xs sm:text-sm text-accent-teal dark:text-accent-sky tracking-wide opacity-90">
+                        AI & Automation Readiness
+                    </p>
+                </div>
+              </a>
+          </div>
+
+          {/* Right side: Action Icons */}
+          <div className="flex items-center gap-2 sm:gap-3">
+              <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           </div>
         </div>
       </div>
