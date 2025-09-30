@@ -112,7 +112,7 @@ const App: React.FC = () => {
       case 'assessment':
         if (!currentQuestion || !selectedAssessment) return null;
         return (
-          <>
+          <div className="p-6 sm:p-10">
             <ProgressBar current={currentQuestionIndex + 1} total={totalQuestions} />
             <QuestionCard
               question={currentQuestion}
@@ -120,7 +120,7 @@ const App: React.FC = () => {
               onBack={handleBack}
               questionNumber={currentQuestionIndex + 1}
             />
-          </>
+          </div>
         );
       case 'results':
         if (!selectedAssessment) return null;
@@ -151,7 +151,7 @@ const App: React.FC = () => {
       <main className="container mx-auto px-4 py-8 max-w-4xl sm:pb-24">
         <div 
           key={assessmentState} 
-          className={`bg-white dark:bg-[#1A2E35] rounded-2xl shadow-lg p-6 sm:p-10 transition-all duration-500 ${!isIntroPlayed && assessmentState === 'home' ? 'animate-intro' : 'animate-fade-in-scale'}`}
+          className={`bg-white dark:bg-[#1A2E35] rounded-2xl shadow-lg transition-all duration-500 ${!isIntroPlayed && assessmentState === 'home' ? 'animate-intro' : 'animate-fade-in-scale'}`}
         >
           {renderContent()}
         </div>

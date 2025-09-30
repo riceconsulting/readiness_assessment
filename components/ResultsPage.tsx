@@ -42,6 +42,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   }>({ isOpen: false });
   const [isExporting, setIsExporting] = useState(false);
   const [exportMessage, setExportMessage] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [activeTab, setActiveTab] = useState<'insights' | 'details'>('insights');
   
   // AI Features State
   const [summary, setSummary] = useState('');
@@ -300,34 +301,39 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
     }, 500);
   };
 
-
-  const CheckCircleIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={className} aria-hidden="true">
-      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-    </svg>
-  );
-
   const ChevronDownIcon: React.FC<{ className?: string }> = ({ className }) => (
      <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
      </svg>
   );
   
+  const TabButton: React.FC<{ isActive: boolean, onClick: () => void, children: React.ReactNode }> = ({ isActive, onClick, children }) => (
+    <button
+        onClick={onClick}
+        className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-100 dark:focus-visible:ring-offset-slate-900 focus-visible:ring-accent-teal ${
+            isActive
+                ? 'bg-accent-teal text-white shadow'
+                : 'text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700/50'
+        }`}
+    >
+        {children}
+    </button>
+  );
 
   return (
     <>
       <div className={`transition-opacity duration-300 ease-out ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
-        <div id="results-content-area" className="p-4 sm:p-8 bg-white dark:bg-[#1A2E35]">
-          <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 text-center">Hasil Assessment Anda</h2>
-          <p className="text-slate-600 dark:text-slate-400 mt-2 text-center">{assessment.title}</p>
+        <div id="results-content-area" className="bg-white dark:bg-[#1A2E35]">
+          <div className="p-6 sm:p-10">
+            <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 text-center">Hasil Assessment Anda</h2>
+            <p className="text-slate-600 dark:text-slate-400 mt-2 text-center">{assessment.title}</p>
           
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
             <div
-              className={`lg:col-span-3 space-y-8 transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
+              className={`mt-8 text-center p-6 bg-slate-50 dark:bg-slate-800/50 rounded-lg shadow-inner transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              role="region" aria-label="Ringkasan Skor Akhir"
               style={{ transitionDelay: '100ms' }}
             >
-              <div className="text-center p-6 bg-slate-50 dark:bg-slate-800/50 rounded-lg shadow-inner" role="region" aria-label="Ringkasan Skor Akhir">
-                <div className="relative w-48 h-48 mx-auto">
+                <div className="relative w-40 h-40 mx-auto">
                   <svg className="w-full h-full" viewBox="0 0 36 36" transform="rotate(-90)" aria-hidden="true">
                     <defs>
                         <linearGradient id="gradient-mahir" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#9BBBCC" /><stop offset="100%" stopColor="#5890AD" /></linearGradient>
@@ -359,8 +365,9 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
                 </div>
                  <h3 className={`text-2xl font-bold mt-4 ${result.color}`}>{result.title}</h3>
                  <p className="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">{result.description}</p>
-              </div>
+            </div>
               
+            <div className="mt-8">
               <ExecutiveSummary 
                 summary={summary}
                 isGenerated={isSummaryGenerated}
@@ -369,77 +376,87 @@ Tujuan Anda adalah membantu mereka melihat gambaran besar, mengidentifikasi pelu
                 onGenerate={handleGenerateSummary}
                 onOpenChat={handleOpenChat}
               />
-
-            </div>
-
-            <div
-                className={`lg:col-span-2 lg:sticky lg:top-24 transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}
-                style={{ transitionDelay: '300ms' }}
-            >
-              <RadarChart scores={categoryScores} categoryOrder={categoryOrder} onWhyClick={handleWhyClick} isMounted={isMounted} />
             </div>
           </div>
-
-          <div className={`transition-all duration-700 ease-out ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
-            <div id="recommendations-section" className="mt-12 text-left bg-transparent p-0">
-              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2 text-center">Rekomendasi Langkah Berikutnya</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Klik setiap rekomendasi untuk melihat penjelasan detail.</p>
-              <ul className="space-y-3 max-w-3xl mx-auto">
-                {result.recommendations.map((rec, index) => (
-                  <li 
-                    key={index} 
-                    className={`bg-white dark:bg-slate-700/50 rounded-md shadow-sm overflow-hidden transition-shadow duration-300 hover:shadow-md border border-slate-200 dark:border-slate-700 ${isMounted ? 'animate-fade-in-up' : 'opacity-0'}`}
-                    style={{ animationDelay: `${600 + index * 120}ms` }}
-                  >
-                    <button
-                      onClick={() => handleToggleRecommendation(index)}
-                      className="w-full text-left p-4 hover:bg-slate-50 dark:hover:bg-slate-800 focus:bg-slate-50 dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-[#9BBBCC] dark:focus:ring-[#5890AD] transition-colors duration-200"
-                      aria-expanded={expandedRecommendation === index}
-                      aria-controls={`recommendation-explanation-${index}`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-start">
-                            <CheckCircleIcon className="w-5 h-5 text-[#5890AD] mr-3 flex-shrink-0 mt-0.5" />
-                            <span className="flex-1 text-slate-800 dark:text-slate-200 font-medium">{rec.text}</span>
+          
+          <div className="mt-8 bg-slate-100 dark:bg-slate-900/30">
+            <div className="p-6 sm:p-10">
+                <nav className="flex justify-center items-center space-x-2 sm:space-x-4 mb-8" aria-label="Tabs">
+                    <TabButton isActive={activeTab === 'insights'} onClick={() => setActiveTab('insights')}>Key Insights</TabButton>
+                    <TabButton isActive={activeTab === 'details'} onClick={() => setActiveTab('details')}>Laporan Rinci</TabButton>
+                </nav>
+                
+                <div key={activeTab} className="animate-fade-in-scale">
+                    {activeTab === 'insights' && (
+                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                            <div className="lg:col-span-2">
+                                <RadarChart scores={categoryScores} categoryOrder={categoryOrder} onWhyClick={handleWhyClick} isMounted={isMounted} />
+                            </div>
+                            <div className="lg:col-span-3">
+                                 <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Rekomendasi Langkah Berikutnya</h3>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">Klik setiap rekomendasi untuk melihat penjelasan detail.</p>
+                                <ul className="space-y-3">
+                                    {result.recommendations.map((rec, index) => (
+                                    <li 
+                                        key={index} 
+                                        className={`bg-white dark:bg-slate-800/50 rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md border border-slate-200 dark:border-slate-700`}
+                                    >
+                                        <button
+                                        onClick={() => handleToggleRecommendation(index)}
+                                        className="w-full text-left p-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 focus:bg-slate-50 dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#9BBBCC] dark:focus:ring-[#5890AD] transition-colors duration-200"
+                                        aria-expanded={expandedRecommendation === index}
+                                        aria-controls={`recommendation-explanation-${index}`}
+                                        >
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center">
+                                                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent-teal/10 dark:bg-accent-sky/10 flex items-center justify-center mr-4">
+                                                    <rec.icon className="w-5 h-5 text-accent-teal dark:text-accent-sky"/>
+                                                </div>
+                                                <span className="flex-1 text-slate-800 dark:text-slate-200 font-medium">{rec.text}</span>
+                                            </div>
+                                            <ChevronDownIcon className={`w-5 h-5 text-slate-400 ml-4 flex-shrink-0 transform transition-transform duration-300 ${ expandedRecommendation === index ? 'rotate-180' : '' }`} />
+                                        </div>
+                                        </button>
+                                        <div
+                                        id={`recommendation-explanation-${index}`}
+                                        className={`grid transition-all duration-300 ease-in-out ${ expandedRecommendation === index ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]' }`}
+                                        >
+                                        <div className="overflow-hidden">
+                                            <p className="px-4 pb-4 pl-16 text-sm text-slate-600 dark:text-slate-400">{rec.explanation}</p>
+                                        </div>
+                                        </div>
+                                    </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
-                        <ChevronDownIcon className={`w-5 h-5 text-slate-400 ml-2 transform transition-transform duration-300 ${ expandedRecommendation === index ? 'rotate-180' : '' }`} />
-                      </div>
-                    </button>
-                    <div
-                      id={`recommendation-explanation-${index}`}
-                      className={`grid transition-all duration-300 ease-in-out ${ expandedRecommendation === index ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]' }`}
-                    >
-                      <div className="overflow-hidden">
-                         <p className="px-4 pb-4 pl-12 text-sm text-slate-600 dark:text-slate-400">{rec.explanation}</p>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <DetailedReport answers={answers} questions={questions} />
-          </div>
-        </div>
+                    )}
+                    {activeTab === 'details' && (
+                        <DetailedReport answers={answers} questions={questions} />
+                    )}
+                </div>
 
-        <div
-          className={`mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-          style={{ transitionDelay: '700ms' }}
-        >
-          <button
-            onClick={handleExportPDF}
-            disabled={isExporting}
-            className="group w-full sm:w-auto transform bg-gradient-to-br from-[#5890AD] to-[#4A6B7B] text-white font-bold py-3 px-6 rounded-lg hover:from-[#4A7891] hover:to-[#3b5663] transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:-translate-y-px disabled:from-[#9BBBCC] disabled:to-[#8aa1b1] disabled:cursor-not-allowed disabled:transform-none"
-          >
-            {isExporting ? (
-                <><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Membuat PDF...</span></>
-              ) : (
-                <><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" /><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" /></svg><span>Unduh Laporan (PDF)</span></>
-            )}
-          </button>
-           <button onClick={onRestart} className={`w-full sm:w-auto transform font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700 bg-slate-200 dark:bg-slate-800`}>
-            Ulangi Assessment
-          </button>
+                <div
+                className={`mt-12 flex flex-col sm:flex-row justify-center items-center gap-4 transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                style={{ transitionDelay: '700ms' }}
+                >
+                <button
+                    onClick={handleExportPDF}
+                    disabled={isExporting}
+                    className="group w-full sm:w-auto transform bg-gradient-to-br from-[#5890AD] to-[#4A6B7B] text-white font-bold py-3 px-6 rounded-lg hover:from-[#4A7891] hover:to-[#3b5663] transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:-translate-y-px disabled:from-[#9BBBCC] disabled:to-[#8aa1b1] disabled:cursor-not-allowed disabled:transform-none"
+                >
+                    {isExporting ? (
+                        <><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Membuat PDF...</span></>
+                    ) : (
+                        <><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" /><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" /></svg><span>Unduh Laporan (PDF)</span></>
+                    )}
+                </button>
+                <button onClick={onRestart} className={`w-full sm:w-auto transform font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700 bg-slate-200 dark:bg-slate-800`}>
+                    Ulangi Assessment
+                </button>
+                </div>
+            </div>
+          </div>
         </div>
       </div>
       

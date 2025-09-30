@@ -6,7 +6,8 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 max-w-7xl">
         <div className="flex flex-col sm:flex-row justify-center items-center text-center sm:justify-between">
           <p className="text-sm text-primary-navy dark:text-slate-300 mb-2 sm:mb-0 sm:mr-4">
-            Siap mendiskusikan hasil Anda dan mempercepat perjalanan AI Anda?
+            <span className="hidden sm:inline">Siap mendiskusikan hasil Anda dan mempercepat perjalanan AI Anda?</span>
+            <span className="sm:hidden font-medium">Diskusi Hasil Anda Lebih Lanjut?</span>
           </p>
           <a
             href="https://api.whatsapp.com/send/?phone=6285330168811&text=Hi%2C+I've+completed+the+RICE+AI+Readiness+Assessment+and+would+like+to+discuss+my+results.&type=phone_number&app_absent=0"

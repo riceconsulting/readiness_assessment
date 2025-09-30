@@ -42,7 +42,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, onBack,
           <button
             key={index}
             onClick={() => handleOptionClick(option.score)}
-            className="group flex w-full transform items-center rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-[#203A43] p-4 text-left shadow-sm transition-all duration-300 ease-in-out hover:scale-[1.02] hover:border-[#9BBBCC] dark:hover:border-[#5890AD] hover:bg-[#5890AD]/10 dark:hover:bg-[#5890AD]/20 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#5890AD] focus:ring-offset-2 dark:focus:ring-offset-[#1A2E35]"
+            className="group flex w-full transform items-center rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-[#203A43] p-4 text-left shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#9BBBCC] dark:hover:border-[#5890AD] hover:bg-slate-50 dark:hover:bg-[#2c4c56] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#5890AD] focus:ring-offset-2 dark:focus:ring-offset-[#1A2E35]"
           >
             <span className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-[#5890AD]/20 dark:bg-[#9BBBCC]/20 font-bold text-[#5890AD] dark:text-[#9BBBCC] transition-colors duration-300 group-hover:bg-[#5890AD] group-hover:text-white">
               {String.fromCharCode(65 + index)}

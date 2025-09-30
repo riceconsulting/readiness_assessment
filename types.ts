@@ -1,3 +1,6 @@
+// Fix: Import React to resolve errors with React.FC type usage.
+import React from 'react';
+
 export interface Option {
   text: string;
   score: number;
@@ -22,6 +25,7 @@ export interface ChatMessage {
 }
 
 export interface Recommendation {
+  icon: React.FC<{className?: string}>;
   text: string;
   explanation: string;
 }
@@ -48,6 +52,7 @@ export interface Assessment {
     title: string;
     subtitle: string;
     description: string;
+    icon: React.FC<{className?: string}>;
     questions: Question[];
     resultLevels: ResultLevel[];
     scoreExplanations: Record<string, Record<ScoreTier, ScoreExplanation>>;

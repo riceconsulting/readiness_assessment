@@ -1,5 +1,6 @@
 
 import type { Assessment, ScoreTier } from './types';
+import React from 'react';
 
 export const MAX_SCORE_PER_QUESTION = 4;
 
@@ -12,10 +13,50 @@ export const getScoreTier = (score: number, maxScore: number): ScoreTier => {
     return 'Tinggi';
 }
 
+
+// --- ICON COMPONENTS ---
+// Fix: Converted icon components from JSX to React.createElement to prevent parsing errors in a .ts file.
+const BrainCircuitIcon: React.FC<{className?: string}> = ({className}) => (
+    React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className: className },
+        React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" })
+    )
+);
+const ChartBarIcon: React.FC<{className?: string}> = ({className}) => (
+    React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className: className },
+        React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" })
+    )
+);
+const CloudServerIcon: React.FC<{className?: string}> = ({className}) => (
+    React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className: className },
+        React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" })
+    )
+);
+const ShieldIcon: React.FC<{className?: string}> = ({className}) => (
+    React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className: className },
+        React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286Z" })
+    )
+);
+const TargetIcon: React.FC<{className?: string}> = ({className}) => (
+    React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className: className },
+        React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.82m5.84-2.56a17.96 17.96 0 0 1 1.25.02m-1.25-.02L17.37 21a6 6 0 0 1-7.38-5.84m-5.84 2.56a17.96 17.96 0 0 1-1.25-.02m1.25.02L6.63 21a6 6 0 0 1-7.38-5.84m5.84-2.56a17.96 17.96 0 0 1-1.25.02m1.25-.02L6.63 3a6 6 0 0 1 7.38 5.84m5.84 2.56a17.96 17.96 0 0 1 1.25-.02m1.25.02L17.37 3a6 6 0 0 1-7.38 5.84" })
+    )
+);
+const CheckListIcon: React.FC<{className?: string}> = ({className}) => (
+    React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className: className },
+        React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" })
+    )
+);
+const LightBulbIcon: React.FC<{className?: string}> = ({className}) => (
+    React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", className: className },
+        React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.311a7.5 7.5 0 0 1-7.5 0c-1.42 1.409-2.364 3.033-2.364 4.182h12.128c0-1.149-.944-2.773-2.364-4.182Z" })
+    )
+);
+
 const aiAssessment: Assessment = {
     id: 'ai-readiness',
     title: 'AI & Business Automation Readiness',
     subtitle: 'AI & Business Automation Readiness Assessment',
+    icon: BrainCircuitIcon,
     description: 'Ukur kesiapan perusahaan Anda untuk mengadopsi AI dan otomasi untuk mendorong pertumbuhan dan efisiensi.',
     categoryOrder: [
       'Strategi & Visi',
@@ -197,9 +238,9 @@ const aiAssessment: Assessment = {
           title: 'Tahap Awal (Foundation)',
           description: 'Perusahaan Anda berada di tahap awal dalam perjalanan adopsi AI. Fokus saat ini adalah membangun fondasi data yang kuat, meningkatkan kesadaran, dan merumuskan strategi awal.',
           recommendations: [
-            { text: 'Fokus pada pengumpulan dan sentralisasi data.', explanation: 'Data adalah bahan bakar AI. Tanpa data yang terpusat dan mudah diakses, model AI tidak dapat dibangun secara efektif. Mulailah dengan membuat "satu sumber kebenaran" untuk data terpenting Anda.' },
-            { text: 'Lakukan pelatihan dasar tentang literasi data bagi karyawan.', explanation: 'Adopsi AI adalah tentang budaya, bukan hanya teknologi. Karyawan yang memahami dasar-dasar data akan lebih mampu mengidentifikasi peluang dan mendukung inisiatif AI di masa depan.' },
-            { text: 'Identifikasi proses manual untuk pilot project otomasi sederhana.', explanation: 'Mulailah dari yang kecil untuk membuktikan nilai dan membangun momentum. Otomasi proses sederhana (misalnya, entri data) dapat memberikan kemenangan cepat dan pembelajaran berharga.' }
+            { icon: CheckListIcon, text: 'Fokus pada pengumpulan dan sentralisasi data.', explanation: 'Data adalah bahan bakar AI. Tanpa data yang terpusat dan mudah diakses, model AI tidak dapat dibangun secara efektif. Mulailah dengan membuat "satu sumber kebenaran" untuk data terpenting Anda.' },
+            { icon: LightBulbIcon, text: 'Lakukan pelatihan dasar tentang literasi data bagi karyawan.', explanation: 'Adopsi AI adalah tentang budaya, bukan hanya teknologi. Karyawan yang memahami dasar-dasar data akan lebih mampu mengidentifikasi peluang dan mendukung inisiatif AI di masa depan.' },
+            { icon: TargetIcon, text: 'Identifikasi proses manual untuk pilot project otomasi sederhana.', explanation: 'Mulailah dari yang kecil untuk membuktikan nilai dan membangun momentum. Otomasi proses sederhana (misalnya, entri data) dapat memberikan kemenangan cepat dan pembelajaran berharga.' }
           ],
           color: 'text-red-500'
         },
@@ -210,9 +251,9 @@ const aiAssessment: Assessment = {
           title: 'Tahap Pengembangan (Developing)',
           description: 'Anda sudah memiliki beberapa inisiatif dan fondasi data yang cukup. Tantangannya adalah mengintegrasikan upaya-upaya ini, membentuk tim yang solid, dan mengukur dampak bisnis secara lebih sistematis.',
           recommendations: [
-            { text: 'Bentuk tim data/analitik terpusat (Center of Excellence).', explanation: 'Tim terpusat akan memastikan adanya standarisasi, berbagi pengetahuan, dan pengelolaan sumber daya yang efisien untuk semua proyek data dan AI di seluruh organisasi.' },
-            { text: 'Investasi pada platform data yang lebih matang (e.g., cloud data warehouse).', explanation: 'Saat data Anda tumbuh, spreadsheet tidak lagi cukup. Platform data modern di cloud menawarkan skalabilitas, kecepatan, dan alat canggih untuk analisis yang lebih dalam.' },
-            { text: 'Definisikan KPI yang jelas untuk mengukur ROI dari proyek AI.', explanation: 'Pilih proyek yang hasilnya dapat diukur dan dipahami oleh pimpinan bisnis. Ini akan mempermudah mendapatkan dukungan untuk investasi AI yang lebih besar di kemudian hari.' }
+            { icon: CheckListIcon, text: 'Bentuk tim data/analitik terpusat (Center of Excellence).', explanation: 'Tim terpusat akan memastikan adanya standarisasi, berbagi pengetahuan, dan pengelolaan sumber daya yang efisien untuk semua proyek data dan AI di seluruh organisasi.' },
+            { icon: LightBulbIcon, text: 'Investasi pada platform data yang lebih matang (e.g., cloud data warehouse).', explanation: 'Saat data Anda tumbuh, spreadsheet tidak lagi cukup. Platform data modern di cloud menawarkan skalabilitas, kecepatan, dan alat canggih untuk analisis yang lebih dalam.' },
+            { icon: TargetIcon, text: 'Definisikan KPI yang jelas untuk mengukur ROI dari proyek AI.', explanation: 'Pilih proyek yang hasilnya dapat diukur dan dipahami oleh pimpinan bisnis. Ini akan mempermudah mendapatkan dukungan untuk investasi AI yang lebih besar di kemudian hari.' }
           ],
           color: 'text-amber-500'
         },
@@ -223,9 +264,9 @@ const aiAssessment: Assessment = {
           title: 'Tahap Pematangan (Maturing)',
           description: 'Perusahaan Anda sudah matang dalam pemanfaatan data dan AI. Anda siap untuk mengimplementasikan solusi AI yang lebih canggih, mengotomatisasi siklus hidup model, dan menjadikan AI sebagai keunggulan kompetitif.',
           recommendations: [
-            { text: 'Implementasikan praktik MLOps untuk mempercepat siklus development model AI.', explanation: 'MLOps (Machine Learning Operations) mengotomatiskan dan menyederhanakan alur kerja pengembangan, penerapan, dan pemeliharaan model ML, memungkinkan Anda berinovasi lebih cepat dan andal.' },
-            { text: 'Bentuk dewan etika AI untuk tata kelola yang bertanggung jawab.', explanation: 'Seiring meningkatnya penggunaan AI, penting untuk memiliki kerangka kerja formal untuk memastikan AI digunakan secara etis, adil, dan transparan, serta memitigasi risiko reputasi.' },
-            { text: 'Demokratisasi data: berikan akses data dan tools analisis ke lebih banyak departemen.', explanation: 'Berdayakan tim di luar departemen teknis untuk membuat keputusan berbasis data. Platform self-service BI dan analisis memungkinkan mereka menjawab pertanyaan bisnis mereka sendiri.' }
+            { icon: CheckListIcon, text: 'Implementasikan praktik MLOps untuk mempercepat siklus development model AI.', explanation: 'MLOps (Machine Learning Operations) mengotomatiskan dan menyederhanakan alur kerja pengembangan, penerapan, dan pemeliharaan model ML, memungkinkan Anda berinovasi lebih cepat dan andal.' },
+            { icon: LightBulbIcon, text: 'Bentuk dewan etika AI untuk tata kelola yang bertanggung jawab.', explanation: 'Seiring meningkatnya penggunaan AI, penting untuk memiliki kerangka kerja formal untuk memastikan AI digunakan secara etis, adil, dan transparan, serta memitigasi risiko reputasi.' },
+            { icon: TargetIcon, text: 'Demokratisasi data: berikan akses data dan tools analisis ke lebih banyak departemen.', explanation: 'Berdayakan tim di luar departemen teknis untuk membuat keputusan berbasis data. Platform self-service BI dan analisis memungkinkan mereka menjawab pertanyaan bisnis mereka sendiri.' }
           ],
           color: 'text-[#5890AD]'
         }
@@ -280,6 +321,7 @@ const itMaturityAssessment: Assessment = {
     id: 'it-maturity',
     title: 'IT Maturity Assessment',
     subtitle: 'Penilaian Kematangan Infrastruktur & Operasional IT',
+    icon: CloudServerIcon,
     description: 'Evaluasi efektivitas, skalabilitas, dan tata kelola infrastruktur serta operasional IT perusahaan Anda.',
     categoryOrder: [
         'Infrastruktur & Cloud',
@@ -385,9 +427,9 @@ const itMaturityAssessment: Assessment = {
             title: 'Level Ad-Hoc',
             description: 'Operasional IT cenderung reaktif dan tidak terstruktur. Proses bergantung pada individu, dan kurangnya standarisasi menyebabkan inefisiensi.',
             recommendations: [
-                { text: 'Implementasikan sistem tiket Help Desk.', explanation: 'Sentralisasikan semua permintaan dan laporan masalah untuk memastikan tidak ada yang terlewat dan dapat dilacak penyelesaiannya.' },
-                { text: 'Buat inventaris aset IT.', explanation: 'Mulailah mendokumentasikan semua hardware dan software yang Anda miliki. Ini adalah fondasi untuk manajemen dan keamanan yang lebih baik.' },
-                { text: 'Standarisasi proses backup.', explanation: 'Tentukan jadwal dan metode backup yang konsisten untuk data-data penting untuk mencegah kehilangan data.' },
+                { icon: CheckListIcon, text: 'Implementasikan sistem tiket Help Desk.', explanation: 'Sentralisasikan semua permintaan dan laporan masalah untuk memastikan tidak ada yang terlewat dan dapat dilacak penyelesaiannya.' },
+                { icon: LightBulbIcon, text: 'Buat inventaris aset IT.', explanation: 'Mulailah mendokumentasikan semua hardware dan software yang Anda miliki. Ini adalah fondasi untuk manajemen dan keamanan yang lebih baik.' },
+                { icon: TargetIcon, text: 'Standarisasi proses backup.', explanation: 'Tentukan jadwal dan metode backup yang konsisten untuk data-data penting untuk mencegah kehilangan data.' },
             ],
             color: 'text-red-500'
         },
@@ -398,9 +440,9 @@ const itMaturityAssessment: Assessment = {
             title: 'Level Terkelola (Managed)',
             description: 'Anda telah memiliki proses dan alat dasar. Fokus sekarang adalah meningkatkan efisiensi, standarisasi, dan penyelarasan dengan bisnis.',
             recommendations: [
-                { text: 'Adopsi kerangka kerja ITIL dasar.', explanation: 'Mulailah dengan proses Manajemen Insiden dan Manajemen Permintaan Layanan untuk meningkatkan kualitas layanan IT.' },
-                { text: 'Implementasikan monitoring sistem proaktif.', explanation: 'Gunakan alat untuk memantau kesehatan sistem secara real-time agar dapat mengatasi masalah sebelum berdampak pada pengguna.' },
-                { text: 'Formalisasikan proses manajemen perubahan (change management).', explanation: 'Pastikan setiap perubahan pada sistem produksi melalui proses persetujuan dan dokumentasi untuk mengurangi risiko downtime.' },
+                { icon: CheckListIcon, text: 'Adopsi kerangka kerja ITIL dasar.', explanation: 'Mulailah dengan proses Manajemen Insiden dan Manajemen Permintaan Layanan untuk meningkatkan kualitas layanan IT.' },
+                { icon: LightBulbIcon, text: 'Implementasikan monitoring sistem proaktif.', explanation: 'Gunakan alat untuk memantau kesehatan sistem secara real-time agar dapat mengatasi masalah sebelum berdampak pada pengguna.' },
+                { icon: TargetIcon, text: 'Formalisasikan proses manajemen perubahan (change management).', explanation: 'Pastikan setiap perubahan pada sistem produksi melalui proses persetujuan dan dokumentasi untuk mengurangi risiko downtime.' },
             ],
             color: 'text-amber-500'
         },
@@ -411,9 +453,9 @@ const itMaturityAssessment: Assessment = {
             title: 'Level Teroptimasi (Optimized)',
             description: 'IT berfungsi sebagai mitra strategis bisnis. Proses terkelola dengan baik, terukur, dan terus ditingkatkan untuk memberikan nilai maksimal.',
             recommendations: [
-                { text: 'Bentuk Komite Pengarah IT (IT Steering Committee).', explanation: 'Libatkan pimpinan bisnis dalam pengambilan keputusan strategis IT untuk memastikan keselarasan dan dukungan penuh.' },
-                { text: 'Fokus pada otomatisasi operasional IT.', explanation: 'Gunakan script atau platform otomasi untuk tugas-tugas rutin seperti patching, deployment, dan monitoring untuk meningkatkan efisiensi.' },
-                { text: 'Kembangkan Roadmap Teknologi jangka panjang.', explanation: 'Rencanakan adopsi teknologi masa depan yang akan mendukung inovasi dan keunggulan kompetitif perusahaan.' },
+                { icon: CheckListIcon, text: 'Bentuk Komite Pengarah IT (IT Steering Committee).', explanation: 'Libatkan pimpinan bisnis dalam pengambilan keputusan strategis IT untuk memastikan keselarasan dan dukungan penuh.' },
+                { icon: LightBulbIcon, text: 'Fokus pada otomatisasi operasional IT.', explanation: 'Gunakan script atau platform otomasi untuk tugas-tugas rutin seperti patching, deployment, dan monitoring untuk meningkatkan efisiensi.' },
+                { icon: TargetIcon, text: 'Kembangkan Roadmap Teknologi jangka panjang.', explanation: 'Rencanakan adopsi teknologi masa depan yang akan mendukung inovasi dan keunggulan kompetitif perusahaan.' },
             ],
             color: 'text-[#5890AD]'
         }
@@ -450,6 +492,7 @@ const cybersecurityAssessment: Assessment = {
     id: 'cybersecurity-readiness',
     title: 'Cybersecurity Readiness',
     subtitle: 'Penilaian Kesiapan Keamanan Siber',
+    icon: ShieldIcon,
     description: 'Ukur postur keamanan siber Anda terhadap ancaman modern dan kepatuhan terhadap regulasi seperti UU PDP.',
     categoryOrder: [
         'Manajemen Ancaman & Kerentanan',
@@ -555,9 +598,9 @@ const cybersecurityAssessment: Assessment = {
             title: 'Level Reaktif (Reactive)',
             description: 'Postur keamanan Anda bersifat reaktif. Tindakan cenderung diambil setelah insiden terjadi, dengan sedikit fokus pada pencegahan.',
             recommendations: [
-                { text: 'Implementasikan dasar-dasar keamanan (security hygiene).', explanation: 'Pastikan semua perangkat memiliki antivirus terpusat, firewall diaktifkan, dan kebijakan kata sandi dasar diterapkan.' },
-                { text: 'Lakukan inventarisasi data sensitif.', explanation: 'Identifikasi di mana data pribadi pelanggan dan data kritis perusahaan disimpan untuk memahami area risiko terbesar Anda.' },
-                { text: 'Buat Rencana Respons Insiden sederhana.', explanation: 'Tuliskan langkah-langkah dasar yang harus diambil jika terjadi insiden, siapa yang harus dihubungi, dan bagaimana cara mengisolasinya.' },
+                { icon: CheckListIcon, text: 'Implementasikan dasar-dasar keamanan (security hygiene).', explanation: 'Pastikan semua perangkat memiliki antivirus terpusat, firewall diaktifkan, dan kebijakan kata sandi dasar diterapkan.' },
+                { icon: LightBulbIcon, text: 'Lakukan inventarisasi data sensitif.', explanation: 'Identifikasi di mana data pribadi pelanggan dan data kritis perusahaan disimpan untuk memahami area risiko terbesar Anda.' },
+                { icon: TargetIcon, text: 'Buat Rencana Respons Insiden sederhana.', explanation: 'Tuliskan langkah-langkah dasar yang harus diambil jika terjadi insiden, siapa yang harus dihubungi, dan bagaimana cara mengisolasinya.' },
             ],
             color: 'text-red-500'
         },
@@ -568,9 +611,9 @@ const cybersecurityAssessment: Assessment = {
             title: 'Level Proaktif (Proactive)',
             description: 'Anda telah menerapkan langkah-langkah keamanan preventif. Fokus sekarang adalah meningkatkan visibilitas, kepatuhan, dan kesadaran.',
             recommendations: [
-                { text: 'Wajibkan penggunaan Autentikasi Multi-Faktor (MFA).', explanation: 'MFA adalah salah satu cara paling efektif untuk mencegah pengambilalihan akun. Terapkan untuk semua layanan penting, terutama yang terekspos ke internet.' },
-                { text: 'Lakukan program pelatihan kesadaran keamanan rutin.', explanation: 'Karyawan adalah garis pertahanan pertama. Ajari mereka cara mengenali phishing dan praktik aman lainnya, sesuai amanat UU PDP.' },
-                { text: 'Mulai program manajemen kerentanan.', explanation: 'Lakukan pemindaian rutin pada sistem Anda untuk menemukan dan memperbaiki celah keamanan sebelum dieksploitasi oleh penyerang.' },
+                { icon: CheckListIcon, text: 'Wajibkan penggunaan Autentikasi Multi-Faktor (MFA).', explanation: 'MFA adalah salah satu cara paling efektif untuk mencegah pengambilalihan akun. Terapkan untuk semua layanan penting, terutama yang terekspos ke internet.' },
+                { icon: LightBulbIcon, text: 'Lakukan program pelatihan kesadaran keamanan rutin.', explanation: 'Karyawan adalah garis pertahanan pertama. Ajari mereka cara mengenali phishing dan praktik aman lainnya, sesuai amanat UU PDP.' },
+                { icon: TargetIcon, text: 'Mulai program manajemen kerentanan.', explanation: 'Lakukan pemindaian rutin pada sistem Anda untuk menemukan dan memperbaiki celah keamanan sebelum dieksploitasi oleh penyerang.' },
             ],
             color: 'text-amber-500'
         },
@@ -581,9 +624,9 @@ const cybersecurityAssessment: Assessment = {
             title: 'Level Adaptif (Adaptive)',
             description: 'Keamanan siber terintegrasi ke dalam budaya dan operasi Anda. Anda siap untuk beradaptasi dengan cepat terhadap ancaman baru dan mengotomatisasi pertahanan.',
             recommendations: [
-                { text: 'Implementasikan SIEM dan mulailah berburu ancaman (threat hunting).', explanation: 'Jangan hanya menunggu peringatan. Cari secara proaktif tanda-tanda kompromi dalam log dan data jaringan Anda untuk menemukan ancaman tersembunyi.' },
-                { text: 'Uji Rencana Respons Insiden Anda secara berkala.', explanation: 'Lakukan simulasi serangan (tabletop exercises atau red teaming) untuk memastikan tim Anda siap merespons dengan cepat dan efektif saat krisis nyata.' },
-                { text: 'Otomatiskan kepatuhan dan perlindungan data.', explanation: 'Gunakan alat seperti Data Loss Prevention (DLP) untuk secara otomatis mencegah data sensitif keluar dari organisasi Anda, membantu menegakkan kepatuhan UU PDP.' },
+                { icon: CheckListIcon, text: 'Implementasikan SIEM dan mulailah berburu ancaman (threat hunting).', explanation: 'Jangan hanya menunggu peringatan. Cari secara proaktif tanda-tanda kompromi dalam log dan data jaringan Anda untuk menemukan ancaman tersembunyi.' },
+                { icon: LightBulbIcon, text: 'Uji Rencana Respons Insiden Anda secara berkala.', explanation: 'Lakukan simulasi serangan (tabletop exercises atau red teaming) untuk memastikan tim Anda siap merespons dengan cepat dan efektif saat krisis nyata.' },
+                { icon: TargetIcon, text: 'Otomatiskan kepatuhan dan perlindungan data.', explanation: 'Gunakan alat seperti Data Loss Prevention (DLP) untuk secara otomatis mencegah data sensitif keluar dari organisasi Anda, membantu menegakkan kepatuhan UU PDP.' },
             ],
             color: 'text-[#5890AD]'
         }
@@ -620,6 +663,7 @@ const businessAssessment: Assessment = {
     id: 'business-growth',
     title: 'Business Growth Assessment',
     subtitle: 'Penilaian Potensi Pertumbuhan Bisnis',
+    icon: ChartBarIcon,
     description: 'Analisis area-area kunci bisnis Anda untuk mengidentifikasi kekuatan, kelemahan, dan peluang pertumbuhan strategis.',
     categoryOrder: [
         'Strategi & Posisi Pasar',
@@ -771,9 +815,9 @@ const businessAssessment: Assessment = {
             title: 'Tahap Fondasi',
             description: 'Bisnis Anda berada pada tahap awal atau stabilisasi. Fokus utama adalah membangun sistem dasar yang solid, memastikan profitabilitas, dan memperjelas posisi Anda di pasar.',
             recommendations: [
-                { text: 'Standarisasi Proses Operasional Kunci.', explanation: 'Dokumentasikan proses-proses terpenting untuk memastikan konsistensi dan kualitas, serta mempermudah pelatihan karyawan baru.' },
-                { text: 'Perkuat Manajemen Arus Kas (Cash Flow).', explanation: 'Monitor arus kas masuk dan keluar secara ketat. Arus kas yang sehat adalah darah kehidupan bisnis pada tahap ini.' },
-                { text: 'Fokus pada Target Pelanggan Ideal Anda.', explanation: 'Identifikasi segmen pelanggan yang paling menguntungkan dan layani mereka dengan sangat baik untuk membangun reputasi yang kuat.' },
+                { icon: CheckListIcon, text: 'Standarisasi Proses Operasional Kunci.', explanation: 'Dokumentasikan proses-proses terpenting untuk memastikan konsistensi dan kualitas, serta mempermudah pelatihan karyawan baru.' },
+                { icon: LightBulbIcon, text: 'Perkuat Manajemen Arus Kas (Cash Flow).', explanation: 'Monitor arus kas masuk dan keluar secara ketat. Arus kas yang sehat adalah darah kehidupan bisnis pada tahap ini.' },
+                { icon: TargetIcon, text: 'Fokus pada Target Pelanggan Ideal Anda.', explanation: 'Identifikasi segmen pelanggan yang paling menguntungkan dan layani mereka dengan sangat baik untuk membangun reputasi yang kuat.' },
             ],
             color: 'text-red-500'
         },
@@ -784,9 +828,9 @@ const businessAssessment: Assessment = {
             title: 'Tahap Ekspansi',
             description: 'Anda memiliki fondasi yang kuat dan siap untuk bertumbuh. Tantangannya adalah menskalakan operasi, tim, dan pemasaran secara efektif tanpa mengorbankan kualitas.',
             recommendations: [
-                { text: 'Bangun Saluran Pemasaran yang Terukur.', explanation: 'Investasikan pada 1-2 channel pemasaran yang dapat Anda lacak ROI-nya secara jelas untuk menciptakan aliran prospek yang konsisten.' },
-                { text: 'Investasi pada Pengembangan Tim.', explanation: 'Seiring pertumbuhan bisnis, kembangkan keterampilan tim Anda dan mulai definisikan struktur organisasi yang lebih jelas.' },
-                { text: 'Terapkan Teknologi untuk Otomasi.', explanation: 'Gunakan perangkat lunak seperti CRM atau alat manajemen proyek untuk mengotomatisasi tugas-tugas manual dan meningkatkan efisiensi.' },
+                { icon: CheckListIcon, text: 'Bangun Saluran Pemasaran yang Terukur.', explanation: 'Investasikan pada 1-2 channel pemasaran yang dapat Anda lacak ROI-nya secara jelas untuk menciptakan aliran prospek yang konsisten.' },
+                { icon: LightBulbIcon, text: 'Investasi pada Pengembangan Tim.', explanation: 'Seiring pertumbuhan bisnis, kembangkan keterampilan tim Anda dan mulai definisikan struktur organisasi yang lebih jelas.' },
+                { icon: TargetIcon, text: 'Terapkan Teknologi untuk Otomasi.', explanation: 'Gunakan perangkat lunak seperti CRM atau alat manajemen proyek untuk mengotomatisasi tugas-tugas manual dan meningkatkan efisiensi.' },
             ],
             color: 'text-amber-500'
         },
@@ -797,9 +841,9 @@ const businessAssessment: Assessment = {
             title: 'Tahap Optimalisasi',
             description: 'Bisnis Anda sudah matang dan berjalan dengan baik. Peluang pertumbuhan terletak pada optimalisasi, inovasi, dan penguatan posisi sebagai pemimpin pasar.',
             recommendations: [
-                { text: 'Kembangkan Budaya Inovasi Berkelanjutan.', explanation: 'Alokasikan sumber daya secara formal untuk riset dan pengembangan produk/layanan baru agar tetap relevan di pasar.' },
-                { text: 'Manfaatkan Analisis Data untuk Keputusan Strategis.', explanation: 'Gunakan data pelanggan, penjualan, dan operasional untuk mengidentifikasi tren dan membuat keputusan bisnis yang lebih cerdas.' },
-                { text: 'Eksplorasi Pasar atau Sumber Pendapatan Baru.', explanation: 'Diversifikasi penawaran Anda atau masuk ke segmen pasar baru untuk menciptakan aliran pendapatan tambahan dan mengurangi risiko.' },
+                { icon: CheckListIcon, text: 'Kembangkan Budaya Inovasi Berkelanjutan.', explanation: 'Alokasikan sumber daya secara formal untuk riset dan pengembangan produk/layanan baru agar tetap relevan di pasar.' },
+                { icon: LightBulbIcon, text: 'Manfaatkan Analisis Data untuk Keputusan Strategis.', explanation: 'Gunakan data pelanggan, penjualan, dan operasional untuk mengidentifikasi tren dan membuat keputusan bisnis yang lebih cerdas.' },
+                { icon: TargetIcon, text: 'Eksplorasi Pasar atau Sumber Pendapatan Baru.', explanation: 'Diversifikasi penawaran Anda atau masuk ke segmen pasar baru untuk menciptakan aliran pendapatan tambahan dan mengurangi risiko.' },
             ],
             color: 'text-[#5890AD]'
         }
