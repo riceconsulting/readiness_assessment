@@ -75,7 +75,7 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-4 gap-2 mb-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
                 {[
                   { label: 'Strategi', score: 85, color: 'bg-green-500' },
                   { label: 'Infrastruktur', score: 72, color: 'bg-blue-500' },
@@ -95,7 +95,7 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
             
             <div className="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-border-light dark:border-border-dark">
               <p className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">🎯 Key Findings</p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded">
                   <p className="text-xs font-medium text-green-700 dark:text-green-300">Strengths</p>
                   <ul className="text-xs text-text-primary-light dark:text-text-primary-dark mt-1 space-y-1">
