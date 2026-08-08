@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import type { Chat } from "@google/genai";
 import type { ChatMessage } from '../types';
 
+const sanitizeHtml = (str: string): string => {
+    return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+};
+
 interface AiChatModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -142,7 +146,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                                 {msg.sender === 'ai' && <div className="w-8 h-8 rounded-full bg-[#5890AD] flex items-center justify-center flex-shrink-0"><SparklesIcon className="w-5 h-5 text-white"/></div>}
                                 <div className={`max-w-md p-3 rounded-2xl animate-fade-in-scale ${msg.sender === 'user' ? 'bg-[#5890AD] text-white rounded-br-none' : 'bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-bl-none'}`}>
                                     {msg.text ? (
-                                        <p className="text-sm max-w-none" dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }}></p>
+                                        <p className="text-sm max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeHtml(msg.text).replace(/\n/g, '<br />') }}></p>
                                     ) : (
                                         <div className="flex items-center space-x-1">
                                             <span className="w-2 h-2 bg-slate-400 rounded-full animate-pulse"></span>
