@@ -1,6 +1,7 @@
 
 import React from 'react';
 import type { Assessment } from '../types';
+import SampleOutput from './SampleOutput';
 
 interface HomePageProps {
   onStart: (assessmentId: string) => void;
@@ -54,6 +55,23 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
                 </div>
             </div>
         ))}
+      </div>
+
+      <div className="mt-12 max-w-4xl mx-auto">
+        <SampleOutput
+          title="Sample Output: AI Readiness Assessment"
+          description="Here's an example of the assessment questions and results you can expect."
+          sampleData={[
+            {
+              label: 'Assessment Question Example',
+              content: `❓ **Question 1 of 14**\n\nSejauh mana strategi pemanfaatan AI terintegrasi dalam rencana bisnis utama perusahaan Anda?\n\n(How integrated is your AI utilization strategy in your company's main business plan?)\n\n**Options:**\n• A - Belum ada strategi formal, masih dalam tahap eksplorasi.\n• B - Ada beberapa inisiatif sporadis, namun belum menjadi strategi terpusat.\n• C - Strategi sudah didefinisikan untuk beberapa departemen kunci.\n• D - AI dan otomasi adalah pilar utama dalam strategi bisnis jangka panjang kami.\n\n📊 **Progress:** 7% (1 of 14 questions)`
+            },
+            {
+              label: 'Sample Results Summary',
+              content: `📈 **AI Readiness Score: 65/100**\n\n**Key Findings:**\n• Strong team enthusiasm for AI adoption\n• Basic digital infrastructure in place\n• Limited formal AI strategy\n• Need for employee training programs\n\n**Recommendations:**\n1. Develop a formal AI strategy document\n2. Invest in employee AI literacy training\n3. Start with low-risk AI pilot projects\n4. Establish data governance framework\n\n**Priority Actions:**\n• Schedule AI strategy workshop (Q1)\n• Identify 3 quick-win AI use cases\n• Budget for AI training programs`
+            }
+          ]}
+        />
       </div>
 
     </div>
