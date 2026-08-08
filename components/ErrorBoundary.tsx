@@ -28,7 +28,7 @@ class ErrorBoundary extends Component<Props, State> {
       // You can render any custom fallback UI
       return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-slate-100 dark:bg-[#17252A] text-slate-800 dark:text-slate-200 p-4 text-center antialiased">
-            <h1 className="text-3xl font-bold text-red-500">Oops! Terjadi Kesalahan.</h1>
+            <h1 className="text-3xl font-bold text-error-light dark:text-error-dark">Oops! Terjadi Kesalahan.</h1>
             <p className="mt-4 max-w-lg">
                 Maaf, aplikasi mengalami masalah yang tidak terduga. Tim kami telah diberitahu.
                 Silakan coba muat ulang halaman ini untuk melanjutkan.

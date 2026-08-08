@@ -484,13 +484,13 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
       
       {exportMessage && (
         <div 
-            className={`fixed bottom-5 right-5 z-50 flex items-center w-full max-w-xs p-4 space-x-4 bg-white dark:bg-[#1A2E35] rounded-lg shadow-lg transition-all duration-300 animate-fade-in-scale ${ exportMessage.type === 'success' ? 'text-[#4A6B7B] dark:text-[#9BBBCC]' : 'text-red-700 dark:text-red-400' }`}
+            className={`fixed bottom-5 right-5 z-50 flex items-center w-full max-w-xs p-4 space-x-4 bg-white dark:bg-[#1A2E35] rounded-lg shadow-lg transition-all duration-300 animate-fade-in-scale ${ exportMessage.type === 'success' ? 'text-[#4A6B7B] dark:text-[#9BBBCC]' : 'text-error-light dark:text-error-dark' }`}
             role="alert"
         >
             {exportMessage.type === 'success' ? (
                  <svg className="w-6 h-6 text-[#5890AD]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             ) : (
-                <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <svg className="w-6 h-6 text-error-light dark:text-error-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             )}
             <div className="text-sm font-medium">{exportMessage.message}</div>
         </div>

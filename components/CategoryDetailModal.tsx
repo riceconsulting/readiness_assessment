@@ -66,7 +66,7 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
 
   const percentage = maxScore > 0 ? (score / maxScore) * 100 : 0;
   let barColor = 'bg-[#5890AD]';
-  if (percentage < 50) barColor = 'bg-red-500';
+  if (percentage < 50) barColor = 'bg-error-light dark:bg-error-dark';
   else if (percentage < 75) barColor = 'bg-amber-500';
 
   return (

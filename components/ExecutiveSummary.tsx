@@ -39,7 +39,7 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
       return <LoadingSkeleton />;
     }
     if (error) {
-      return <p className="text-sm text-red-600 dark:text-red-400 text-center">{error}</p>;
+      return <p className="text-sm text-error-light dark:text-error-dark text-center">{error}</p>;
     }
     if (isGenerated) {
       return (

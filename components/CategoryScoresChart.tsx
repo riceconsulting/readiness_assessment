@@ -33,7 +33,7 @@ const CategoryScoresChart: React.FC<CategoryScoresChartProps> = ({ scores, onWhy
 
           let barColor = 'bg-[#5890AD]';
           if (percentage <= 50) barColor = 'bg-amber-500';
-          if (percentage <= 25) barColor = 'bg-red-500';
+          if (percentage <= 25) barColor = 'bg-error-light dark:bg-error-dark';
 
           return (
             <button
