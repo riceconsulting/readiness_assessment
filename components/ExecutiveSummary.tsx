@@ -78,7 +78,7 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
         <button
           onClick={onGenerate}
           disabled={isLoading}
-          className="w-full sm:w-auto flex-shrink-0 transform bg-[#5890AD] text-white font-bold py-2.5 px-6 rounded-lg hover:bg-[#4A7891] transition-all duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg hover:-translate-y-px disabled:bg-[#9BBBCC] disabled:cursor-not-allowed"
+          className="w-full sm:w-auto flex-shrink-0 transform bg-accent-light text-white font-bold py-2.5 px-6 rounded-lg hover:brightness-95 transition-all duration-300 flex items-center justify-center space-x-2 shadow-md hover:shadow-lg hover:-translate-y-px disabled:bg-accent-light/50 disabled:cursor-not-allowed"
         >
           <SparklesIcon className="w-5 h-5" />
           <span>Buat Ringkasan</span>
@@ -91,7 +91,7 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
     <div className="relative rounded-lg p-1 bg-gradient-to-br from-accent-sky/50 via-accent-teal/50 to-primary-navy/50 shadow-lg">
       <div className="bg-white dark:bg-surface-dark rounded-md p-6">
         <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
-            <SparklesIcon className="w-6 h-6 mr-3 text-[#5890AD]" />
+            <SparklesIcon className="w-6 h-6 mr-3 text-accent-light" />
             Executive Summary
         </h3>
         {renderContent()}

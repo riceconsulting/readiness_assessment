@@ -33,7 +33,7 @@ const PageHeader: React.FC = () => (
         className="h-14 w-14 object-contain" 
       />
       <div>
-        <h1 className="font-bold text-2xl text-[#17252A]">RICE AI Consultant</h1>
+        <h1 className="font-bold text-2xl text-text-primary-light">RICE AI Consultant</h1>
         <p className="text-sm text-[#5890AD]">Business & Technology Readiness Report</p>
       </div>
     </div>
@@ -88,7 +88,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
   // Page 1: Cover Page with Overall Results
   pages.push(
     <div key="page-cover">
-      <h2 className="text-center text-2xl font-bold text-[#17252A] mb-8">Laporan Hasil Assessment</h2>
+      <h2 className="text-center text-2xl font-bold text-text-primary-light mb-8">Laporan Hasil Assessment</h2>
       <div className="grid grid-cols-2 gap-8 items-start">
         <div className="text-center flex flex-col items-center justify-center pt-6">
           <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Skor Kesiapan Anda</h3>
@@ -127,7 +127,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
       <div key="page-summary-chat">
         {summary && (
           <section>
-            <h2 className="text-xl font-bold text-[#17252A] mb-3">Executive Summary (AI-Generated)</h2>
+            <h2 className="text-xl font-bold text-text-primary-light mb-3">Executive Summary (AI-Generated)</h2>
             <div className="text-sm text-text-primary-light dark:text-text-primary-dark bg-surface-light dark:bg-surface-dark p-4 rounded-lg space-y-3 border border-border-light dark:border-border-dark">
               {summary.split('\n\n').map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             </div>
@@ -135,12 +135,12 @@ const PdfReport: React.FC<PdfReportProps> = ({
         )}
         {messages && messages.length > 1 && (
           <section className={summary ? "mt-8" : ""}>
-            <h2 className="text-xl font-bold text-[#17252A] mb-3">Transkrip Konsultasi AI</h2>
+            <h2 className="text-xl font-bold text-text-primary-light mb-3">Transkrip Konsultasi AI</h2>
             <div className="space-y-3 text-xs p-4 bg-surface-light dark:bg-surface-dark rounded-lg border border-border-light dark:border-border-dark">
               {messages.map((msg, index) => (
                 <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`p-2 rounded-lg max-w-[80%] ${msg.sender === 'user' ? 'bg-[#5890AD]/20' : 'bg-surface-light dark:bg-surface-dark'}`}>
-                    <strong className="font-bold text-[#17252A]">{msg.sender === 'user' ? 'Anda' : 'AI Konsultan'}:</strong>
+                    <strong className="font-bold text-text-primary-light">{msg.sender === 'user' ? 'Anda' : 'AI Konsultan'}:</strong>
                     <p className="mt-1 whitespace-pre-wrap text-text-primary-light dark:text-text-primary-dark">{msg.text}</p>
                   </div>
                 </div>
@@ -156,11 +156,11 @@ const PdfReport: React.FC<PdfReportProps> = ({
   pages.push(
     <div key="page-recommendations">
       <section>
-        <h2 className="text-xl font-bold text-[#17252A] mb-3">Rekomendasi Langkah Berikutnya</h2>
+        <h2 className="text-xl font-bold text-text-primary-light mb-3">Rekomendasi Langkah Berikutnya</h2>
         <ul className="space-y-3">
           {result.recommendations.map((rec, index) => (
             <li key={index} className="p-3 bg-surface-light dark:bg-surface-dark rounded-lg border border-border-light dark:border-border-dark">
-              <p className="font-semibold text-sm text-[#17252A]">{rec.text}</p>
+              <p className="font-semibold text-sm text-text-primary-light">{rec.text}</p>
               <p className="text-xs text-text-primary-light dark:text-text-primary-dark mt-1">{rec.explanation}</p>
             </li>
           ))}
@@ -176,7 +176,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
     pages.push(
       <div key={`page-answers-${index}`}>
         <section>
-          <h2 className="text-xl font-bold text-[#17252A] mb-3">
+          <h2 className="text-xl font-bold text-text-primary-light mb-3">
             Laporan Rinci Jawaban Anda {answerPages.length > 1 ? `(Bagian ${index + 1} dari ${answerPages.length})` : ''}
           </h2>
           <div className="space-y-4">
