@@ -160,7 +160,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
       
       const summaryPrompt = createSummaryPrompt();
       const summaryResponse = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
+          model: 'gemini-3.6-flash',
           contents: summaryPrompt,
       });
 
@@ -180,7 +180,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
       try {
         const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
         const chat = ai.chats.create({
-          model: 'gemini-2.5-flash',
+          model: 'gemini-3.6-flash',
           config: {
               systemInstruction: createChatSystemInstruction(),
           },
