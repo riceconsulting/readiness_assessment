@@ -7,6 +7,7 @@ import ProgressBar from './components/ProgressBar';
 import ResultsPage from './components/ResultsPage';
 import HomePage from './components/HomePage';
 import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
 import { assessments } from './constants';
 import type { Answer, Assessment } from './types';
 
@@ -142,6 +143,7 @@ const App: React.FC = () => {
   };
 
   return (
+    <ErrorBoundary>
     <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark transition-colors duration-300">
       <Header 
         theme={theme}
@@ -158,6 +160,7 @@ const App: React.FC = () => {
       </main>
       <Footer />
     </div>
+    </ErrorBoundary>
   );
 };
 
