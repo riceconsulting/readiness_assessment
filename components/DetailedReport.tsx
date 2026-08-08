@@ -59,7 +59,7 @@ const DetailedReport: React.FC<DetailedReportProps> = ({ answers, questions }) =
             <ul className="space-y-4">
                 {sortedQuestions.map((q) => (
                     <li key={q.id} className="p-4 bg-surface-light dark:bg-surface-dark/50 rounded-lg border border-border-light dark:border-border-dark/50">
-                        <p className="text-xs font-semibold text-[#5890AD] dark:text-[#9BBBCC]">{q.category}</p>
+                        <p className="text-xs font-semibold text-[#5890AD] dark:text-accent-dark">{q.category}</p>
                         <p className="font-medium text-text-primary-light dark:text-text-primary-dark mt-1">{q.text}</p>
                         <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-2">
                             <strong>Jawaban Anda:</strong> {q.selectedOptionText} (Skor: {q.answerScore}/4)

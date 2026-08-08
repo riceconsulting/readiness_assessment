@@ -67,8 +67,8 @@ const RadarChart: React.FC<RadarChartProps> = ({ scores, categoryOrder, onWhyCli
     .join(' ');
     
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark/50 rounded-lg shadow-inner">
-       <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mb-4">Profil Kesiapan Anda</h3>
+    <div className="flex flex-col items-center justify-center p-4 bg-surface-light dark:bg-surface-dark/50 rounded-lg shadow-inner">
+       <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">Profil Kesiapan Anda</h3>
       <svg width="100%" height="auto" viewBox={`0 0 ${size} ${size}`}>
         <g>
           {/* Level polygons */}
@@ -189,7 +189,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ scores, categoryOrder, onWhyCli
 
         </g>
       </svg>
-      <p className="text-xs text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mt-2 text-center">Arahkan atau klik pada titik untuk melihat detail.</p>
+      <p className="text-xs text-text-primary-light dark:text-text-primary-dark mt-2 text-center">Arahkan atau klik pada titik untuk melihat detail.</p>
     </div>
   );
 };

@@ -89,7 +89,7 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
 
   return (
     <div className="relative rounded-lg p-1 bg-gradient-to-br from-accent-sky/50 via-accent-teal/50 to-primary-navy/50 shadow-lg">
-      <div className="bg-white dark:bg-[#1A2E35] rounded-md p-6">
+      <div className="bg-white dark:bg-surface-dark rounded-md p-6">
         <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
             <SparklesIcon className="w-6 h-6 mr-3 text-[#5890AD]" />
             Executive Summary
