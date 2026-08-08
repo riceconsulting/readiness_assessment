@@ -59,54 +59,84 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
 
       <div className="mt-12 max-w-4xl mx-auto">
         <SampleOutput
-          title="Sample Output: AI Readiness Assessment"
-          description="Here's an example of the assessment questions and results you can expect."
+          title="Sample Results: PT Bank Central Asia Tbk"
+          description="This is what the final assessment results look like after completing all questions."
         >
           <div className="space-y-4">
-            <div className="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-border-light dark:border-border-dark">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-medium rounded">Question 1 of 14</span>
-                <span className="text-xs text-text-secondary-light dark:text-text-secondary-dark">Progress: 7%</span>
+            <div className="bg-background-light dark:bg-background-dark rounded-lg p-6 border border-border-light dark:border-border-dark">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h4 className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">PT Bank Central Asia Tbk</h4>
+                  <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">Assessment completed on 15 Januari 2024</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-green-600 dark:text-green-400">78</div>
+                  <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">AI Readiness Score</p>
+                </div>
               </div>
-              <p className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">Sejauh mana strategi pemanfaatan AI terintegrasi dalam rencana bisnis utama perusahaan Anda?</p>
-              <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark mb-3">(How integrated is your AI utilization strategy in your company's main business plan?)</p>
-              <div className="space-y-2">
-                {['A - Belum ada strategi formal, masih dalam tahap eksplorasi.', 'B - Ada beberapa inisiatif sporadis, namun belum menjadi strategi terpusat.', 'C - Strategi sudah didefinisikan untuk beberapa departemen kunci.', 'D - AI dan otomasi adalah pilar utama dalam strategi bisnis jangka panjang kami.'].map((option, i) => (
-                  <label key={i} className="flex items-start gap-2 p-2 rounded border border-border-light dark:border-border-dark hover:bg-surface-light dark:hover:bg-surface-dark cursor-pointer">
-                    <input type="radio" name="sample-q1" className="mt-0.5" disabled />
-                    <span className="text-xs text-text-primary-light dark:text-text-primary-dark">{option}</span>
-                  </label>
+              
+              <div className="grid grid-cols-4 gap-2 mb-4">
+                {[
+                  { label: 'Strategi', score: 85, color: 'bg-green-500' },
+                  { label: 'Infrastruktur', score: 72, color: 'bg-blue-500' },
+                  { label: 'Tim', score: 80, color: 'bg-purple-500' },
+                  { label: 'Proses', score: 75, color: 'bg-amber-500' }
+                ].map((item, i) => (
+                  <div key={i} className="text-center">
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-1">
+                      <div className={`${item.color} h-2 rounded-full`} style={{ width: `${item.score}%` }}></div>
+                    </div>
+                    <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">{item.label}</p>
+                    <p className="text-sm font-bold text-text-primary-light dark:text-text-primary-dark">{item.score}</p>
+                  </div>
                 ))}
               </div>
             </div>
             
             <div className="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-border-light dark:border-border-dark">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-medium rounded">Results Summary</span>
-              </div>
-              <div className="text-center p-4 bg-surface-light dark:bg-surface-dark rounded-lg border border-border-light dark:border-border-dark">
-                <div className="text-4xl font-bold text-green-600 dark:text-green-400">65</div>
-                <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">AI Readiness Score</p>
-              </div>
-              <div className="mt-4 space-y-3">
-                <div>
-                  <p className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1">Key Findings</p>
-                  <ul className="text-xs text-text-primary-light dark:text-text-primary-dark space-y-1">
-                    <li>✅ Strong team enthusiasm for AI adoption</li>
-                    <li>✅ Basic digital infrastructure in place</li>
-                    <li>⚠️ Limited formal AI strategy</li>
-                    <li>⚠️ Need for employee training programs</li>
+              <p className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">🎯 Key Findings</p>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded">
+                  <p className="text-xs font-medium text-green-700 dark:text-green-300">Strengths</p>
+                  <ul className="text-xs text-text-primary-light dark:text-text-primary-dark mt-1 space-y-1">
+                    <li>• Tim IT berpengalaman</li>
+                    <li>• Infrastruktur cloud hybrid</li>
+                    <li>• Budaya inovasi kuat</li>
                   </ul>
                 </div>
-                <div>
-                  <p className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1">Priority Actions</p>
-                  <ol className="text-xs text-text-primary-light dark:text-text-primary-dark list-decimal list-inside">
-                    <li>Schedule AI strategy workshop (Q1)</li>
-                    <li>Identify 3 quick-win AI use cases</li>
-                    <li>Budget for AI training programs</li>
-                  </ol>
+                <div className="p-2 bg-amber-50 dark:bg-amber-900/20 rounded">
+                  <p className="text-xs font-medium text-amber-700 dark:text-amber-300">Improvements</p>
+                  <ul className="text-xs text-text-primary-light dark:text-text-primary-dark mt-1 space-y-1">
+                    <li>• Kurangnya AI governance</li>
+                    <li>• Data silo antar divisi</li>
+                    <li>• Training kurang terstruktur</li>
+                  </ul>
                 </div>
               </div>
+            </div>
+            
+            <div className="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-border-light dark:border-border-dark">
+              <p className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">📋 Recommendations</p>
+              <div className="space-y-2">
+                {[
+                  { priority: 'High', action: 'Bentuk AI Governance Committee', timeline: 'Q1 2024' },
+                  { priority: 'High', action: 'Implementasi data integration platform', timeline: 'Q2 2024' },
+                  { priority: 'Medium', action: 'Program training AI untuk 100 karyawan', timeline: 'Q3 2024' },
+                  { priority: 'Low', action: 'Pilot project AI untuk customer service', timeline: 'Q4 2024' }
+                ].map((rec, i) => (
+                  <div key={i} className="flex items-center gap-2 p-2 bg-surface-light dark:bg-surface-dark rounded">
+                    <span className={`px-1.5 py-0.5 text-xs rounded ${rec.priority === 'High' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : rec.priority === 'Medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'}`}>{rec.priority}</span>
+                    <span className="text-xs text-text-primary-light dark:text-text-primary-dark flex-grow">{rec.action}</span>
+                    <span className="text-xs text-text-secondary-light dark:text-text-secondary-dark">{rec.timeline}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="flex justify-center">
+              <button className="px-4 py-2 bg-accent-teal text-white rounded-lg text-sm font-medium hover:bg-[#4A7891] transition-colors">
+                ← Start New Assessment
+              </button>
             </div>
           </div>
         </SampleOutput>
