@@ -118,14 +118,14 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
         >
             <div
                 ref={modalRef}
-                className="bg-white dark:bg-[#1A2E35] rounded-2xl shadow-xl w-full max-w-2xl h-[90vh] max-h-[700px] flex flex-col transform transition-all duration-300"
+                className="bg-white dark:bg-surface-dark rounded-2xl shadow-xl w-full max-w-2xl h-[90vh] max-h-[700px] flex flex-col transform transition-all duration-300"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex justify-between items-center p-4 border-b border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark flex-shrink-0">
+                <div className="flex justify-between items-center p-4 border-b border-border-light dark:border-border-dark dark:border-border-dark flex-shrink-0">
                     <div className="flex items-center space-x-2">
                         <SparklesIcon className="w-6 h-6 text-[#5890AD]" />
-                        <h2 id="ai-chat-modal-title" className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">
+                        <h2 id="ai-chat-modal-title" className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">
                             Tanya AI Konsultan
                         </h2>
                     </div>
@@ -139,12 +139,12 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                 </div>
                 
                 {/* Messages Area */}
-                <div className="flex-grow p-4 overflow-y-auto bg-surface-light dark:bg-surface-dark dark:bg-[#17252A]">
+                <div className="flex-grow p-4 overflow-y-auto bg-surface-light dark:bg-surface-dark dark:bg-surface-dark">
                     <div className="space-y-4">
                         {messages.map((msg, index) => (
                             <div key={index} className={`flex items-end gap-2 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 {msg.sender === 'ai' && <div className="w-8 h-8 rounded-full bg-[#5890AD] flex items-center justify-center flex-shrink-0"><SparklesIcon className="w-5 h-5 text-white"/></div>}
-                                <div className={`max-w-md p-3 rounded-2xl animate-fade-in-scale ${msg.sender === 'user' ? 'bg-[#5890AD] text-white rounded-br-none' : 'bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark rounded-bl-none'}`}>
+                                <div className={`max-w-md p-3 rounded-2xl animate-fade-in-scale ${msg.sender === 'user' ? 'bg-[#5890AD] text-white rounded-br-none' : 'bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark rounded-bl-none'}`}>
                                     {msg.text ? (
                                         <p className="text-sm max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeHtml(msg.text).replace(/\n/g, '<br />') }}></p>
                                     ) : (
@@ -175,11 +175,11 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
 
                  {/* Suggested Prompts */}
                 {messages.length <= 1 && (
-                    <div className="p-2 sm:p-4 border-t border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark flex-shrink-0 bg-white dark:bg-[#1A2E35]">
-                         <p className="text-xs text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mb-2 text-center">Atau coba salah satu pertanyaan ini:</p>
+                    <div className="p-2 sm:p-4 border-t border-border-light dark:border-border-dark dark:border-border-dark flex-shrink-0 bg-white dark:bg-surface-dark">
+                         <p className="text-xs text-text-primary-light dark:text-text-primary-dark mb-2 text-center">Atau coba salah satu pertanyaan ini:</p>
                         <div className="flex flex-col sm:flex-row gap-2">
                             {suggestedPrompts.map((prompt, i) => (
-                                <button key={i} onClick={() => handleSendMessage(prompt)} disabled={isLoading} className="flex-1 text-xs text-center p-2 rounded-lg bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark transition-colors disabled:opacity-50">
+                                <button key={i} onClick={() => handleSendMessage(prompt)} disabled={isLoading} className="flex-1 text-xs text-center p-2 rounded-lg bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark transition-colors disabled:opacity-50">
                                     {prompt}
                                 </button>
                             ))}
@@ -188,7 +188,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                 )}
                 
                 {/* Input Form */}
-                <div className="p-4 border-t border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark flex-shrink-0 bg-white dark:bg-[#1A2E35]">
+                <div className="p-4 border-t border-border-light dark:border-border-dark dark:border-border-dark flex-shrink-0 bg-white dark:bg-surface-dark">
                     <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(userInput); }} className="flex items-center space-x-2">
                         <input
                             ref={inputRef}
@@ -197,7 +197,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                             onChange={(e) => setUserInput(e.target.value)}
                             placeholder="Ketik pertanyaan Anda di sini..."
                             disabled={isLoading}
-                            className="flex-grow w-full p-2 border border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-surface-light dark:bg-surface-dark text-sm text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-[#5890AD] dark:focus:ring-[#9BBBCC] transition-colors disabled:bg-surface-light dark:bg-surface-dark dark:disabled:bg-surface-light dark:bg-surface-dark/50"
+                            className="flex-grow w-full p-2 border border-border-light dark:border-border-dark dark:border-border-dark rounded-lg bg-white dark:bg-surface-light dark:bg-surface-dark text-sm text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-[#5890AD] dark:focus:ring-[#9BBBCC] transition-colors disabled:bg-surface-light dark:bg-surface-dark dark:disabled:bg-surface-light dark:bg-surface-dark/50"
                         />
                         <button type="submit" disabled={isLoading || !userInput.trim()} className="p-3 rounded-lg bg-[#5890AD] text-white hover:bg-[#4A7891] transition-colors disabled:bg-surface-light dark:bg-surface-dark dark:disabled:bg-surface-light dark:bg-surface-dark disabled:cursor-not-allowed">
                             <SendIcon className="w-5 h-5" />
