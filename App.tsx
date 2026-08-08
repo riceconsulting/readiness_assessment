@@ -142,7 +142,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 dark:bg-[#17252A] dark:text-slate-200 antialiased">
+    <div className="min-h-screen bg-background-light text-text-primary-light dark:bg-background-dark dark:text-text-primary-dark antialiased">
       <Header 
         theme={theme}
         toggleTheme={toggleTheme}
