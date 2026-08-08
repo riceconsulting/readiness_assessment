@@ -268,7 +268,7 @@ const aiAssessment: Assessment = {
             { icon: LightBulbIcon, text: 'Bentuk dewan etika AI untuk tata kelola yang bertanggung jawab.', explanation: 'Seiring meningkatnya penggunaan AI, penting untuk memiliki kerangka kerja formal untuk memastikan AI digunakan secara etis, adil, dan transparan, serta memitigasi risiko reputasi.' },
             { icon: TargetIcon, text: 'Demokratisasi data: berikan akses data dan tools analisis ke lebih banyak departemen.', explanation: 'Berdayakan tim di luar departemen teknis untuk membuat keputusan berbasis data. Platform self-service BI dan analisis memungkinkan mereka menjawab pertanyaan bisnis mereka sendiri.' }
           ],
-          color: 'text-[#5890AD]'
+          color: 'text-accent-light dark:text-accent-dark'
         }
     ],
     scoreExplanations: {
@@ -457,7 +457,7 @@ const itMaturityAssessment: Assessment = {
                 { icon: LightBulbIcon, text: 'Fokus pada otomatisasi operasional IT.', explanation: 'Gunakan script atau platform otomasi untuk tugas-tugas rutin seperti patching, deployment, dan monitoring untuk meningkatkan efisiensi.' },
                 { icon: TargetIcon, text: 'Kembangkan Roadmap Teknologi jangka panjang.', explanation: 'Rencanakan adopsi teknologi masa depan yang akan mendukung inovasi dan keunggulan kompetitif perusahaan.' },
             ],
-            color: 'text-[#5890AD]'
+            color: 'text-accent-light dark:text-accent-dark'
         }
     ],
     scoreExplanations: {
@@ -628,7 +628,7 @@ const cybersecurityAssessment: Assessment = {
                 { icon: LightBulbIcon, text: 'Uji Rencana Respons Insiden Anda secara berkala.', explanation: 'Lakukan simulasi serangan (tabletop exercises atau red teaming) untuk memastikan tim Anda siap merespons dengan cepat dan efektif saat krisis nyata.' },
                 { icon: TargetIcon, text: 'Otomatiskan kepatuhan dan perlindungan data.', explanation: 'Gunakan alat seperti Data Loss Prevention (DLP) untuk secara otomatis mencegah data sensitif keluar dari organisasi Anda, membantu menegakkan kepatuhan UU PDP.' },
             ],
-            color: 'text-[#5890AD]'
+            color: 'text-accent-light dark:text-accent-dark'
         }
     ],
     scoreExplanations: {
@@ -845,7 +845,7 @@ const businessAssessment: Assessment = {
                 { icon: LightBulbIcon, text: 'Manfaatkan Analisis Data untuk Keputusan Strategis.', explanation: 'Gunakan data pelanggan, penjualan, dan operasional untuk mengidentifikasi tren dan membuat keputusan bisnis yang lebih cerdas.' },
                 { icon: TargetIcon, text: 'Eksplorasi Pasar atau Sumber Pendapatan Baru.', explanation: 'Diversifikasi penawaran Anda atau masuk ke segmen pasar baru untuk menciptakan aliran pendapatan tambahan dan mengurangi risiko.' },
             ],
-            color: 'text-[#5890AD]'
+            color: 'text-accent-light dark:text-accent-dark'
         }
     ],
     scoreExplanations: {

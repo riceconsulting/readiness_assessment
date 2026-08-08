@@ -46,7 +46,7 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
                       </p>
                       <button
                           onClick={() => onStart(assessment.id)}
-                          className="group/btn inline-flex items-center justify-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg bg-accent-teal text-white hover:bg-[#4A7891] transition-all duration-200 shadow-md hover:shadow-lg"
+                          className="group/btn inline-flex items-center justify-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg bg-accent-teal text-white hover:brightness-95 transition-all duration-200 shadow-md hover:shadow-lg"
                       >
                           <span>Mulai</span>
                           <ArrowRightIcon className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
@@ -134,7 +134,7 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
             </div>
             
             <div className="flex justify-center">
-              <button className="px-4 py-2 bg-accent-teal text-white rounded-lg text-sm font-medium hover:bg-[#4A7891] transition-colors">
+              <button className="px-4 py-2 bg-accent-teal text-white rounded-lg text-sm font-medium hover:brightness-95 transition-colors">
                 ← Start New Assessment
               </button>
             </div>
