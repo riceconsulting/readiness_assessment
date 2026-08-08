@@ -61,17 +61,55 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
         <SampleOutput
           title="Sample Output: AI Readiness Assessment"
           description="Here's an example of the assessment questions and results you can expect."
-          sampleData={[
-            {
-              label: 'Assessment Question Example',
-              content: `❓ **Question 1 of 14**\n\nSejauh mana strategi pemanfaatan AI terintegrasi dalam rencana bisnis utama perusahaan Anda?\n\n(How integrated is your AI utilization strategy in your company's main business plan?)\n\n**Options:**\n• A - Belum ada strategi formal, masih dalam tahap eksplorasi.\n• B - Ada beberapa inisiatif sporadis, namun belum menjadi strategi terpusat.\n• C - Strategi sudah didefinisikan untuk beberapa departemen kunci.\n• D - AI dan otomasi adalah pilar utama dalam strategi bisnis jangka panjang kami.\n\n📊 **Progress:** 7% (1 of 14 questions)`
-            },
-            {
-              label: 'Sample Results Summary',
-              content: `📈 **AI Readiness Score: 65/100**\n\n**Key Findings:**\n• Strong team enthusiasm for AI adoption\n• Basic digital infrastructure in place\n• Limited formal AI strategy\n• Need for employee training programs\n\n**Recommendations:**\n1. Develop a formal AI strategy document\n2. Invest in employee AI literacy training\n3. Start with low-risk AI pilot projects\n4. Establish data governance framework\n\n**Priority Actions:**\n• Schedule AI strategy workshop (Q1)\n• Identify 3 quick-win AI use cases\n• Budget for AI training programs`
-            }
-          ]}
-        />
+        >
+          <div className="space-y-4">
+            <div className="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-border-light dark:border-border-dark">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-medium rounded">Question 1 of 14</span>
+                <span className="text-xs text-text-secondary-light dark:text-text-secondary-dark">Progress: 7%</span>
+              </div>
+              <p className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark mb-2">Sejauh mana strategi pemanfaatan AI terintegrasi dalam rencana bisnis utama perusahaan Anda?</p>
+              <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark mb-3">(How integrated is your AI utilization strategy in your company's main business plan?)</p>
+              <div className="space-y-2">
+                {['A - Belum ada strategi formal, masih dalam tahap eksplorasi.', 'B - Ada beberapa inisiatif sporadis, namun belum menjadi strategi terpusat.', 'C - Strategi sudah didefinisikan untuk beberapa departemen kunci.', 'D - AI dan otomasi adalah pilar utama dalam strategi bisnis jangka panjang kami.'].map((option, i) => (
+                  <label key={i} className="flex items-start gap-2 p-2 rounded border border-border-light dark:border-border-dark hover:bg-surface-light dark:hover:bg-surface-dark cursor-pointer">
+                    <input type="radio" name="sample-q1" className="mt-0.5" disabled />
+                    <span className="text-xs text-text-primary-light dark:text-text-primary-dark">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            
+            <div className="bg-background-light dark:bg-background-dark rounded-lg p-4 border border-border-light dark:border-border-dark">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-medium rounded">Results Summary</span>
+              </div>
+              <div className="text-center p-4 bg-surface-light dark:bg-surface-dark rounded-lg border border-border-light dark:border-border-dark">
+                <div className="text-4xl font-bold text-green-600 dark:text-green-400">65</div>
+                <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">AI Readiness Score</p>
+              </div>
+              <div className="mt-4 space-y-3">
+                <div>
+                  <p className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1">Key Findings</p>
+                  <ul className="text-xs text-text-primary-light dark:text-text-primary-dark space-y-1">
+                    <li>✅ Strong team enthusiasm for AI adoption</li>
+                    <li>✅ Basic digital infrastructure in place</li>
+                    <li>⚠️ Limited formal AI strategy</li>
+                    <li>⚠️ Need for employee training programs</li>
+                  </ul>
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark mb-1">Priority Actions</p>
+                  <ol className="text-xs text-text-primary-light dark:text-text-primary-dark list-decimal list-inside">
+                    <li>Schedule AI strategy workshop (Q1)</li>
+                    <li>Identify 3 quick-win AI use cases</li>
+                    <li>Budget for AI training programs</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </SampleOutput>
       </div>
 
     </div>
