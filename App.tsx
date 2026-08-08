@@ -142,13 +142,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background-light text-text-primary-light dark:bg-background-dark dark:text-text-primary-dark antialiased">
+    <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark transition-colors duration-300">
       <Header 
         theme={theme}
         toggleTheme={toggleTheme}
         subtitle={getHeaderSubtitle()}
       />
-      <main className="container mx-auto px-4 py-8 max-w-4xl sm:pb-24">
+      <main className="flex-grow w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         <div 
           key={assessmentState} 
           className={`bg-white dark:bg-[#1A2E35] rounded-2xl shadow-lg transition-all duration-500 ${!isIntroPlayed && assessmentState === 'home' ? 'animate-intro' : 'animate-fade-in-scale'}`}
