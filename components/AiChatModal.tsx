@@ -122,16 +122,16 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-700 flex-shrink-0">
+                <div className="flex justify-between items-center p-4 border-b border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark flex-shrink-0">
                     <div className="flex items-center space-x-2">
                         <SparklesIcon className="w-6 h-6 text-[#5890AD]" />
-                        <h2 id="ai-chat-modal-title" className="text-lg font-bold text-slate-800 dark:text-slate-100">
+                        <h2 id="ai-chat-modal-title" className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">
                             Tanya AI Konsultan
                         </h2>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                        className="p-2 rounded-full text-text-primary-light dark:text-text-primary-dark hover:text-text-primary-light dark:text-text-primary-dark dark:hover:text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark transition-colors"
                         aria-label="Tutup chat"
                     >
                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -139,19 +139,19 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                 </div>
                 
                 {/* Messages Area */}
-                <div className="flex-grow p-4 overflow-y-auto bg-slate-50 dark:bg-[#17252A]">
+                <div className="flex-grow p-4 overflow-y-auto bg-surface-light dark:bg-surface-dark dark:bg-[#17252A]">
                     <div className="space-y-4">
                         {messages.map((msg, index) => (
                             <div key={index} className={`flex items-end gap-2 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 {msg.sender === 'ai' && <div className="w-8 h-8 rounded-full bg-[#5890AD] flex items-center justify-center flex-shrink-0"><SparklesIcon className="w-5 h-5 text-white"/></div>}
-                                <div className={`max-w-md p-3 rounded-2xl animate-fade-in-scale ${msg.sender === 'user' ? 'bg-[#5890AD] text-white rounded-br-none' : 'bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-bl-none'}`}>
+                                <div className={`max-w-md p-3 rounded-2xl animate-fade-in-scale ${msg.sender === 'user' ? 'bg-[#5890AD] text-white rounded-br-none' : 'bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark rounded-bl-none'}`}>
                                     {msg.text ? (
                                         <p className="text-sm max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeHtml(msg.text).replace(/\n/g, '<br />') }}></p>
                                     ) : (
                                         <div className="flex items-center space-x-1">
-                                            <span className="w-2 h-2 bg-slate-400 rounded-full animate-pulse"></span>
-                                            <span className="w-2 h-2 bg-slate-400 rounded-full animate-pulse [animation-delay:0.2s]"></span>
-                                            <span className="w-2 h-2 bg-slate-400 rounded-full animate-pulse [animation-delay:0.4s]"></span>
+                                            <span className="w-2 h-2 bg-surface-light dark:bg-surface-dark rounded-full animate-pulse"></span>
+                                            <span className="w-2 h-2 bg-surface-light dark:bg-surface-dark rounded-full animate-pulse [animation-delay:0.2s]"></span>
+                                            <span className="w-2 h-2 bg-surface-light dark:bg-surface-dark rounded-full animate-pulse [animation-delay:0.4s]"></span>
                                         </div>
                                     )}
                                 </div>
@@ -160,11 +160,11 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                         {isLoading && messages[messages.length-1]?.sender !== 'ai' && (
                              <div className="flex items-end gap-2 justify-start">
                                 <div className="w-8 h-8 rounded-full bg-[#5890AD] flex items-center justify-center flex-shrink-0"><SparklesIcon className="w-5 h-5 text-white"/></div>
-                                <div className="max-w-md p-3 rounded-2xl bg-slate-200 dark:bg-slate-700">
+                                <div className="max-w-md p-3 rounded-2xl bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark">
                                     <div className="flex items-center space-x-1">
-                                        <span className="w-2 h-2 bg-slate-400 rounded-full animate-pulse"></span>
-                                        <span className="w-2 h-2 bg-slate-400 rounded-full animate-pulse [animation-delay:0.2s]"></span>
-                                        <span className="w-2 h-2 bg-slate-400 rounded-full animate-pulse [animation-delay:0.4s]"></span>
+                                        <span className="w-2 h-2 bg-surface-light dark:bg-surface-dark rounded-full animate-pulse"></span>
+                                        <span className="w-2 h-2 bg-surface-light dark:bg-surface-dark rounded-full animate-pulse [animation-delay:0.2s]"></span>
+                                        <span className="w-2 h-2 bg-surface-light dark:bg-surface-dark rounded-full animate-pulse [animation-delay:0.4s]"></span>
                                     </div>
                                 </div>
                             </div>
@@ -175,11 +175,11 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
 
                  {/* Suggested Prompts */}
                 {messages.length <= 1 && (
-                    <div className="p-2 sm:p-4 border-t border-slate-200 dark:border-slate-700 flex-shrink-0 bg-white dark:bg-[#1A2E35]">
-                         <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 text-center">Atau coba salah satu pertanyaan ini:</p>
+                    <div className="p-2 sm:p-4 border-t border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark flex-shrink-0 bg-white dark:bg-[#1A2E35]">
+                         <p className="text-xs text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mb-2 text-center">Atau coba salah satu pertanyaan ini:</p>
                         <div className="flex flex-col sm:flex-row gap-2">
                             {suggestedPrompts.map((prompt, i) => (
-                                <button key={i} onClick={() => handleSendMessage(prompt)} disabled={isLoading} className="flex-1 text-xs text-center p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-50">
+                                <button key={i} onClick={() => handleSendMessage(prompt)} disabled={isLoading} className="flex-1 text-xs text-center p-2 rounded-lg bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark transition-colors disabled:opacity-50">
                                     {prompt}
                                 </button>
                             ))}
@@ -188,7 +188,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                 )}
                 
                 {/* Input Form */}
-                <div className="p-4 border-t border-slate-200 dark:border-slate-700 flex-shrink-0 bg-white dark:bg-[#1A2E35]">
+                <div className="p-4 border-t border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark flex-shrink-0 bg-white dark:bg-[#1A2E35]">
                     <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(userInput); }} className="flex items-center space-x-2">
                         <input
                             ref={inputRef}
@@ -197,9 +197,9 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                             onChange={(e) => setUserInput(e.target.value)}
                             placeholder="Ketik pertanyaan Anda di sini..."
                             disabled={isLoading}
-                            className="flex-grow w-full p-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-[#5890AD] dark:focus:ring-[#9BBBCC] transition-colors disabled:bg-slate-100 dark:disabled:bg-slate-800/50"
+                            className="flex-grow w-full p-2 border border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-surface-light dark:bg-surface-dark text-sm text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-[#5890AD] dark:focus:ring-[#9BBBCC] transition-colors disabled:bg-surface-light dark:bg-surface-dark dark:disabled:bg-surface-light dark:bg-surface-dark/50"
                         />
-                        <button type="submit" disabled={isLoading || !userInput.trim()} className="p-3 rounded-lg bg-[#5890AD] text-white hover:bg-[#4A7891] transition-colors disabled:bg-slate-400 dark:disabled:bg-slate-600 disabled:cursor-not-allowed">
+                        <button type="submit" disabled={isLoading || !userInput.trim()} className="p-3 rounded-lg bg-[#5890AD] text-white hover:bg-[#4A7891] transition-colors disabled:bg-surface-light dark:bg-surface-dark dark:disabled:bg-surface-light dark:bg-surface-dark disabled:cursor-not-allowed">
                             <SendIcon className="w-5 h-5" />
                         </button>
                     </form>

@@ -18,8 +18,8 @@ const ArrowRightIcon: React.FC<{ className?: string }> = ({ className }) => (
 const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
   return (
     <div className="text-center animate-fade-in-scale p-6 sm:p-10">
-      <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100">Business & Technology Assessments</h2>
-      <p className="text-slate-600 dark:text-slate-400 mt-4 max-w-3xl mx-auto">
+      <h2 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">Business & Technology Assessments</h2>
+      <p className="text-text-secondary-light dark:text-text-secondary-dark mt-4 max-w-3xl mx-auto">
         Selamat datang di pusat assessment RICE AI. Pilih salah satu alat di bawah ini untuk mendapatkan wawasan berharga tentang kesiapan strategis, operasional, dan teknis perusahaan Anda.
       </p>
       
@@ -27,7 +27,7 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
         {assessments.map((assessment, index) => (
              <div 
                 key={assessment.id} 
-                className={`group relative flex flex-col text-left p-6 bg-slate-50/50 dark:bg-slate-800/20 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm hover:shadow-xl hover:border-accent-teal/50 dark:hover:border-accent-sky/50 transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up overflow-hidden`}
+                className={`group relative flex flex-col text-left p-6 bg-surface-light/50 dark:bg-surface-dark/20 rounded-xl border border-border-light dark:border-border-dark/50 shadow-sm hover:shadow-xl hover:border-accent-teal/50 dark:hover:border-accent-sky/50 transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up overflow-hidden`}
                 style={{ animationDelay: `${index * 150}ms` }}
             >
                 <div className="absolute -top-4 -right-4 opacity-10 dark:opacity-20 text-accent-teal group-hover:opacity-20 dark:group-hover:opacity-30 transition-opacity duration-300 transform group-hover:rotate-[-5deg] group-hover:scale-110">
@@ -38,10 +38,10 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
                   <div className="w-12 h-12 rounded-lg bg-accent-teal/10 dark:bg-accent-sky/10 flex items-center justify-center mb-4 border border-accent-teal/20 dark:border-accent-sky/20">
                     <assessment.icon className="w-7 h-7 text-accent-teal dark:text-accent-sky" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#17252A] dark:text-slate-100">{assessment.title}</h3>
-                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-grow">{assessment.description}</p>
+                  <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">{assessment.title}</h3>
+                  <p className="mt-2 text-sm text-text-secondary-light dark:text-text-secondary-dark flex-grow">{assessment.description}</p>
                   <div className="mt-6 flex justify-between items-center">
-                      <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                      <p className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark">
                           {assessment.questions.length} Pertanyaan
                       </p>
                       <button
@@ -83,7 +83,7 @@ const HomePage: React.FC<HomePageProps> = ({ onStart, assessments }) => {
                   { label: 'Proses', score: 75, color: 'bg-amber-500' }
                 ].map((item, i) => (
                   <div key={i} className="text-center">
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-1">
+                    <div className="w-full bg-border-light dark:bg-border-dark rounded-full h-2 mb-1">
                       <div className={`${item.color} h-2 rounded-full`} style={{ width: `${item.score}%` }}></div>
                     </div>
                     <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">{item.label}</p>

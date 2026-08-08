@@ -41,14 +41,14 @@ const DetailedReport: React.FC<DetailedReportProps> = ({ answers, questions }) =
     return (
         <div className="max-w-3xl mx-auto">
             <div className="flex justify-between items-center mb-4 sm:mb-6">
-                 <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Laporan Rinci Jawaban Anda</h3>
+                 <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark">Laporan Rinci Jawaban Anda</h3>
                 <div className="flex items-center">
-                    <label htmlFor="sort-questions" className="text-sm text-slate-600 dark:text-slate-400 self-center mr-2 hidden sm:block">Urutkan:</label>
+                    <label htmlFor="sort-questions" className="text-sm text-text-secondary-light dark:text-text-secondary-dark self-center mr-2 hidden sm:block">Urutkan:</label>
                     <select
                         id="sort-questions"
                         value={sortOption}
                         onChange={(e) => setSortOption(e.target.value as SortOption)}
-                        className="text-sm rounded-md border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 focus:ring-[#5890AD] focus:border-[#5890AD] transition"
+                        className="text-sm rounded-md border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark/50 text-text-primary-light dark:text-text-primary-dark focus:ring-[#5890AD] focus:border-[#5890AD] transition"
                     >
                         <option value="default">Bawaan</option>
                         <option value="alphabetical-category">Kategori (A-Z)</option>
@@ -58,10 +58,10 @@ const DetailedReport: React.FC<DetailedReportProps> = ({ answers, questions }) =
             </div>
             <ul className="space-y-4">
                 {sortedQuestions.map((q) => (
-                    <li key={q.id} className="p-4 bg-white dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700/50">
+                    <li key={q.id} className="p-4 bg-surface-light dark:bg-surface-dark/50 rounded-lg border border-border-light dark:border-border-dark/50">
                         <p className="text-xs font-semibold text-[#5890AD] dark:text-[#9BBBCC]">{q.category}</p>
-                        <p className="font-medium text-slate-700 dark:text-slate-300 mt-1">{q.text}</p>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                        <p className="font-medium text-text-primary-light dark:text-text-primary-dark mt-1">{q.text}</p>
+                        <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-2">
                             <strong>Jawaban Anda:</strong> {q.selectedOptionText} (Skor: {q.answerScore}/4)
                         </p>
                     </li>

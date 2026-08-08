@@ -18,17 +18,17 @@ const SparklesIcon: React.FC<{ className?: string }> = ({ className }) => (
 const LoadingSkeleton: React.FC = () => (
   <div className="space-y-4 animate-pulse">
     <div className="space-y-2">
-      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
-      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-5/6"></div>
+      <div className="h-4 bg-border-light dark:bg-border-dark rounded w-full"></div>
+      <div className="h-4 bg-border-light dark:bg-border-dark rounded w-5/6"></div>
     </div>
      <div className="space-y-2">
-      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
-      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-4/6"></div>
-       <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-5/6"></div>
+      <div className="h-4 bg-border-light dark:bg-border-dark rounded w-full"></div>
+      <div className="h-4 bg-border-light dark:bg-border-dark rounded w-4/6"></div>
+       <div className="h-4 bg-border-light dark:bg-border-dark rounded w-5/6"></div>
     </div>
      <div className="space-y-2">
-      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/6"></div>
-      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
+      <div className="h-4 bg-border-light dark:bg-border-dark rounded w-3/6"></div>
+      <div className="h-4 bg-border-light dark:bg-border-dark rounded w-full"></div>
     </div>
   </div>
 );
@@ -45,7 +45,7 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
       return (
         <>
           <blockquote 
-            className="prose prose-sm dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 space-y-4 border-l-4 border-accent-teal/50 pl-4 italic"
+            className="prose prose-sm dark:prose-invert max-w-none text-text-primary-light dark:text-text-primary-dark space-y-4 border-l-4 border-accent-teal/50 pl-4 italic"
           >
             {summary.split('\n\n').map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
@@ -54,7 +54,7 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
           <div className="mt-6 text-center">
             <button
               onClick={onOpenChat}
-              className="inline-flex items-center justify-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-accent-teal dark:text-accent-sky hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
+              className="inline-flex items-center justify-center space-x-2 text-sm font-semibold py-2 px-4 rounded-lg bg-surface-light dark:bg-surface-dark text-accent-teal dark:text-accent-sky hover:bg-border-light dark:hover:bg-border-dark transition-all duration-200"
             >
               <SparklesIcon className="w-5 h-5" />
               <span>Diskusikan Lebih Lanjut dengan AI</span>
@@ -70,8 +70,8 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
             <SparklesIcon className="w-10 h-10 text-accent-teal" />
         </div>
         <div className="flex-grow">
-            <p className="text-base font-semibold text-slate-800 dark:text-slate-200">Buka Wawasan Berbasis AI</p>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-base font-semibold text-text-primary-light dark:text-text-primary-dark">Buka Wawasan Berbasis AI</p>
+            <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1">
                 Hasilkan ringkasan eksekutif yang dipersonalisasi dan wawasan yang dapat ditindaklanjuti berdasarkan hasil Anda.
             </p>
         </div>
@@ -90,7 +90,7 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ summary, isGenerate
   return (
     <div className="relative rounded-lg p-1 bg-gradient-to-br from-accent-sky/50 via-accent-teal/50 to-primary-navy/50 shadow-lg">
       <div className="bg-white dark:bg-[#1A2E35] rounded-md p-6">
-        <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center">
+        <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 flex items-center">
             <SparklesIcon className="w-6 h-6 mr-3 text-[#5890AD]" />
             Executive Summary
         </h3>

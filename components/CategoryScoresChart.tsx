@@ -24,8 +24,8 @@ const CategoryScoresChart: React.FC<CategoryScoresChartProps> = ({ scores, onWhy
 
   return (
     <div className="my-10 text-left">
-      <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4 text-center">Skor Berdasarkan Kategori</h3>
-      <div className="space-y-2 rounded-lg bg-slate-100/50 dark:bg-[#17252A]/50 p-4 sm:p-6">
+      <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mb-4 text-center">Skor Berdasarkan Kategori</h3>
+      <div className="space-y-2 rounded-lg bg-surface-light dark:bg-surface-dark/50 dark:bg-[#17252A]/50 p-4 sm:p-6">
         {categoryOrder.map((category) => {
           const data = scores[category];
           if (!data) return null;
@@ -39,14 +39,14 @@ const CategoryScoresChart: React.FC<CategoryScoresChartProps> = ({ scores, onWhy
             <button
               key={category}
               onClick={() => onWhyClick(category)}
-              className="w-full text-left p-3 rounded-lg transition-all duration-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5890AD] focus:bg-slate-200/50 dark:focus:bg-slate-700/50"
+              className="w-full text-left p-3 rounded-lg transition-all duration-200 hover:bg-surface-light dark:bg-surface-dark/50 dark:hover:bg-surface-light dark:bg-surface-dark/50 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5890AD] focus:bg-surface-light dark:bg-surface-dark/50 dark:focus:bg-surface-light dark:bg-surface-dark/50"
               aria-label={`Lihat detail untuk kategori ${category}`}
             >
               <div className="flex justify-between items-center mb-1">
-                <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{category}</p>
-                <p className="text-sm font-bold text-slate-600 dark:text-slate-400">{data.score}/{data.maxScore}</p>
+                <p className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{category}</p>
+                <p className="text-sm font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{data.score}/{data.maxScore}</p>
               </div>
-              <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-4 overflow-hidden">
+              <div className="w-full bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark rounded-full h-4 overflow-hidden">
                 <div
                   className={`${barColor} h-4 rounded-full transition-all duration-1000 ease-out`}
                   style={{ width: `${percentage}%` }}

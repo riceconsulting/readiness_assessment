@@ -85,11 +85,11 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
         <div className="flex justify-between items-start">
           <div>
             <p className="text-sm font-semibold text-[#5890AD] dark:text-[#9BBBCC]">{category}</p>
-            <h2 id="modal-title" className="text-2xl font-bold text-slate-800 dark:text-slate-100 mt-1">{title}</h2>
+            <h2 id="modal-title" className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mt-1">{title}</h2>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            className="text-text-primary-light dark:text-text-primary-dark hover:text-text-primary-light dark:text-text-primary-dark dark:hover:text-text-primary-light dark:text-text-primary-dark transition-colors"
             aria-label="Tutup modal"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -100,10 +100,10 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
 
         <div className="mt-4">
             <div id="modal-progress-label" className="flex justify-between items-center mb-1">
-                <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Skor Anda</p>
-                <p className="text-sm font-bold text-slate-600 dark:text-slate-400">{score}/{maxScore}</p>
+                <p className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">Skor Anda</p>
+                <p className="text-sm font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{score}/{maxScore}</p>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5" 
+            <div className="w-full bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark rounded-full h-2.5" 
                 role="progressbar"
                 aria-labelledby="modal-progress-label"
                 aria-valuenow={score}
@@ -117,14 +117,14 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
             </div>
         </div>
 
-        <div className="mt-4 border-t dark:border-slate-700 pt-4">
-          <p className="text-slate-600 dark:text-slate-400">{explanation}</p>
+        <div className="mt-4 border-t dark:border-border-light dark:border-border-dark pt-4">
+          <p className="text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{explanation}</p>
         </div>
         
         <div className="mt-6 text-right">
           <button
             onClick={onClose}
-            className="bg-slate-200 text-slate-700 dark:bg-slate-600 dark:text-slate-200 font-semibold py-2 px-4 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
+            className="bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark dark:bg-surface-light dark:bg-surface-dark dark:text-text-primary-light dark:text-text-primary-dark font-semibold py-2 px-4 rounded-lg hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
           >
             Tutup
           </button>
