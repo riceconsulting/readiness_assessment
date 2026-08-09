@@ -1,3 +1,5 @@
+const FOCUS_DELAY = 100;
+
 import React, { useState, useEffect, useRef } from 'react';
 import type { Chat } from "@google/genai";
 import type { ChatMessage } from '../types';
@@ -48,7 +50,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
      useEffect(() => {
         if (isOpen) {
             // Focus input when modal opens
-            setTimeout(() => inputRef.current?.focus(), 100);
+            setTimeout(() => inputRef.current?.focus(), FOCUS_DELAY);
 
             const handleKeyDown = (event: KeyboardEvent) => {
                 if (event.key === 'Escape') onClose();
@@ -96,7 +98,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
             });
         } finally {
             setIsLoading(false);
-             setTimeout(() => inputRef.current?.focus(), 100);
+             setTimeout(() => inputRef.current?.focus(), FOCUS_DELAY);
         }
     };
     

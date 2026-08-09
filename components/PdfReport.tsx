@@ -34,7 +34,7 @@ const PageHeader: React.FC = () => (
       />
       <div>
         <h1 className="font-bold text-2xl text-text-primary-light">RICE AI Consultant</h1>
-        <p className="text-sm text-[#5890AD]">Business & Technology Readiness Report</p>
+        <p className="text-sm text-accent-light">Business & Technology Readiness Report</p>
       </div>
     </div>
     <p className="text-sm text-text-primary-light dark:text-text-primary-dark">{new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
@@ -76,10 +76,10 @@ const PdfReport: React.FC<PdfReportProps> = ({
 
   const pages = [];
   const colorMap: Record<string, string> = {
-    'Tahap Awal (Foundation)': '#EF4444',
-    'Level Reaktif (Reactive)': '#EF4444',
-    'Tahap Pengembangan (Developing)': '#F59E0B',
-    'Level Proaktif (Proactive)': '#F59E0B',
+    'Tahap Awal (Foundation)': 'var(--color-error-light)',
+    'Level Reaktif (Reactive)': 'var(--color-error-light)',
+    'Tahap Pengembangan (Developing)': 'var(--color-warning-light)',
+    'Level Proaktif (Proactive)': 'var(--color-warning-light)',
     'Tahap Pematangan (Maturing)': '#5890AD',
     'Level Teroptimasi (Optimized)': '#5890AD',
   };
@@ -182,7 +182,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
           <div className="space-y-4">
             {answerChunk.map((q: Question) => (
               <div key={q.id} className="p-3 bg-surface-light dark:bg-surface-dark rounded-md border border-border-light dark:border-border-dark text-sm">
-                <p className="text-xs font-semibold text-[#5890AD]">{q.category}</p>
+                <p className="text-xs font-semibold text-accent-light">{q.category}</p>
                 <p className="font-medium text-text-primary-light dark:text-text-primary-dark mt-1">{q.text}</p>
                 <p className="text-xs text-text-primary-light dark:text-text-primary-dark mt-2">
                   <strong>Jawaban Anda:</strong> {getAnswerDetails(q.id).text} (Skor: {getAnswerDetails(q.id).score}/4)

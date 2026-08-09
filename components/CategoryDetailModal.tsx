@@ -1,3 +1,5 @@
+const FOCUS_DELAY = 100;
+
 
 import React, { useEffect, useRef } from 'react';
 
@@ -33,7 +35,7 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
 
-      setTimeout(() => firstElement?.focus(), 100);
+      setTimeout(() => firstElement?.focus(), FOCUS_DELAY);
 
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
