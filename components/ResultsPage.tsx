@@ -1,3 +1,6 @@
+const MOUNT_DELAY = 100;
+const EXPORT_MESSAGE_DURATION = 4000;
+
 
 
 import React, { useMemo, useRef, useState, useEffect } from 'react';
@@ -57,7 +60,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   const totalMaxScore = questions.length * MAX_SCORE_PER_QUESTION;
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => setIsMounted(true), 100);
+    const timeoutId = setTimeout(() => setIsMounted(true), MOUNT_DELAY);
     return () => clearTimeout(timeoutId);
   }, []);
 
@@ -318,7 +321,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
             root.unmount();
             document.body.removeChild(container);
             setIsExporting(false);
-            setTimeout(() => setExportMessage(null), 4000);
+            setTimeout(() => setExportMessage(null), EXPORT_MESSAGE_DURATION);
         });
     }, 500);
   };

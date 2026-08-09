@@ -80,10 +80,10 @@ const PdfReport: React.FC<PdfReportProps> = ({
     'Level Reaktif (Reactive)': 'var(--color-error-light)',
     'Tahap Pengembangan (Developing)': 'var(--color-warning-light)',
     'Level Proaktif (Proactive)': 'var(--color-warning-light)',
-    'Tahap Pematangan (Maturing)': '#5890AD',
-    'Level Teroptimasi (Optimized)': '#5890AD',
+    'Tahap Pematangan (Maturing)': 'var(--color-primary-light)',
+    'Level Teroptimasi (Optimized)': 'var(--color-primary-light)',
   };
-  const scoreColor = colorMap[result.title] || '#5890AD';
+  const scoreColor = colorMap[result.title] || 'var(--color-primary-light)';
 
   // Page 1: Cover Page with Overall Results
   pages.push(
@@ -94,7 +94,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
           <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">Skor Kesiapan Anda</h3>
           <div className="relative w-48 h-48 mx-auto mt-4">
             <svg className="w-full h-full" viewBox="0 0 36 36" transform="rotate(-90)">
-              <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#e2e8f0" strokeWidth="3" />
+              <circle cx="18" cy="18" r="15.9155" fill="none" stroke="var(--color-border-light)" strokeWidth="3" />
               <circle
                 cx="18"
                 cy="18"
@@ -139,7 +139,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
             <div className="space-y-3 text-xs p-4 bg-surface-light dark:bg-surface-dark rounded-lg border border-border-light dark:border-border-dark">
               {messages.map((msg, index) => (
                 <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`p-2 rounded-lg max-w-[80%] ${msg.sender === 'user' ? 'bg-[#5890AD]/20' : 'bg-surface-light dark:bg-surface-dark'}`}>
+                  <div className={`p-2 rounded-lg max-w-[80%] ${msg.sender === 'user' ? 'bg-accent-light/20' : 'bg-surface-light dark:bg-surface-dark'}`}>
                     <strong className="font-bold text-text-primary-light">{msg.sender === 'user' ? 'Anda' : 'AI Konsultan'}:</strong>
                     <p className="mt-1 whitespace-pre-wrap text-text-primary-light dark:text-text-primary-dark">{msg.text}</p>
                   </div>
