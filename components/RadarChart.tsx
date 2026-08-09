@@ -99,7 +99,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ scores, categoryOrder, onWhyCli
           {/* Data polygon */}
           <polygon
             points={scorePoints}
-            className="fill-[#5890AD]/40 stroke-[#5890AD] dark:fill-[#9BBBCC]/40 dark:stroke-[#9BBBCC] transition-transform duration-1000 ease-in-out"
+            className="fill-accent-light/40 stroke-accent-light dark:fill-accent-dark/40 dark:stroke-accent-dark transition-transform duration-1000 ease-in-out"
             strokeWidth="2"
             style={{
                 transformOrigin: `${center}px ${center}px`,
@@ -165,7 +165,7 @@ const RadarChart: React.FC<RadarChartProps> = ({ scores, categoryOrder, onWhyCli
                   cx={pointCoords[0]}
                   cy={pointCoords[1]}
                   r="5"
-                  className="fill-[#5890AD] dark:fill-[#9BBBCC] stroke-white dark:stroke-slate-800 transition-all duration-300 group-hover:scale-125 focus:scale-125 focus:outline-none"
+                  className="fill-accent-light dark:fill-accent-dark stroke-white dark:stroke-slate-800 transition-all duration-300 group-hover:scale-125 focus:scale-125 focus:outline-none"
                   strokeWidth="2"
                   aria-label={`Lihat detail untuk kategori ${category}`}
                 />

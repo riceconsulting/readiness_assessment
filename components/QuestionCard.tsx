@@ -33,7 +33,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, onBack,
 
   return (
     <div className={`transition-all duration-500 ease-in-out ${fade ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-      <p className="text-sm font-semibold text-[#5890AD] dark:text-[#9BBBCC] mb-2">{question.category}</p>
+      <p className="text-sm font-semibold text-accent-light dark:text-accent-dark mb-2">{question.category}</p>
       <h2 className="text-2xl md:text-3xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mb-6">
         {question.text}
       </h2>
@@ -42,9 +42,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer, onBack,
           <button
             key={index}
             onClick={() => handleOptionClick(option.score)}
-            className="group flex w-full transform items-center rounded-lg border border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark bg-white dark:bg-[#203A43] p-4 text-left shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#9BBBCC] dark:hover:border-[#5890AD] hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-[#2c4c56] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#5890AD] focus:ring-offset-2 dark:focus:ring-offset-[#1A2E35]"
+            className="group flex w-full transform items-center rounded-lg border border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark bg-white dark:bg-surface-dark p-4 text-left shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-accent-dark dark:hover:border-accent-light hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-dark/80 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent-light focus:ring-offset-2 dark:focus:ring-offset-surface-dark"
           >
-            <span className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-[#5890AD]/20 dark:bg-[#9BBBCC]/20 font-bold text-[#5890AD] dark:text-[#9BBBCC] transition-colors duration-300 group-hover:bg-[#5890AD] group-hover:text-white">
+            <span className="mr-4 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-accent-light/20 dark:bg-accent-dark/20 font-bold text-accent-light dark:text-accent-dark transition-colors duration-300 group-hover:bg-accent-light group-hover:text-white">
               {String.fromCharCode(65 + index)}
             </span>
             <span className="font-medium text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{option.text}</span>

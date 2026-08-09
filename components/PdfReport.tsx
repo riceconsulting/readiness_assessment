@@ -198,7 +198,7 @@ const PdfReport: React.FC<PdfReportProps> = ({
   const totalPages = pages.length;
 
   return (
-    <div id="pdf-render-content" style={{ width: '800px', backgroundColor: '#f1f5f9', fontFamily: 'Poppins, sans-serif' }}>
+    <div id="pdf-render-content" style={{ width: '800px', backgroundColor: 'var(--color-surface-light)', fontFamily: 'var(--font-sans)' }}>
         <div className="p-4">
             {pages.map((pageContent, index) => (
                 <div 

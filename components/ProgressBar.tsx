@@ -13,10 +13,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
   return (
     <div className="mb-8">
       <div className="flex justify-between items-center mb-2" id="progress-label">
-        <p className="text-sm font-medium text-[#4A6B7B] dark:text-[#9BBBCC]">
+        <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">
           Pertanyaan {current} dari {total}
         </p>
-        <p className="text-sm font-semibold text-[#4A6B7B] dark:text-[#9BBBCC]">{roundedPercentage}%</p>
+        <p className="text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark">{roundedPercentage}%</p>
       </div>
       <div
         className="w-full bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark rounded-full h-3"
@@ -28,7 +28,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
         aria-valuetext={`${roundedPercentage}% selesai`}
       >
         <div
-          className="bg-gradient-to-r from-[#9BBBCC] to-[#5890AD] h-3 rounded-full transition-all duration-500 ease-out"
+          className="bg-gradient-to-r from-accent-dark to-accent-light h-3 rounded-full transition-all duration-500 ease-out"
           style={{ width: `${percentage}%` }}
           aria-hidden="true"
         ></div>

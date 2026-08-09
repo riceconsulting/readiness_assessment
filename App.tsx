@@ -153,7 +153,7 @@ const App: React.FC = () => {
       <main className="flex-grow w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         <div 
           key={assessmentState} 
-          className={`bg-white dark:bg-[#1A2E35] rounded-2xl shadow-lg transition-all duration-500 ${!isIntroPlayed && assessmentState === 'home' ? 'animate-intro' : 'animate-fade-in-scale'}`}
+          className={`bg-white dark:bg-surface-dark rounded-2xl shadow-lg transition-all duration-500 ${!isIntroPlayed && assessmentState === 'home' ? 'animate-intro' : 'animate-fade-in-scale'}`}
         >
           {renderContent()}
         </div>

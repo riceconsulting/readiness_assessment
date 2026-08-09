@@ -67,7 +67,7 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
   if (!isOpen) return null;
 
   const percentage = maxScore > 0 ? (score / maxScore) * 100 : 0;
-  let barColor = 'bg-[#5890AD]';
+  let barColor = 'bg-accent-light';
   if (percentage < 50) barColor = 'bg-error-light dark:bg-error-dark';
   else if (percentage < 75) barColor = 'bg-amber-500';
 
@@ -81,12 +81,12 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
     >
       <div
         ref={modalRef}
-        className="bg-white dark:bg-[#1A2E35] rounded-lg shadow-xl w-full max-w-md p-6 sm:p-8 transform animate-fade-in-scale"
+        className="bg-white dark:bg-surface-dark rounded-lg shadow-xl w-full max-w-md p-6 sm:p-8 transform animate-fade-in-scale"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-start">
           <div>
-            <p className="text-sm font-semibold text-[#5890AD] dark:text-[#9BBBCC]">{category}</p>
+            <p className="text-sm font-semibold text-accent-light dark:text-accent-dark">{category}</p>
             <h2 id="modal-title" className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mt-1">{title}</h2>
           </div>
           <button

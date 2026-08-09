@@ -348,7 +348,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
   return (
     <>
       <div className={`transition-opacity duration-300 ease-out ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
-        <div id="results-content-area" className="bg-white dark:bg-[#1A2E35]">
+        <div id="results-content-area" className="bg-white dark:bg-surface-dark">
           <div className="p-6 sm:p-10">
             <h2 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark text-center">Hasil Assessment Anda</h2>
             <p className="text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mt-2 text-center">{assessment.title}</p>
@@ -361,12 +361,12 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
                 <div className="relative w-40 h-40 mx-auto">
                   <svg className="w-full h-full" viewBox="0 0 36 36" transform="rotate(-90)" aria-hidden="true">
                     <defs>
-                        <linearGradient id="gradient-mahir" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#9BBBCC" /><stop offset="100%" stopColor="#5890AD" /></linearGradient>
-                        <linearGradient id="gradient-teroptimasi" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#9BBBCC" /><stop offset="100%" stopColor="#5890AD" /></linearGradient>
-                        <linearGradient id="gradient-menengah" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#FBBF24" /><stop offset="100%" stopColor="#F59E0B" /></linearGradient>
-                         <linearGradient id="gradient-proaktif" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#FBBF24" /><stop offset="100%" stopColor="#F59E0B" /></linearGradient>
-                        <linearGradient id="gradient-pemula" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#F87171" /><stop offset="100%" stopColor="#EF4444" /></linearGradient>
-                        <linearGradient id="gradient-reaktif" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#F87171" /><stop offset="100%" stopColor="#EF4444" /></linearGradient>
+                        <linearGradient id="gradient-mahir" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="var(--color-accent-dark)" /><stop offset="100%" stopColor="var(--color-accent-light)" /></linearGradient>
+                        <linearGradient id="gradient-teroptimasi" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="var(--color-accent-dark)" /><stop offset="100%" stopColor="var(--color-accent-light)" /></linearGradient>
+                        <linearGradient id="gradient-menengah" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="var(--color-warning-light)" /><stop offset="100%" stopColor="var(--color-warning-dark)" /></linearGradient>
+                         <linearGradient id="gradient-proaktif" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="var(--color-warning-light)" /><stop offset="100%" stopColor="var(--color-warning-dark)" /></linearGradient>
+                        <linearGradient id="gradient-pemula" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="var(--color-error-light)" /><stop offset="100%" stopColor="var(--color-error-dark)" /></linearGradient>
+                        <linearGradient id="gradient-reaktif" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="var(--color-error-light)" /><stop offset="100%" stopColor="var(--color-error-dark)" /></linearGradient>
                     </defs>
                     <circle className="text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark" cx="18" cy="18" r="15.9155" fill="none" stroke="currentColor" strokeWidth="4" />
                     <circle
@@ -428,7 +428,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
                                     >
                                         <button
                                         onClick={() => handleToggleRecommendation(index)}
-                                        className="w-full text-left p-4 hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark/50 focus:bg-surface-light dark:bg-surface-dark dark:focus:bg-surface-light dark:bg-surface-dark focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#9BBBCC] dark:focus:ring-[#5890AD] transition-colors duration-200"
+                                        className="w-full text-left p-4 hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark/50 focus:bg-surface-light dark:bg-surface-dark dark:focus:bg-surface-light dark:bg-surface-dark focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-dark dark:focus:ring-accent-light transition-colors duration-200"
                                         aria-expanded={expandedRecommendation === index}
                                         aria-controls={`recommendation-explanation-${index}`}
                                         >
@@ -468,7 +468,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
                 <button
                     onClick={handleExportPDF}
                     disabled={isExporting}
-                    className="group w-full sm:w-auto transform bg-gradient-to-br from-[#5890AD] to-[#4A6B7B] text-white font-bold py-3 px-6 rounded-lg hover:from-[#4A7891] hover:to-[#3b5663] transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:-translate-y-px disabled:from-[#9BBBCC] disabled:to-[#8aa1b1] disabled:cursor-not-allowed disabled:transform-none"
+                    className="group w-full sm:w-auto transform bg-gradient-to-br from-accent-light to-text-secondary-light text-white font-bold py-3 px-6 rounded-lg hover:from-accent-light/90 hover:to-text-secondary-light/90 transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl hover:-translate-y-px disabled:from-accent-dark/50 disabled:to-accent-dark/50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                     {isExporting ? (
                         <><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Membuat PDF...</span></>
@@ -487,11 +487,11 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
       
       {exportMessage && (
         <div 
-            className={`fixed bottom-5 right-5 z-50 flex items-center w-full max-w-xs p-4 space-x-4 bg-white dark:bg-[#1A2E35] rounded-lg shadow-lg transition-all duration-300 animate-fade-in-scale ${ exportMessage.type === 'success' ? 'text-[#4A6B7B] dark:text-[#9BBBCC]' : 'text-error-light dark:text-error-dark' }`}
+            className={`fixed bottom-5 right-5 z-50 flex items-center w-full max-w-xs p-4 space-x-4 bg-white dark:bg-surface-dark rounded-lg shadow-lg transition-all duration-300 animate-fade-in-scale ${ exportMessage.type === 'success' ? 'text-text-secondary-light dark:text-text-secondary-dark' : 'text-error-light dark:text-error-dark' }`}
             role="alert"
         >
             {exportMessage.type === 'success' ? (
-                 <svg className="w-6 h-6 text-[#5890AD]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                 <svg className="w-6 h-6 text-accent-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             ) : (
                 <svg className="w-6 h-6 text-error-light dark:text-error-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             )}
