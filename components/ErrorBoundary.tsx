@@ -27,7 +27,7 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-surface-light dark:bg-surface-dark dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark p-4 text-center antialiased">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark p-4 text-center antialiased">
             <h1 className="text-3xl font-bold text-error-light dark:text-error-dark">Oops! Terjadi Kesalahan.</h1>
             <p className="mt-4 max-w-lg">
                 Maaf, aplikasi mengalami masalah yang tidak terduga. Tim kami telah diberitahu.

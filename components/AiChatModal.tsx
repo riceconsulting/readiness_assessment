@@ -146,7 +146,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                         {messages.map((msg, index) => (
                             <div key={index} className={`flex items-end gap-2 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 {msg.sender === 'ai' && <div className="w-8 h-8 rounded-full bg-accent-light flex items-center justify-center flex-shrink-0"><SparklesIcon className="w-5 h-5 text-white"/></div>}
-                                <div className={`max-w-md p-3 rounded-2xl animate-fade-in-scale ${msg.sender === 'user' ? 'bg-accent-light text-white rounded-br-none' : 'bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark rounded-bl-none'}`}>
+                                <div className={`max-w-md p-3 rounded-2xl animate-fade-in-scale ${msg.sender === 'user' ? 'bg-accent-light text-white rounded-br-none' : 'bg-surface-light dark:bg-surface-dark dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark rounded-bl-none'}`}>
                                     {msg.text ? (
                                         <p className="text-sm max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeHtml(msg.text).replace(/\n/g, '<br />') }}></p>
                                     ) : (
@@ -162,7 +162,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                         {isLoading && messages[messages.length-1]?.sender !== 'ai' && (
                              <div className="flex items-end gap-2 justify-start">
                                 <div className="w-8 h-8 rounded-full bg-accent-light flex items-center justify-center flex-shrink-0"><SparklesIcon className="w-5 h-5 text-white"/></div>
-                                <div className="max-w-md p-3 rounded-2xl bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark">
+                                <div className="max-w-md p-3 rounded-2xl bg-surface-light dark:bg-surface-dark dark:bg-surface-dark">
                                     <div className="flex items-center space-x-1">
                                         <span className="w-2 h-2 bg-surface-light dark:bg-surface-dark rounded-full animate-pulse"></span>
                                         <span className="w-2 h-2 bg-surface-light dark:bg-surface-dark rounded-full animate-pulse [animation-delay:0.2s]"></span>
@@ -181,7 +181,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                          <p className="text-xs text-text-primary-light dark:text-text-primary-dark mb-2 text-center">Atau coba salah satu pertanyaan ini:</p>
                         <div className="flex flex-col sm:flex-row gap-2">
                             {suggestedPrompts.map((prompt, i) => (
-                                <button key={i} onClick={() => handleSendMessage(prompt)} disabled={isLoading} className="flex-1 text-xs text-center p-2 rounded-lg bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark transition-colors disabled:opacity-50">
+                                <button key={i} onClick={() => handleSendMessage(prompt)} disabled={isLoading} className="flex-1 text-xs text-center p-2 rounded-lg bg-surface-light dark:bg-surface-dark dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark transition-colors disabled:opacity-50">
                                     {prompt}
                                 </button>
                             ))}
@@ -199,7 +199,7 @@ const AiChatModal: React.FC<AiChatModalProps> = ({
                             onChange={(e) => setUserInput(e.target.value)}
                             placeholder="Ketik pertanyaan Anda di sini..."
                             disabled={isLoading}
-                            className="flex-grow w-full p-2 border border-border-light dark:border-border-dark dark:border-border-dark rounded-lg bg-white dark:bg-surface-light dark:bg-surface-dark text-sm text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-accent-light dark:focus:ring-accent-dark transition-colors disabled:bg-surface-light dark:bg-surface-dark dark:disabled:bg-surface-light dark:bg-surface-dark/50"
+                            className="flex-grow w-full p-2 border border-border-light dark:border-border-dark dark:border-border-dark rounded-lg bg-white dark:bg-surface-dark text-sm text-text-primary-light dark:text-text-primary-dark focus:ring-2 focus:ring-accent-light dark:focus:ring-accent-dark transition-colors disabled:bg-surface-light dark:bg-surface-dark dark:disabled:bg-surface-light dark:bg-surface-dark/50"
                         />
                         <button type="submit" disabled={isLoading || !userInput.trim()} className="p-3 rounded-lg bg-accent-light text-white hover:brightness-95 transition-colors disabled:bg-surface-light dark:bg-surface-dark dark:disabled:bg-surface-light dark:bg-surface-dark disabled:cursor-not-allowed">
                             <SendIcon className="w-5 h-5" />

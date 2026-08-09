@@ -19,7 +19,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
         <p className="text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark">{roundedPercentage}%</p>
       </div>
       <div
-        className="w-full bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark rounded-full h-3"
+        className="w-full bg-surface-light dark:bg-surface-dark dark:bg-surface-dark rounded-full h-3"
         role="progressbar"
         aria-labelledby="progress-label"
         aria-valuenow={current}

@@ -87,7 +87,7 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
         <div className="flex justify-between items-start">
           <div>
             <p className="text-sm font-semibold text-accent-light dark:text-accent-dark">{category}</p>
-            <h2 id="modal-title" className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mt-1">{title}</h2>
+            <h2 id="modal-title" className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark mt-1">{title}</h2>
           </div>
           <button
             onClick={onClose}
@@ -102,10 +102,10 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
 
         <div className="mt-4">
             <div id="modal-progress-label" className="flex justify-between items-center mb-1">
-                <p className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">Skor Anda</p>
-                <p className="text-sm font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{score}/{maxScore}</p>
+                <p className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark">Skor Anda</p>
+                <p className="text-sm font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark">{score}/{maxScore}</p>
             </div>
-            <div className="w-full bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark rounded-full h-2.5" 
+            <div className="w-full bg-surface-light dark:bg-surface-dark dark:bg-surface-dark rounded-full h-2.5" 
                 role="progressbar"
                 aria-labelledby="modal-progress-label"
                 aria-valuenow={score}
@@ -119,14 +119,14 @@ const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
             </div>
         </div>
 
-        <div className="mt-4 border-t dark:border-border-light dark:border-border-dark pt-4">
-          <p className="text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{explanation}</p>
+        <div className="mt-4 border-t dark:border-border-dark pt-4">
+          <p className="text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark">{explanation}</p>
         </div>
         
         <div className="mt-6 text-right">
           <button
             onClick={onClose}
-            className="bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark dark:bg-surface-light dark:bg-surface-dark dark:text-text-primary-light dark:text-text-primary-dark font-semibold py-2 px-4 rounded-lg hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
+            className="bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark dark:bg-surface-dark dark:text-text-primary-dark font-semibold py-2 px-4 rounded-lg hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-400"
           >
             Tutup
           </button>

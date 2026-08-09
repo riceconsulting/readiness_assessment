@@ -24,7 +24,7 @@ const CategoryScoresChart: React.FC<CategoryScoresChartProps> = ({ scores, onWhy
 
   return (
     <div className="my-10 text-left">
-      <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mb-4 text-center">Skor Berdasarkan Kategori</h3>
+      <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark mb-4 text-center">Skor Berdasarkan Kategori</h3>
       <div className="space-y-2 rounded-lg bg-surface-light dark:bg-surface-dark/50 dark:bg-surface-dark/50 p-4 sm:p-6">
         {categoryOrder.map((category) => {
           const data = scores[category];
@@ -43,10 +43,10 @@ const CategoryScoresChart: React.FC<CategoryScoresChartProps> = ({ scores, onWhy
               aria-label={`Lihat detail untuk kategori ${category}`}
             >
               <div className="flex justify-between items-center mb-1">
-                <p className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{category}</p>
-                <p className="text-sm font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{data.score}/{data.maxScore}</p>
+                <p className="text-sm font-medium text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark">{category}</p>
+                <p className="text-sm font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark">{data.score}/{data.maxScore}</p>
               </div>
-              <div className="w-full bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark rounded-full h-4 overflow-hidden">
+              <div className="w-full bg-surface-light dark:bg-surface-dark dark:bg-surface-dark rounded-full h-4 overflow-hidden">
                 <div
                   className={`${barColor} h-4 rounded-full transition-all duration-1000 ease-out`}
                   style={{ width: `${percentage}%` }}

@@ -338,7 +338,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
         className={`px-4 py-2 text-sm font-semibold rounded-md transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-100 dark:focus-visible:ring-offset-slate-900 focus-visible:ring-accent-teal ${
             isActive
                 ? 'bg-accent-teal text-white shadow'
-                : 'text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark/50'
+                : 'text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-dark/50'
         }`}
     >
         {children}
@@ -350,11 +350,11 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
       <div className={`transition-opacity duration-300 ease-out ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
         <div id="results-content-area" className="bg-white dark:bg-surface-dark">
           <div className="p-6 sm:p-10">
-            <h2 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark text-center">Hasil Assessment Anda</h2>
-            <p className="text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mt-2 text-center">{assessment.title}</p>
+            <h2 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark text-center">Hasil Assessment Anda</h2>
+            <p className="text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark mt-2 text-center">{assessment.title}</p>
           
             <div
-              className={`mt-8 text-center p-6 bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark/50 rounded-lg shadow-inner transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              className={`mt-8 text-center p-6 bg-surface-light dark:bg-surface-dark dark:bg-surface-dark/50 rounded-lg shadow-inner transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
               role="region" aria-label="Ringkasan Skor Akhir"
               style={{ transitionDelay: '100ms' }}
             >
@@ -368,7 +368,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
                         <linearGradient id="gradient-pemula" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="var(--color-error-light)" /><stop offset="100%" stopColor="var(--color-error-dark)" /></linearGradient>
                         <linearGradient id="gradient-reaktif" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="var(--color-error-light)" /><stop offset="100%" stopColor="var(--color-error-dark)" /></linearGradient>
                     </defs>
-                    <circle className="text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark" cx="18" cy="18" r="15.9155" fill="none" stroke="currentColor" strokeWidth="4" />
+                    <circle className="text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark" cx="18" cy="18" r="15.9155" fill="none" stroke="currentColor" strokeWidth="4" />
                     <circle
                       cx="18"
                       cy="18"
@@ -382,14 +382,14 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
                     />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className={`text-5xl font-extrabold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark ${isMounted ? 'animate-pop-in' : 'opacity-0'}`} style={{ animationDelay: '200ms' }}>
+                    <span className={`text-5xl font-extrabold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark ${isMounted ? 'animate-pop-in' : 'opacity-0'}`} style={{ animationDelay: '200ms' }}>
                       {totalScore}
                     </span>
-                    <span className="text-sm text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">/ {totalMaxScore}</span>
+                    <span className="text-sm text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark">/ {totalMaxScore}</span>
                   </div>
                 </div>
                  <h3 className={`text-2xl font-bold mt-4 ${result.color}`}>{result.title}</h3>
-                 <p className="mt-2 text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark max-w-2xl mx-auto">{result.description}</p>
+                 <p className="mt-2 text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark max-w-2xl mx-auto">{result.description}</p>
             </div>
               
             <div className="mt-8">
@@ -404,7 +404,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
             </div>
           </div>
           
-          <div className="mt-8 bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark/30">
+          <div className="mt-8 bg-surface-light dark:bg-surface-dark dark:bg-surface-dark/30">
             <div className="p-6 sm:p-10">
                 <nav className="flex justify-center items-center space-x-2 sm:space-x-4 mb-8" aria-label="Tabs">
                     <TabButton isActive={activeTab === 'insights'} onClick={() => setActiveTab('insights')}>Key Insights</TabButton>
@@ -418,17 +418,17 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
                                 <RadarChart scores={categoryScores} categoryOrder={categoryOrder} onWhyClick={handleWhyClick} isMounted={isMounted} />
                             </div>
                             <div className="lg:col-span-3">
-                                 <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mb-2">Rekomendasi Langkah Berikutnya</h3>
-                                <p className="text-sm text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark mb-4">Klik setiap rekomendasi untuk melihat penjelasan detail.</p>
+                                 <h3 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark mb-2">Rekomendasi Langkah Berikutnya</h3>
+                                <p className="text-sm text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark mb-4">Klik setiap rekomendasi untuk melihat penjelasan detail.</p>
                                 <ul className="space-y-3">
                                     {result.recommendations.map((rec, index) => (
                                     <li 
                                         key={index} 
-                                        className={`bg-white dark:bg-surface-light dark:bg-surface-dark/50 rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md border border-border-light dark:border-border-dark dark:border-border-light dark:border-border-dark`}
+                                        className={`bg-white dark:bg-surface-dark/50 rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md border border-border-light dark:border-border-dark dark:border-border-dark`}
                                     >
                                         <button
                                         onClick={() => handleToggleRecommendation(index)}
-                                        className="w-full text-left p-4 hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark/50 focus:bg-surface-light dark:bg-surface-dark dark:focus:bg-surface-light dark:bg-surface-dark focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-dark dark:focus:ring-accent-light transition-colors duration-200"
+                                        className="w-full text-left p-4 hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-dark/50 focus:bg-surface-light dark:bg-surface-dark dark:focus:bg-surface-light dark:bg-surface-dark focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-dark dark:focus:ring-accent-light transition-colors duration-200"
                                         aria-expanded={expandedRecommendation === index}
                                         aria-controls={`recommendation-explanation-${index}`}
                                         >
@@ -437,7 +437,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
                                                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent-teal/10 dark:bg-accent-sky/10 flex items-center justify-center mr-4">
                                                     <rec.icon className="w-5 h-5 text-accent-teal dark:text-accent-sky"/>
                                                 </div>
-                                                <span className="flex-1 text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark font-medium">{rec.text}</span>
+                                                <span className="flex-1 text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark font-medium">{rec.text}</span>
                                             </div>
                                             <ChevronDownIcon className={`w-5 h-5 text-text-primary-light dark:text-text-primary-dark ml-4 flex-shrink-0 transform transition-transform duration-300 ${ expandedRecommendation === index ? 'rotate-180' : '' }`} />
                                         </div>
@@ -447,7 +447,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
                                         className={`grid transition-all duration-300 ease-in-out ${ expandedRecommendation === index ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]' }`}
                                         >
                                         <div className="overflow-hidden">
-                                            <p className="px-4 pb-4 pl-16 text-sm text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark">{rec.explanation}</p>
+                                            <p className="px-4 pb-4 pl-16 text-sm text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark">{rec.explanation}</p>
                                         </div>
                                         </div>
                                     </li>
@@ -476,7 +476,7 @@ Tujuan akhir Anda adalah memberdayakan pengguna, membantu mereka melihat gambara
                         <><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" /><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" /></svg><span>Unduh Laporan (PDF)</span></>
                     )}
                 </button>
-                <button onClick={onRestart} className={`w-full sm:w-auto transform font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-light dark:bg-surface-dark bg-surface-light dark:bg-surface-dark dark:bg-surface-light dark:bg-surface-dark`}>
+                <button onClick={onRestart} className={`w-full sm:w-auto transform font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px text-text-primary-light dark:text-text-primary-dark dark:text-text-primary-dark hover:bg-surface-light dark:bg-surface-dark dark:hover:bg-surface-dark bg-surface-light dark:bg-surface-dark dark:bg-surface-dark`}>
                     Ulangi Assessment
                 </button>
                 </div>
